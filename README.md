@@ -27,22 +27,19 @@ Some of the main work covered on the site includes:
 
 ## Tech Direction
 
-The portfolio is being rebuilt using:
+The portfolio is built as a static, evidence-led, multi-page site using:
 
-* React
 * Vite
 * Tailwind CSS
-* React Router
-* JavaScript
-* Git & GitHub
-
-The current repository still contains the earlier placeholder while the full version is being prepared.
+* Semantic HTML
+* Minimal vanilla JavaScript (progressive enhancement only)
+* Cloudflare Pages
 
 ## Project Plan
 
 The detailed design and implementation plan can be found in:
 
-[`a_new_plan.md`](./a_new_plan.md)
+[`static_site_plan.md`](./static_site_plan.md)
 
 ## Contact
 

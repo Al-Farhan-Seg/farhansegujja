@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f7f4ec;
+  --color-paper-subtle: #efeadd;
+  --color-ink: #1e1c18;
+  --color-ink-muted: #5b5a4e;
+  --color-rule: #dcd5c4;
+  --color-signal: #a8471f;
+  --color-signal-strong: #7e3313;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-paper);
+  }
+
+  img,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  main[id],
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Motion system: elements are visible by default (no-JS / reduced-motion safe).
+   Only hidden pre-animation when JS has run AND motion is not reduced. */
+@layer motion {
+  .js:not(.motion-reduced) [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: transform, opacity;
+  }
+
+  .js:not(.motion-reduced) [data-reveal-group] > * {
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: transform, opacity;
+  }
+
+  .js:not(.motion-reduced) [data-hero] [data-hero-kicker],
+  .js:not(.motion-reduced) [data-hero] [data-hero-copy],
+  .js:not(.motion-reduced) [data-hero] [data-hero-actions] > *,
+  .js:not(.motion-reduced) [data-hero] [data-hero-media] {
+    opacity: 0;
+  }
+
+  .page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: var(--color-ink);
+    transform: scaleY(0);
+    transform-origin: top;
+    pointer-events: none;
+  }
+
+  .js .page-transition {
+    transform: scaleY(1);
+  }
+
+  .motion-reduced .page-transition {
+    display: none;
+  }
+
+  .scroll-progress {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-signal);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .js:not(.motion-reduced) .scroll-progress {
+    display: block;
+  }
+
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 999px;
+    background-color: var(--color-signal);
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    mix-blend-mode: normal;
+    opacity: 0;
+  }
+
+  .cursor-dot--label {
+    padding-inline: 12px;
+  }
+
+  .js:not(.motion-reduced) .cursor-dot {
+    display: flex;
+  }
+
+  @media (pointer: coarse) {
+    .cursor-dot {
+      display: none !important;
+    }
+  }
+
+  /* Default: plain readable stacked list — safe with no JS and with reduced motion. */
+  .pin-steps [data-step] {
+    margin-block: 1.5rem;
+  }
+
+  .js:not(.motion-reduced) .pin-steps {
+    display: grid;
+    min-height: 55vh;
+  }
+
+  .js:not(.motion-reduced) .pin-steps [data-step] {
+    grid-area: 1 / 1;
+    align-self: center;
+    margin-block: 0;
+  }
+
+  .js:not(.motion-reduced) .pin-steps [data-step]:not(:first-child) {
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8;
+  }
+
+  .measure {
+    max-width: 62ch;
+  }
+
+  .kicker {
+    @apply font-mono text-xs uppercase tracking-wider text-ink-muted;
+  }
+
+  .h-display {
+    @apply text-3xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-4xl lg:text-5xl;
+  }
+
+  .h-section {
+    @apply text-2xl font-semibold tracking-tight text-ink sm:text-3xl;
+  }
+
+  .caption {
+    @apply text-sm text-ink-muted;
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-sm border border-ink px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-paper;
+  }
+
+  .btn-quiet {
+    @apply inline-flex items-center gap-2 rounded-sm border border-rule px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
+  }
+
+  .tag {
+    @apply rounded-sm border border-rule px-2 py-0.5 font-mono text-xs text-ink-muted;
+  }
+
+  .evidence-frame {
+    @apply overflow-hidden rounded-sm border border-rule bg-paper-subtle;
+  }
+
+  .rule-top {
+    @apply border-t border-rule;
+  }
+}
