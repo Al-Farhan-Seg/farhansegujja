@@ -200,6 +200,11 @@
     opacity: 0;
   }
 
+  .js:not(.motion-reduced) [data-hero] [data-hero-kicker] {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
   .hero-role-cursor {
     display: none;
   }
@@ -458,6 +463,10 @@
 
   .tag-icon {
     @apply h-3.5 w-3.5 flex-shrink-0;
+  }
+
+  .tag--signal {
+    @apply border-signal text-signal;
   }
 
   .evidence-frame {
