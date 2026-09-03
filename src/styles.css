@@ -173,6 +173,56 @@
     display: none;
   }
 
+  /* Splash: shown once per browser session on the homepage only. Default is
+     hidden (no-JS and reduced-motion visitors go straight to the page — same
+     progressive-enhancement pattern as .page-transition above); JS reveals it
+     only for a first visit this session, then motion.js removes it and sets
+     sessionStorage so it never replays on internal navigation back to "/". */
+  .splash-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-paper);
+  }
+
+  .js:not(.motion-reduced):not(.splash-seen) .splash-screen {
+    display: flex;
+  }
+
+  .splash-active {
+    overflow: hidden;
+  }
+
+  .splash-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .splash-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-signal);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .splash-logo {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0);
+    will-change: transform, opacity;
+  }
+
   .scroll-progress {
     display: none;
     position: absolute;

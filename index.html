@@ -16,6 +16,11 @@
           html.setAttribute('data-theme', theme);
         }
       } catch (e) {}
+      try {
+        if (sessionStorage.getItem('splashSeen') === '1') {
+          html.classList.add('splash-seen');
+        }
+      } catch (e) {}
     })(document.documentElement);
   </script>
 
@@ -56,6 +61,11 @@
 <body>
   <div class="page-transition" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
+
+  <div class="splash-screen" data-splash aria-hidden="true">
+    <div class="splash-particles" data-splash-particles></div>
+    <img src="/favicon.svg" alt="" width="96" height="96" class="splash-logo" data-splash-logo />
+  </div>
 
   <a href="#main" class="skip-link">Skip to content</a>
 
@@ -111,8 +121,8 @@
           </p>
           <div class="flex flex-wrap gap-3" data-hero-actions>
             <a href="#work" class="btn">See selected work</a>
+            <a href="https://wa.me/256754882329" class="btn-quiet">WhatsApp</a>
             <a href="https://github.com/Al-Farhan-Seg" class="btn-quiet">GitHub</a>
-            <a href="mailto:farhan.segujja@gmail.com" class="btn-quiet">Email Farhan</a>
           </div>
         </div>
 
@@ -489,8 +499,8 @@
         Open to freelance projects, collaboration and employment opportunities.
       </p>
       <div class="flex flex-wrap gap-3">
-        <a href="mailto:farhan.segujja@gmail.com" class="btn">Email Farhan</a>
-        <a href="https://wa.me/256754882329" class="btn-quiet">WhatsApp</a>
+        <a href="https://wa.me/256754882329" class="btn">WhatsApp Farhan</a>
+        <a href="mailto:farhan.segujja@gmail.com" class="btn-quiet">Email</a>
         <a href="https://github.com/Al-Farhan-Seg" class="btn-quiet">GitHub</a>
       </div>
       <p class="caption mt-4">

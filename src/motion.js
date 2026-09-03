@@ -18,6 +18,7 @@ initHeaderScrollState()
 initMobileNav()
 
 if (!reduced) {
+  initSplash()
   initHeroIntro()
   initReveals()
   initPinSteps()
@@ -169,6 +170,125 @@ function initHeaderScrollState() {
     end: 99999,
     toggleClass: { targets: header, className: 'is-scrolled' },
   })
+}
+
+function initSplash() {
+  const splash = document.querySelector('[data-splash]')
+  if (!splash) return
+
+  try {
+    if (sessionStorage.getItem('splashSeen') === '1') return
+  } catch {
+    // Storage disabled: fall through and play the splash anyway rather than
+    // guessing whether this is a first visit.
+  }
+
+  const particlesLayer = splash.querySelector('[data-splash-particles]')
+  const logo = splash.querySelector('[data-splash-logo]')
+  const markSeen = () => {
+    try {
+      sessionStorage.setItem('splashSeen', '1')
+    } catch {
+      // Ignore: worst case the splash replays next load.
+    }
+  }
+
+  const PARTICLE_COUNT = 32
+  const particles = []
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const span = document.createElement('span')
+    span.className = 'splash-particle'
+    span.textContent = '</>'
+    particlesLayer.appendChild(span)
+    particles.push(span)
+  }
+
+  const spread = () => Math.max(window.innerWidth, window.innerHeight) * 0.5
+  const angleStep = (Math.PI * 2) / PARTICLE_COUNT
+
+  gsap.set(particles, {
+    x: (i) => Math.cos(angleStep * i) * spread() * 1.6,
+    y: (i) => Math.sin(angleStep * i) * spread() * 1.6,
+    rotation: () => gsap.utils.random(-180, 180),
+    scale: 0.4,
+    opacity: 0,
+  })
+
+  root.classList.add('splash-active')
+
+  const finish = () => {
+    root.classList.remove('splash-active')
+    splash.remove()
+    markSeen()
+  }
+
+  // Safety net: if a tab is backgrounded mid-sequence and rAF stalls, don't
+  // leave the homepage permanently covered — force-clear after a hard cap.
+  const safety = setTimeout(finish, 6000)
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      clearTimeout(safety)
+      finish()
+    },
+  })
+
+  // Storm: "</>" particles rush in from every edge toward scattered
+  // mid-screen positions.
+  tl.to(particles, {
+    x: (i) => Math.cos(angleStep * i * 1.7) * spread() * 0.5,
+    y: (i) => Math.sin(angleStep * i * 1.7) * spread() * 0.5,
+    rotation: () => gsap.utils.random(-40, 40),
+    scale: 1,
+    opacity: 1,
+    duration: 0.8,
+    ease: 'power3.out',
+    stagger: { each: 0.012, from: 'random' },
+  })
+
+  // Converge: the storm collapses into the center and the logo pops out of it.
+  tl.to(
+    particles,
+    {
+      x: 0,
+      y: 0,
+      scale: 0,
+      opacity: 0,
+      duration: 0.45,
+      ease: 'power2.in',
+      stagger: { each: 0.008, from: 'random' },
+    },
+    '-=0.15'
+  )
+  tl.to(
+    logo,
+    { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' },
+    '-=0.35'
+  )
+
+  // Hold on the logo for a beat.
+  tl.to({}, { duration: 0.4 })
+
+  // Tear: a circular hole rips open from the center, like tearing cloth,
+  // exposing the real page underneath. Driven by mask-image rather than
+  // clip-path so the reveal grows outward from the middle instead of in.
+  const maxRadius = () => Math.hypot(window.innerWidth, window.innerHeight) / 2 + 40
+
+  tl.to(logo, { opacity: 0, duration: 0.25 })
+  tl.to(
+    splash,
+    {
+      duration: 0.7,
+      ease: 'power2.in',
+      onUpdate: function () {
+        const radius = this.progress() * maxRadius()
+        const mask = `radial-gradient(circle at 50% 50%, transparent ${radius}px, black ${radius}px)`
+        splash.style.maskImage = mask
+        splash.style.webkitMaskImage = mask
+      },
+    },
+    '<'
+  )
 }
 
 function initHeroIntro() {
