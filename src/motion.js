@@ -13,6 +13,9 @@ initLightbox()
 initScrollProgress()
 initSmoothAnchors()
 initPageTransitions()
+initThemeToggle()
+initHeaderScrollState()
+initMobileNav()
 
 if (!reduced) {
   initHeroIntro()
@@ -75,7 +78,10 @@ function initPageTransitions() {
     return
   }
 
-  gsap.set(overlay, { transformOrigin: 'top' })
+  // Cover and reveal are set together, right here, so the overlay is never left
+  // covering the page while waiting on a slow network — it only exists for the
+  // instant this script is actually running.
+  gsap.set(overlay, { scaleY: 1, transformOrigin: 'top' })
   gsap.to(overlay, { scaleY: 0, duration: 0.7, ease: 'power3.inOut', delay: 0.05 })
 
   document.querySelectorAll('a[href]').forEach((link) => {
@@ -109,6 +115,59 @@ function initPageTransitions() {
         },
       })
     })
+  })
+}
+
+function initThemeToggle() {
+  const btn = document.querySelector('[data-theme-toggle]')
+  if (!btn) return
+
+  const themes = ['light', 'dark', 'umber']
+
+  btn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') || 'umber'
+    const next = themes[(themes.indexOf(current) + 1) % themes.length]
+
+    root.setAttribute('data-theme', next)
+
+    try {
+      localStorage.setItem('theme', next)
+    } catch {
+      // Private browsing / storage disabled: theme still applies for this load.
+    }
+  })
+}
+
+function initMobileNav() {
+  const nav = document.querySelector('.nav-mobile')
+  if (!nav) return
+
+  nav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.open = false
+    })
+  })
+
+  document.addEventListener('click', (e) => {
+    if (nav.open && !nav.contains(e.target)) nav.open = false
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.open) {
+      nav.open = false
+      nav.querySelector('summary')?.focus()
+    }
+  })
+}
+
+function initHeaderScrollState() {
+  const header = document.querySelector('.site-header')
+  if (!header) return
+
+  ScrollTrigger.create({
+    start: 'top -8',
+    end: 99999,
+    toggleClass: { targets: header, className: 'is-scrolled' },
   })
 }
 
