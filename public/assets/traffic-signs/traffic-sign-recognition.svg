@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Traffic Sign Recognition: screenshot pending">
-  <rect width="100%" height="100%" fill="#efeadd"/>
-  <rect x="2" y="2" width="1196" height="796" fill="none" stroke="#dcd5c4" stroke-width="2" stroke-dasharray="10 8"/>
-  <text x="50%" y="46%" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="29" fill="#1e1c18" font-weight="600">Traffic Sign Recognition</text>
-  <text x="50%" y="54%" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="20" fill="#5b5a4e">app screenshot needed · Streamlit</text>
-</svg>

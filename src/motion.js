@@ -20,6 +20,7 @@ initMobileNav()
 if (!reduced) {
   initSplash()
   initHeroIntro()
+  initRoleTypewriter()
   initReveals()
   initPinSteps()
   if (finePointer) {
@@ -318,17 +319,17 @@ function initHeroIntro() {
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-  tl.to(hero.querySelectorAll('[data-hero-kicker]'), { opacity: 1, duration: 0.6 })
-
   if (split) {
     gsap.set(split.words, { opacity: 0, yPercent: 130 })
-    tl.to(split.words, { opacity: 1, yPercent: 0, duration: 0.8, stagger: 0.06 }, '-=0.3')
+    tl.to(split.words, { opacity: 1, yPercent: 0, duration: 0.8, stagger: 0.06 })
   }
+
+  tl.to(hero.querySelectorAll('[data-hero-role]'), { opacity: 1, duration: 0.5 }, '-=0.3')
 
   tl.to(
     hero.querySelectorAll('[data-hero-copy], [data-hero-actions] > *'),
     { opacity: 1, duration: 0.6, stagger: 0.08 },
-    '-=0.4'
+    '-=0.2'
   )
 
   tl.fromTo(
@@ -337,6 +338,46 @@ function initHeroIntro() {
     { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' },
     '-=0.5'
   )
+}
+
+function initRoleTypewriter() {
+  const el = document.querySelector('[data-role-text]')
+  if (!el) return
+
+  const roles = ['Computer Scientist', 'Software Developer', 'Tech Enthusiast']
+  let index = Math.max(0, roles.indexOf(el.textContent.trim()))
+  const TYPE_MS = 55
+  const DELETE_MS = 35
+  const HOLD_MS = 1600
+
+  function deleteCurrent() {
+    const word = roles[index]
+    let pos = word.length
+    const timer = setInterval(() => {
+      pos--
+      el.textContent = word.slice(0, pos)
+      if (pos <= 0) {
+        clearInterval(timer)
+        index = (index + 1) % roles.length
+        typeNext()
+      }
+    }, DELETE_MS)
+  }
+
+  function typeNext() {
+    const word = roles[index]
+    let pos = 0
+    const timer = setInterval(() => {
+      pos++
+      el.textContent = word.slice(0, pos)
+      if (pos >= word.length) {
+        clearInterval(timer)
+        setTimeout(deleteCurrent, HOLD_MS)
+      }
+    }, TYPE_MS)
+  }
+
+  setTimeout(deleteCurrent, HOLD_MS)
 }
 
 function initReveals() {
