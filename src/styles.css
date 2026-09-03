@@ -36,6 +36,13 @@
   --color-signal: #a8471f;
   --color-signal-strong: #7e3313;
 
+  /* Card "lift": a resting shadow plus a deeper one on hover, so bento cards
+     read as objects sitting above the page rather than flat tiles. Values
+     differ per theme below — a light ground needs a soft dark shadow, a dark
+     ground needs a much deeper/blacker one to register at all. */
+  --shadow-card: 0 1px 2px rgba(30, 28, 24, 0.06), 0 12px 24px -14px rgba(30, 28, 24, 0.16);
+  --shadow-card-hover: 0 2px 4px rgba(30, 28, 24, 0.08), 0 24px 40px -16px rgba(30, 28, 24, 0.26);
+
   /* Rounded / warm: the body workhorse, keeps a playful tone without the reading fatigue of a display face. */
   --font-sans: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   /* Unchanged: reserved for genuinely technical/code-like text (hostnames, tech tags, step numbers). */
@@ -60,6 +67,8 @@
   --color-rule: var(--color-slate-700);
   --color-signal: var(--color-amber-400);
   --color-signal-strong: var(--color-amber-300);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 24px -14px rgba(0, 0, 0, 0.65);
+  --shadow-card-hover: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -18px rgba(0, 0, 0, 0.75);
 }
 
 :root[data-theme="umber"] {
@@ -70,6 +79,8 @@
   --color-rule: var(--color-stone-700);
   --color-signal: var(--color-amber-400);
   --color-signal-strong: var(--color-amber-300);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 24px -14px rgba(0, 0, 0, 0.65);
+  --shadow-card-hover: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -18px rgba(0, 0, 0, 0.75);
 }
 
 /* Umber is the site default (set as a static data-theme attribute in each
@@ -84,6 +95,8 @@
   --color-rule: #dcd5c4;
   --color-signal: #a8471f;
   --color-signal-strong: #7e3313;
+  --shadow-card: 0 1px 2px rgba(30, 28, 24, 0.06), 0 12px 24px -14px rgba(30, 28, 24, 0.16);
+  --shadow-card-hover: 0 2px 4px rgba(30, 28, 24, 0.08), 0 24px 40px -16px rgba(30, 28, 24, 0.26);
 }
 
 @layer base {
@@ -98,10 +111,38 @@
   }
 
   body {
+    position: relative;
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
     transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* Diamond-lattice background texture, drawn from `--color-rule` (the
+     token already used for hairlines/borders) so it re-themes for free
+     across all three color schemes — no separate light/dark/umber assets.
+     Lives on a `position: fixed` pseudo-element, not `body`'s own
+     background: a plain CSS `opacity` (the generator's own recipe used one)
+     would fade the whole page's text along with the pattern, and
+     `background-attachment: fixed` is silently ignored on iOS Safari and
+     repaints on every scroll frame elsewhere — a fixed pseudo-element behind
+     the content sidesteps both. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(30deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
+      linear-gradient(150deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
+      linear-gradient(30deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
+      linear-gradient(150deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
+      linear-gradient(60deg, color-mix(in srgb, var(--color-rule) 60%, transparent) 25%, transparent 25.5%, transparent 75%, color-mix(in srgb, var(--color-rule) 60%, transparent) 75%, color-mix(in srgb, var(--color-rule) 60%, transparent)),
+      linear-gradient(60deg, color-mix(in srgb, var(--color-rule) 60%, transparent) 25%, transparent 25.5%, transparent 75%, color-mix(in srgb, var(--color-rule) 60%, transparent) 75%, color-mix(in srgb, var(--color-rule) 60%, transparent));
+    background-size: 44px 76px;
+    background-position: 0 0, 0 0, 22px 38px, 22px 38px, 0 0, 22px 38px;
+    opacity: 0.6;
   }
 
   :focus-visible {
@@ -152,11 +193,27 @@
     will-change: transform, opacity;
   }
 
-  .js:not(.motion-reduced) [data-hero] [data-hero-kicker],
+  .js:not(.motion-reduced) [data-hero] [data-hero-role],
   .js:not(.motion-reduced) [data-hero] [data-hero-copy],
   .js:not(.motion-reduced) [data-hero] [data-hero-actions] > *,
   .js:not(.motion-reduced) [data-hero] [data-hero-media] {
     opacity: 0;
+  }
+
+  .hero-role-cursor {
+    display: none;
+  }
+
+  .js:not(.motion-reduced) .hero-role-cursor {
+    display: inline-block;
+    animation: hero-cursor-blink 0.9s step-end infinite;
+  }
+
+  @keyframes hero-cursor-blink {
+    50%,
+    100% {
+      opacity: 0;
+    }
   }
 
   .page-transition {
@@ -315,7 +372,7 @@
   }
 
   .h-display {
-    @apply font-heading text-3xl font-normal leading-[1.15] tracking-tight text-ink sm:text-4xl lg:text-5xl;
+    @apply font-heading text-3xl font-normal leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-6xl;
   }
 
   .h-section {
@@ -327,23 +384,125 @@
   }
 
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink;
+    @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink;
   }
 
   .btn {
-    @apply inline-flex items-center gap-2 rounded-sm border border-ink px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-paper;
+    @apply inline-flex items-center gap-2 rounded-lg border border-ink px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-paper;
   }
 
   .btn-quiet {
-    @apply inline-flex items-center gap-2 rounded-sm border border-rule px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
+    @apply inline-flex items-center gap-2 rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
+  }
+
+  /* Hero's two CTAs alternate treatment on purpose: the working link (WhatsApp)
+     carries the solid accent fill, the not-yet-wired one stays deliberately
+     quiet so nothing pulls attention toward a dead control. */
+  .btn-signal {
+    @apply inline-flex items-center gap-2 rounded-lg bg-signal px-4 py-2 text-sm font-medium text-paper transition-colors;
+  }
+
+  .btn-signal:hover {
+    background-color: var(--color-signal-strong);
+  }
+
+  .btn-inactive {
+    @apply inline-flex items-center gap-2 rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-muted opacity-60;
+    cursor: not-allowed;
+  }
+
+  /* Hero owns the first viewport on its own: without an explicit floor, the
+     rewritten (shorter) hero content plus a tall desktop screen let the next
+     section's heading peek into the same viewport as the hero, undercutting
+     the "hero is its own beat" pacing. `100vh` first as a fallback, `100svh`
+     after so supporting browsers use the address-bar-safe small viewport
+     height instead. Header height isn't subtracted on purpose: the header
+     sits in normal flow above this, so hero + header together already
+     exceed one viewport, which is what keeps the next section below the
+     fold regardless of exact header height. */
+  .hero-section {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .hero-greeting {
+    @apply block font-playful text-xl text-ink-muted sm:text-2xl lg:text-3xl;
+  }
+
+  .hero-role {
+    @apply mb-5 flex items-baseline font-mono text-lg text-signal sm:text-xl lg:text-2xl;
+    min-height: 1.6em;
+  }
+
+  .hero-role-cursor {
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    background: currentColor;
+  }
+
+  .hero-portrait {
+    @apply mx-auto w-40 overflow-hidden rounded-[2rem] border border-rule bg-paper-subtle sm:w-52 lg:mx-0 lg:w-64;
+    box-shadow: var(--shadow-card);
+  }
+
+  .hero-portrait img {
+    @apply block aspect-square w-full object-cover;
   }
 
   .tag {
-    @apply rounded-sm border border-rule px-2 py-0.5 font-mono text-xs text-ink-muted;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-rule px-2.5 py-1 font-mono text-xs text-ink-muted;
+  }
+
+  .tag-icon {
+    @apply h-3.5 w-3.5 flex-shrink-0;
   }
 
   .evidence-frame {
-    @apply overflow-hidden rounded-sm border border-rule bg-paper-subtle;
+    @apply overflow-hidden rounded-xl border border-rule bg-paper-subtle;
+  }
+
+  /* Bento cards: lifted off the page at rest, lift further on hover/focus.
+     Span/order are set per-card with Tailwind grid utilities in markup;
+     this class only owns the "object sitting above the page" look. */
+  .bento-grid {
+    @apply grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6;
+  }
+
+  .bento-card {
+    @apply flex h-full flex-col gap-3 rounded-2xl border border-rule bg-paper-subtle p-6 lg:p-7;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out;
+  }
+
+  /* !important is load-bearing here, not stylistic: this element is also the
+     `[data-reveal-group] > *` GSAP scroll-reveal target, which leaves an
+     inline `transform` on it after the entrance tween completes. A normal
+     stylesheet rule can never outrank that inline style, so the hover lift
+     needs !important to win the cascade against it. */
+  .bento-card:hover,
+  .bento-card:focus-within {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-signal);
+  }
+
+  .motion-reduced .bento-card {
+    transition: none;
+  }
+
+  .bento-card--media {
+    @apply gap-0 overflow-hidden p-0;
+  }
+
+  .bento-card--media img {
+    @apply block aspect-[16/10] w-full object-cover;
+  }
+
+  .bento-card--media .bento-card-body {
+    @apply flex flex-col gap-3 p-6 lg:p-7;
   }
 
   .rule-top {
@@ -359,7 +518,7 @@
   }
 
   .theme-toggle {
-    @apply hidden items-center gap-2 rounded-sm border border-rule px-3 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
+    @apply hidden items-center gap-2 rounded-lg border border-rule px-3 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
   }
 
   .js .theme-toggle {
@@ -371,7 +530,7 @@
      close-on-outside-click as an enhancement). Visible below lg; the
      horizontal nav (.nav-desktop) takes over at lg and up. */
   .nav-toggle {
-    @apply inline-flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-sm border border-rule lg:hidden;
+    @apply inline-flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-lg border border-rule lg:hidden;
     list-style: none;
     cursor: pointer;
   }
@@ -413,7 +572,7 @@
   }
 
   .nav-drawer-link {
-    @apply block rounded-sm px-2 py-2.5 text-base text-ink-muted hover:bg-paper-subtle hover:text-ink;
+    @apply block rounded-lg px-2 py-2.5 text-base text-ink-muted hover:bg-paper-subtle hover:text-ink;
   }
 
   /* Label text is pure CSS, keyed off the same data-theme attribute the

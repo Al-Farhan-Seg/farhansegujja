@@ -126,36 +126,39 @@
 
   <main id="main">
 
-    <!-- Hero: compact identity + lead evidence -->
-    <section class="container-page py-10 lg:py-16" data-hero>
-      <div class="grid gap-10 lg:grid-cols-[2fr_3fr] lg:items-center">
+    <!-- Hero: name, rotating role, lead CTA -->
+    <section class="hero-section container-page py-24 lg:py-16" data-hero>
+      <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-14">
         <div>
-          <p class="kicker mb-4" data-hero-kicker>Computer Science student · Frontend-focused developer · Growing full-stack experience</p>
-          <h1 class="h-display mb-4">Farhan Segujja</h1>
-          <p class="measure mb-6 text-base text-ink-muted sm:text-lg" data-hero-copy>
-            I build and ship real websites, from a weekly community campaign to production
-            client work at Embiro Technologies, and I'm growing into full-stack engineering
-            through QA, debugging and feature work inside an existing operations platform.
+          <h1 class="mb-3">
+            <span class="hero-greeting">Hi, I'm</span>
+            <span class="h-display block">FARHAN SEGUJJA</span>
+          </h1>
+          <p class="hero-role" data-hero-role>
+            <span data-role-text aria-hidden="true">Computer Scientist</span><span class="hero-role-cursor" aria-hidden="true"></span>
+            <span class="sr-only">Computer Scientist &middot; Software Developer &middot; Tech Enthusiast</span>
+          </p>
+          <p class="measure mb-6 text-base text-ink-muted sm:text-lg lg:text-xl" data-hero-copy>
+            I build clean, reliable web applications while growing into a well-rounded
+            full-stack developer.
           </p>
           <div class="flex flex-wrap gap-3" data-hero-actions>
-            <a href="#work" class="btn">See selected work</a>
-            <a href="https://wa.me/256754882329" class="btn-quiet">WhatsApp</a>
-            <a href="https://github.com/Al-Farhan-Seg" class="btn-quiet">GitHub</a>
+            <button type="button" class="btn-inactive" disabled aria-disabled="true" title="Coming soon">
+              View My Work
+            </button>
+            <a href="https://wa.me/256754882329" class="btn-signal">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              Let's Work Together
+            </a>
           </div>
         </div>
 
-        <figure data-hero-media>
-          <a href="/work/c23/" class="evidence-frame block" data-cursor="View">
-            <img
-              src="/assets/c23/c23-hub.svg"
-              alt="C23 Digital Spotlight campaign hub homepage"
-              width="1600" height="1000" loading="eager"
-            />
-          </a>
-          <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <span class="caption">C23 Digital Spotlight · community campaign · frontend + deployment</span>
-            <a href="/work/c23/" class="caption whitespace-nowrap font-medium text-ink hover:text-signal">View case study →</a>
-          </figcaption>
+        <figure class="hero-portrait" data-hero-media>
+          <img
+            src="/assets/portrait/farhan-portrait.webp"
+            alt="Farhan Segujja"
+            width="320" height="320" loading="eager"
+          />
         </figure>
       </div>
     </section>
@@ -167,25 +170,25 @@
         <h2 class="h-section">Real projects, shipped and live.</h2>
       </div>
 
-      <div class="space-y-16" data-reveal-group>
-        <article class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-start">
-          <a href="/work/c23/" class="evidence-frame block" data-cursor="View">
+      <div class="bento-grid" data-reveal-group>
+        <article class="bento-card bento-card--media lg:col-span-7">
+          <a href="/work/c23/" class="block" data-cursor="View">
             <img
-              src="/assets/c23/c23-hub.svg"
+              src="/assets/c23/c23-hub.webp"
               alt="C23 Digital Spotlight campaign hub homepage"
               width="1600" height="1000" loading="lazy"
             />
           </a>
-          <div>
-            <h3 class="mb-2 text-xl font-semibold text-ink">C23 Digital Spotlight</h3>
-            <p class="caption mb-3">Independently initiated community project · frontend + deployment architecture</p>
-            <p class="measure mb-4 text-ink-muted">
+          <div class="bento-card-body">
+            <h3 class="mb-1 text-xl font-semibold text-ink">C23 Digital Spotlight</h3>
+            <p class="caption mb-1">Independently initiated community project · frontend + deployment architecture</p>
+            <p class="measure text-ink-muted">
               A weekly giveaway for Kawempe Muslim Secondary School's Class of 2023: one alumnus
               or alumna receives a free one-page starter website, scoped, built and launched
               within seven days. Four sites shipped back-to-back between 9–30 August 2026, each
               on its own subdomain of farhansegujja.com.
             </p>
-            <ul class="mb-4 flex flex-wrap gap-2">
+            <ul class="flex flex-wrap gap-2">
               <li class="tag">Nimu Timber & Woodworks</li>
               <li class="tag">NUTKING</li>
               <li class="tag">The Modest Muse</li>
@@ -195,24 +198,24 @@
           </div>
         </article>
 
-        <article class="grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-start">
-          <a href="/work/next-media/" class="evidence-frame block" data-cursor="View">
+        <article class="bento-card bento-card--media lg:col-span-5">
+          <a href="/work/next-media/" class="block" data-cursor="View">
             <img
-              src="/assets/next-media/next-media-desktop.svg"
+              src="/assets/next-media/next-media-desktop.webp"
               alt="Next Media corporate website homepage"
               width="1600" height="1000" loading="lazy"
             />
           </a>
-          <div>
-            <h3 class="mb-2 text-xl font-semibold text-ink">Next Media</h3>
-            <p class="caption mb-3">Client project at Embiro Technologies · corporate website redesign</p>
-            <p class="measure mb-4 text-ink-muted">
+          <div class="bento-card-body">
+            <h3 class="mb-1 text-xl font-semibold text-ink">Next Media</h3>
+            <p class="caption mb-1">Client project at Embiro Technologies · corporate website redesign</p>
+            <p class="measure text-ink-muted">
               Embiro Technologies was contracted to redesign the corporate website for Next
               Media, Uganda's NBS TV, Sanyuka TV, Salam TV, Next Radio and Nile Post. I handled
               the majority of the engineering implementation, working alongside another intern
               who contributed smaller changes and reviewed parts of the build.
             </p>
-            <ul class="mb-4 flex flex-wrap gap-2">
+            <ul class="flex flex-wrap gap-2">
               <li class="tag">React</li>
               <li class="tag">Vite</li>
               <li class="tag">Tailwind CSS</li>
@@ -223,10 +226,10 @@
           </div>
         </article>
 
-        <article class="rule-top pt-12">
-          <h3 class="mb-2 text-xl font-semibold text-ink">Embiro Operations Platform</h3>
-          <p class="caption mb-5">Engineering evidence · QA, debugging and feature work inside an existing application</p>
-          <ol class="mb-6 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-xs uppercase tracking-wide text-ink-muted" data-reveal-group>
+        <article class="bento-card lg:col-span-12">
+          <h3 class="mb-1 text-xl font-semibold text-ink">Embiro Operations Platform</h3>
+          <p class="caption mb-2">Engineering evidence · QA, debugging and feature work inside an existing application</p>
+          <ol class="mb-2 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-xs uppercase tracking-wide text-ink-muted" data-reveal-group>
             <li>QA / UAT</li><li aria-hidden="true">→</li>
             <li>Issue discovery</li><li aria-hidden="true">→</li>
             <li>Feature proposal</li><li aria-hidden="true">→</li>
@@ -288,74 +291,54 @@
         general terms: no client records, credentials or private source code.
       </p>
 
-      <div class="space-y-10" data-reveal-group>
-        <article class="rule-top pt-8">
-          <h3 class="mb-3 text-lg font-semibold text-ink">Session idle timeout</h3>
-          <dl class="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[140px_1fr]">
-            <dt class="kicker">Problem</dt>
-            <dd class="text-ink-muted">Inactive staff sessions stayed authenticated on a platform holding sensitive operational data.</dd>
-            <dt class="kicker">Investigation</dt>
-            <dd class="text-ink-muted">Flagged during QA/UAT testing, proposed as a feature, then assigned to implement it.</dd>
-            <dt class="kicker">Implemented</dt>
-            <dd class="text-ink-muted">Configurable timeout thresholds, session expiry enforcement, admin controls and audit logging.</dd>
-            <dt class="kicker">Verified</dt>
-            <dd class="text-ink-muted">Manually tested expiry behavior and admin override paths before release.</dd>
+      <div class="bento-grid" data-reveal-group>
+        <article class="bento-card lg:col-span-7">
+          <h3 class="mb-1 text-lg font-semibold text-ink">Session idle timeout</h3>
+          <dl class="grid grid-cols-1 gap-y-3 text-sm">
+            <div><dt class="kicker mb-0.5">Problem</dt><dd class="text-ink-muted">Inactive staff sessions stayed authenticated on a platform holding sensitive operational data.</dd></div>
+            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">Flagged during QA/UAT testing, proposed as a feature, then assigned to implement it.</dd></div>
+            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">Configurable timeout thresholds, session expiry enforcement, admin controls and audit logging.</dd></div>
+            <div><dt class="kicker mb-0.5">Verified</dt><dd class="text-ink-muted">Manually tested expiry behavior and admin override paths before release.</dd></div>
           </dl>
         </article>
 
-        <article class="rule-top pt-8">
-          <h3 class="mb-3 text-lg font-semibold text-ink">Staff two-factor authentication</h3>
-          <dl class="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[140px_1fr]">
-            <dt class="kicker">Problem</dt>
-            <dd class="text-ink-muted">Staff accounts on a sensitive operational platform were protected by password only.</dd>
-            <dt class="kicker">Proposal</dt>
-            <dd class="text-ink-muted">Proposed TOTP-based two-factor authentication for staff accounts.</dd>
-            <dt class="kicker">Implemented</dt>
-            <dd class="text-ink-muted">TOTP enrollment (QR and manual setup), authenticator verification, backup codes with reuse protection, disable/re-enable, admin-assisted reset.</dd>
-            <dt class="kicker">Verified</dt>
-            <dd class="text-ink-muted">Manually tested enrollment, verification, backup-code redemption and reset paths.</dd>
+        <article class="bento-card lg:col-span-5">
+          <h3 class="mb-1 text-lg font-semibold text-ink">Staff two-factor authentication</h3>
+          <dl class="grid grid-cols-1 gap-y-3 text-sm">
+            <div><dt class="kicker mb-0.5">Problem</dt><dd class="text-ink-muted">Staff accounts on a sensitive operational platform were protected by password only.</dd></div>
+            <div><dt class="kicker mb-0.5">Proposal</dt><dd class="text-ink-muted">Proposed TOTP-based two-factor authentication for staff accounts.</dd></div>
+            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">TOTP enrollment (QR and manual setup), authenticator verification, backup codes with reuse protection, disable/re-enable, admin-assisted reset.</dd></div>
+            <div><dt class="kicker mb-0.5">Verified</dt><dd class="text-ink-muted">Manually tested enrollment, verification, backup-code redemption and reset paths.</dd></div>
           </dl>
         </article>
 
-        <article class="rule-top pt-8">
-          <h3 class="mb-3 text-lg font-semibold text-ink">Invoice PDF export</h3>
-          <dl class="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[140px_1fr]">
-            <dt class="kicker">Observed</dt>
-            <dd class="text-ink-muted">Invoice PDF export failed to produce usable output for some client accounts.</dd>
-            <dt class="kicker">Investigation</dt>
-            <dd class="text-ink-muted">Traced the failure through the existing PDF-generation path rather than building a new one.</dd>
-            <dt class="kicker">Implemented</dt>
-            <dd class="text-ink-muted">Fixed the failing path, reusing the existing generation logic instead of duplicating it.</dd>
-            <dt class="kicker">Result</dt>
-            <dd class="text-ink-muted">Invoice export worked reliably across accounts.</dd>
+        <article class="bento-card lg:col-span-4">
+          <h3 class="mb-1 text-lg font-semibold text-ink">Invoice PDF export</h3>
+          <dl class="grid grid-cols-1 gap-y-3 text-sm">
+            <div><dt class="kicker mb-0.5">Observed</dt><dd class="text-ink-muted">Invoice PDF export failed to produce usable output for some client accounts.</dd></div>
+            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">Traced the failure through the existing PDF-generation path rather than building a new one.</dd></div>
+            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">Fixed the failing path, reusing the existing generation logic instead of duplicating it.</dd></div>
+            <div><dt class="kicker mb-0.5">Result</dt><dd class="text-ink-muted">Invoice export worked reliably across accounts.</dd></div>
           </dl>
         </article>
 
-        <article class="rule-top pt-8">
-          <h3 class="mb-3 text-lg font-semibold text-ink">Responsive pipeline views</h3>
-          <dl class="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[140px_1fr]">
-            <dt class="kicker">Observed</dt>
-            <dd class="text-ink-muted">Kanban columns overflowed on smaller screens, project-detail layouts broke, mobile tab navigation and an orientation selector misbehaved, and forecast cards overflowed their containers.</dd>
-            <dt class="kicker">Investigation</dt>
-            <dd class="text-ink-muted">Diagnosed each failure individually (several traced back to hard-coded minimum widths) rather than patching with generic CSS.</dd>
-            <dt class="kicker">Implemented</dt>
-            <dd class="text-ink-muted">Removed the hard-coded widths and reworked overflow, tab navigation and orientation handling per view.</dd>
-            <dt class="kicker">Verified</dt>
-            <dd class="text-ink-muted">Re-tested each view across phone and tablet widths.</dd>
+        <article class="bento-card lg:col-span-4">
+          <h3 class="mb-1 text-lg font-semibold text-ink">Responsive pipeline views</h3>
+          <dl class="grid grid-cols-1 gap-y-3 text-sm">
+            <div><dt class="kicker mb-0.5">Observed</dt><dd class="text-ink-muted">Kanban columns overflowed on smaller screens, project-detail layouts broke, mobile tab navigation and an orientation selector misbehaved, and forecast cards overflowed their containers.</dd></div>
+            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">Diagnosed each failure individually (several traced back to hard-coded minimum widths) rather than patching with generic CSS.</dd></div>
+            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">Removed the hard-coded widths and reworked overflow, tab navigation and orientation handling per view.</dd></div>
+            <div><dt class="kicker mb-0.5">Verified</dt><dd class="text-ink-muted">Re-tested each view across phone and tablet widths.</dd></div>
           </dl>
         </article>
 
-        <article class="rule-top pt-8">
-          <h3 class="mb-3 text-lg font-semibold text-ink">Reusing existing application logic</h3>
-          <dl class="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[140px_1fr]">
-            <dt class="kicker">Problem</dt>
-            <dd class="text-ink-muted">The visible EDIT action on a client profile did nothing.</dd>
-            <dt class="kicker">Investigation</dt>
-            <dd class="text-ink-muted">A complete edit workflow already existed elsewhere in the application.</dd>
-            <dt class="kicker">Decision</dt>
-            <dd class="text-ink-muted">Reuse the existing workflow instead of building a duplicate implementation.</dd>
-            <dt class="kicker">Result</dt>
-            <dd class="text-ink-muted">Connected the existing control to the existing workflow: editing worked without parallel logic.</dd>
+        <article class="bento-card lg:col-span-4">
+          <h3 class="mb-1 text-lg font-semibold text-ink">Reusing existing application logic</h3>
+          <dl class="grid grid-cols-1 gap-y-3 text-sm">
+            <div><dt class="kicker mb-0.5">Problem</dt><dd class="text-ink-muted">The visible EDIT action on a client profile did nothing.</dd></div>
+            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">A complete edit workflow already existed elsewhere in the application.</dd></div>
+            <div><dt class="kicker mb-0.5">Decision</dt><dd class="text-ink-muted">Reuse the existing workflow instead of building a duplicate implementation.</dd></div>
+            <div><dt class="kicker mb-0.5">Result</dt><dd class="text-ink-muted">Connected the existing control to the existing workflow: editing worked without parallel logic.</dd></div>
           </dl>
         </article>
       </div>
@@ -374,36 +357,28 @@
         content collection.
       </p>
 
-      <ul class="divide-y divide-rule border-y border-rule" data-reveal-group>
-        <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
-          <div>
-            <a href="https://ikorushoneystore.com" class="font-medium text-ink hover:text-signal">ikorushoneystore.com</a>
-            <p class="caption mt-1">i-Koru's Honey Store · honey from West Nile beekeepers, mobile-money and WhatsApp ordering</p>
-          </div>
-          <span class="tag whitespace-nowrap">Custom domain</span>
-        </li>
-        <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
-          <div>
-            <a href="https://readusafrica.org" class="font-medium text-ink hover:text-signal">readusafrica.org</a>
-            <p class="caption mt-1">Read Us Africa · literacy and publishing social enterprise operating across 14 countries</p>
-          </div>
-          <span class="tag whitespace-nowrap">Custom domain</span>
-        </li>
-        <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
-          <div>
-            <a href="https://yourafricanneighbour.com" class="font-medium text-ink hover:text-signal">yourafricanneighbour.com</a>
-            <p class="caption mt-1">Your Afrikan Neighbour · Pan-African podcast and cultural platform</p>
-          </div>
-          <span class="tag whitespace-nowrap">Custom domain</span>
-        </li>
-        <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
-          <div>
-            <a href="https://sapondo.com" class="font-medium text-ink hover:text-signal">sapondo.com</a>
-            <p class="caption mt-1">Sapondo Consultants · ESG and labour-compliance advisory firm</p>
-          </div>
-          <span class="tag whitespace-nowrap">Custom domain</span>
-        </li>
-      </ul>
+      <div class="bento-grid" data-reveal-group>
+        <div class="bento-card lg:col-span-7">
+          <a href="https://ikorushoneystore.com" class="font-medium text-ink hover:text-signal">ikorushoneystore.com</a>
+          <p class="caption">i-Koru's Honey Store · honey from West Nile beekeepers, mobile-money and WhatsApp ordering</p>
+          <span class="tag self-start">Custom domain</span>
+        </div>
+        <div class="bento-card lg:col-span-5">
+          <a href="https://readusafrica.org" class="font-medium text-ink hover:text-signal">readusafrica.org</a>
+          <p class="caption">Read Us Africa · literacy and publishing social enterprise operating across 14 countries</p>
+          <span class="tag self-start">Custom domain</span>
+        </div>
+        <div class="bento-card lg:col-span-5">
+          <a href="https://yourafricanneighbour.com" class="font-medium text-ink hover:text-signal">yourafricanneighbour.com</a>
+          <p class="caption">Your Afrikan Neighbour · Pan-African podcast and cultural platform</p>
+          <span class="tag self-start">Custom domain</span>
+        </div>
+        <div class="bento-card lg:col-span-7">
+          <a href="https://sapondo.com" class="font-medium text-ink hover:text-signal">sapondo.com</a>
+          <p class="caption">Sapondo Consultants · ESG and labour-compliance advisory firm</p>
+          <span class="tag self-start">Custom domain</span>
+        </div>
+      </div>
     </section>
 
     <!-- Technical Project -->
@@ -428,7 +403,7 @@
         </div>
         <div class="evidence-frame" data-reveal>
           <img
-            src="/assets/traffic-signs/traffic-sign-recognition.svg"
+            src="/assets/traffic-signs/traffic-sign-recognition.webp"
             alt="Traffic Sign Recognition Streamlit application"
             width="1200" height="800" loading="lazy"
           />
@@ -443,41 +418,55 @@
         <h2 class="h-section">Where the evidence points</h2>
       </div>
 
-      <div class="grid gap-x-12 gap-y-6 sm:grid-cols-2" data-reveal-group>
-        <div>
-          <h3 class="mb-2 text-sm font-semibold text-ink">Interfaces</h3>
+      <div class="bento-grid" data-reveal-group>
+        <div class="bento-card lg:col-span-7">
+          <h3 class="mb-1 text-sm font-semibold text-ink">Interfaces</h3>
           <ul class="flex flex-wrap gap-2">
-            <li class="tag">React</li><li class="tag">JavaScript</li><li class="tag">HTML</li>
-            <li class="tag">Tailwind CSS</li><li class="tag">Responsive design</li>
-            <li class="tag">React Router</li><li class="tag">Framer Motion</li>
-            <li class="tag">Swiper.js</li><li class="tag">shadcn/ui</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg>React</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>JavaScript</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>HTML</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg>Tailwind CSS</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8" /><path d="M10 19v-3.96 3.15" /><path d="M7 19h5" /><rect width="6" height="10" x="16" y="12" rx="2" /></svg>Responsive design</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.118 5.466a2.306 2.306 0 00-.623.08c-.278.067-.702.332-.953.583-.41.423-.49.609-.662 1.469-.08.423.41 1.43.847 1.734.45.317 1.085.502 2.065.608 1.429.16 1.84.636 1.84 2.197 0 1.377-.385 1.747-1.96 1.906-1.707.172-2.58.834-2.765 2.117-.106.781.41 1.76 1.125 2.091 1.627.768 3.15-.198 3.467-2.196.211-1.284.622-1.642 1.998-1.747 1.588-.133 2.409-.675 2.713-1.787.278-1.02-.304-2.157-1.297-2.554-.264-.106-.873-.238-1.35-.291-1.495-.16-1.879-.424-2.038-1.39-.225-1.337-.317-1.562-.794-2.09a2.174 2.174 0 00-1.613-.73zm-4.785 4.36a2.145 2.145 0 00-.497.048c-1.469.318-2.17 2.051-1.35 3.295 1.178 1.774 3.944.953 3.97-1.177.012-1.193-.98-2.143-2.123-2.166zM2.089 14.19a2.22 2.22 0 00-.427.052c-2.158.476-2.237 3.626-.106 4.182.53.145.582.145 1.111.013 1.191-.318 1.866-1.456 1.549-2.607-.278-1.02-1.144-1.664-2.127-1.64zm19.824.008c-.233.002-.477.058-.784.162-1.39.477-1.866 2.092-.98 3.336.557.794 1.96 1.058 2.82.516 1.416-.874 1.363-3.057-.093-3.746-.38-.186-.663-.271-.963-.268z"/></svg>React Router</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z"/></svg>Framer Motion</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.884 17.908a4.328 4.328 0 0 1-1.092 1.488 4.817 4.817 0 0 1-1.644.936c-.632.216-1.308.324-2.028.324s-1.368-.1-1.944-.3c-.576-.2-1.088-.464-1.536-.792s-.832-.704-1.152-1.128a6.563 6.563 0 0 1-.768-1.284l1.68-1.008c.144.336.332.66.564.972.232.312.5.588.804.828a3.697 3.697 0 0 0 2.328.792c.4 0 .788-.056 1.164-.168.376-.112.708-.28.996-.504.288-.224.52-.5.696-.828.176-.328.264-.716.264-1.164 0-.432-.084-.804-.252-1.116a2.955 2.955 0 0 0-.684-.84 5 5 0 0 0-1.032-.672c-.4-.2-.832-.412-1.296-.636a44.725 44.725 0 0 1-1.644-.816 7.592 7.592 0 0 1-1.488-1.008 4.752 4.752 0 0 1-1.068-1.332c-.272-.504-.408-1.092-.408-1.764 0-.56.104-1.116.312-1.668a4.474 4.474 0 0 1 .912-1.476c.4-.432.9-.784 1.5-1.056s1.3-.408 2.1-.408c.592 0 1.14.076 1.644.228a5.98 5.98 0 0 1 2.412 1.38c.304.288.552.568.744.84l-1.512 1.224a4.172 4.172 0 0 0-1.284-1.188 4.204 4.204 0 0 0-.924-.408 3.634 3.634 0 0 0-1.08-.156c-.464 0-.868.072-1.212.216a2.692 2.692 0 0 0-.876.576c-.24.24-.42.516-.54.828-.12.312-.18.628-.18.948 0 .4.088.748.264 1.044.176.296.424.572.744.828s.712.504 1.176.744c.464.24.984.488 1.56.744.64.288 1.22.588 1.74.9.52.312.96.652 1.32 1.02.36.368.636.784.828 1.248.192.464.288 1.008.288 1.632 0 .736-.132 1.396-.396 1.98z"/></svg>Swiper.js</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.219 11.784 11.784 22.219c-.407.407-.407 1.068 0 1.476.407.407 1.068.407 1.476 0L23.695 13.26c.407-.408.407-1.069 0-1.476-.408-.407-1.069-.407-1.476 0ZM20.132.305.305 20.132c-.407.407-.407 1.068 0 1.476.408.407 1.069.407 1.476 0L21.608 1.781c.407-.407.407-1.068 0-1.476-.408-.407-1.069-.407-1.476 0Z"/></svg>shadcn/ui</li>
           </ul>
         </div>
-        <div>
-          <h3 class="mb-2 text-sm font-semibold text-ink">Data & Application Integration</h3>
+        <div class="bento-card lg:col-span-5">
+          <h3 class="mb-1 text-sm font-semibold text-ink">Data & Application Integration</h3>
           <ul class="flex flex-wrap gap-2">
-            <li class="tag">Supabase</li><li class="tag">CMS integration</li>
-            <li class="tag">RSS</li><li class="tag">REST integrations</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z"/></svg>Supabase</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="7" x="3" y="3" rx="1" /><rect width="9" height="7" x="3" y="14" rx="1" /><rect width="5" height="7" x="16" y="14" rx="1" /></svg>CMS integration</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg>RSS</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2" /><path d="m6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06" /><path d="m12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8" /></svg>REST integrations</li>
           </ul>
         </div>
-        <div>
-          <h3 class="mb-2 text-sm font-semibold text-ink">Engineering Workflow</h3>
+        <div class="bento-card lg:col-span-5">
+          <h3 class="mb-1 text-sm font-semibold text-ink">Engineering Workflow</h3>
           <ul class="flex flex-wrap gap-2">
-            <li class="tag">Git</li><li class="tag">GitHub</li><li class="tag">Pull requests</li>
-            <li class="tag">Code review</li><li class="tag">Debugging</li>
-            <li class="tag">QA</li><li class="tag">UAT</li><li class="tag">Loom</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z"/></svg>Git</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><path d="M13 6h3a2 2 0 0 1 2 2v7" /><line x1="6" x2="6" y1="9" y2="21" /></svg>Pull requests</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><path d="M13 6h3a2 2 0 0 1 2 2v7" /><path d="M11 18H8a2 2 0 0 1-2-2V9" /></svg>Code review</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-9" /><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z" /><path d="M14.12 3.88 16 2" /><path d="M21 21a4 4 0 0 0-3.81-4" /><path d="M21 5a4 4 0 0 1-3.55 3.97" /><path d="M22 13h-4" /><path d="M3 21a4 4 0 0 1 3.81-4" /><path d="M3 5a4 4 0 0 0 3.55 3.97" /><path d="M6 13H2" /><path d="m8 2 1.88 1.88" /><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13" /></svg>Debugging</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="m9 14 2 2 4-4" /></svg>QA</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 11 2 2 4-4" /><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg>UAT</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 10.665h-7.018l6.078-3.509-1.335-2.312-6.078 3.509 3.508-6.077L16.843.94l-3.508 6.077V0h-2.67v7.018L7.156.94 4.844 2.275l3.509 6.077-6.078-3.508L.94 7.156l6.078 3.509H0v2.67h7.017L.94 16.844l1.335 2.313 6.077-3.508-3.509 6.077 2.312 1.335 3.509-6.078V24h2.67v-7.017l3.508 6.077 2.312-1.335-3.509-6.078 6.078 3.509 1.335-2.313-6.077-3.508h7.017v-2.67H24zm-12 4.966a3.645 3.645 0 1 1 0-7.29 3.645 3.645 0 0 1 0 7.29z"/></svg>Loom</li>
           </ul>
         </div>
-        <div>
-          <h3 class="mb-2 text-sm font-semibold text-ink">Deployment</h3>
+        <div class="bento-card lg:col-span-3">
+          <h3 class="mb-1 text-sm font-semibold text-ink">Deployment</h3>
           <ul class="flex flex-wrap gap-2">
-            <li class="tag">Cloudflare</li><li class="tag">Custom domains</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5088 16.8447c.1475-.5068.0908-.9707-.1553-1.3154-.2246-.3164-.6045-.499-1.0615-.5205l-8.6592-.1123a.1559.1559 0 0 1-.1333-.0713c-.0283-.042-.0351-.0986-.021-.1553.0278-.084.1123-.1484.2036-.1562l8.7359-.1123c1.0351-.0489 2.1601-.8868 2.5537-1.9136l.499-1.3013c.0215-.0561.0293-.1128.0147-.168-.5625-2.5463-2.835-4.4453-5.5499-4.4453-2.5039 0-4.6284 1.6177-5.3876 3.8614-.4927-.3658-1.1187-.5625-1.794-.499-1.2026.119-2.1665 1.083-2.2861 2.2856-.0283.31-.0069.6128.0635.894C1.5683 13.171 0 14.7754 0 16.752c0 .1748.0142.3515.0352.5273.0141.083.0844.1475.1689.1475h15.9814c.0909 0 .1758-.0645.2032-.1553l.12-.4268zm2.7568-5.5634c-.0771 0-.1611 0-.2383.0112-.0566 0-.1054.0415-.127.0976l-.3378 1.1744c-.1475.5068-.0918.9707.1543 1.3164.2256.3164.6055.498 1.0625.5195l1.8437.1133c.0557 0 .1055.0263.1329.0703.0283.043.0351.1074.0214.1562-.0283.084-.1132.1485-.204.1553l-1.921.1123c-1.041.0488-2.1582.8867-2.5527 1.914l-.1406.3585c-.0283.0713.0215.1416.0986.1416h6.5977c.0771 0 .1474-.0489.169-.126.1122-.4082.1757-.837.1757-1.2803 0-2.6025-2.125-4.727-4.7344-4.727"/></svg>Cloudflare</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>Custom domains</li>
           </ul>
         </div>
-        <div>
-          <h3 class="mb-2 text-sm font-semibold text-ink">AI-Assisted Development</h3>
+        <div class="bento-card lg:col-span-4">
+          <h3 class="mb-1 text-sm font-semibold text-ink">AI-Assisted Development</h3>
           <ul class="flex flex-wrap gap-2">
-            <li class="tag">Claude Code</li><li class="tag">Lovable</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 10.5h3v3h-3v3h-1.5v3H18v-3h-1.5v3H15v-3H9v3H7.5v-3H6v3H4.5v-3H3v-3H0v-3h3v-6h18Zm-15 0h1.5v-3H6Zm10.5 0H18v-3h-1.5z"/></svg>Claude Code</li>
+            <li class="tag"><svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></svg>Lovable</li>
           </ul>
         </div>
       </div>
