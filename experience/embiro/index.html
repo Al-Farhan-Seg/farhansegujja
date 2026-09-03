@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1c1917" />
 
   <script>
     (function (html) {
@@ -10,10 +11,20 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         html.classList.add('motion-reduced');
       }
+      var theme = 'umber';
       try {
-        var theme = localStorage.getItem('theme');
-        if (theme === 'dark' || theme === 'umber' || theme === 'light') {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'dark' || stored === 'umber' || stored === 'light') {
+          theme = stored;
           html.setAttribute('data-theme', theme);
+        }
+      } catch (e) {}
+      var themeColors = { light: '#f7f4ec', dark: '#0f172b', umber: '#1c1917' };
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', themeColors[theme]);
+      try {
+        if (sessionStorage.getItem('splashSeen') === '1') {
+          html.classList.add('splash-seen');
         }
       } catch (e) {}
     })(document.documentElement);
@@ -42,6 +53,11 @@
   <div class="page-transition" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
 
+  <div class="splash-screen" data-splash aria-hidden="true">
+    <div class="splash-particles" data-splash-particles></div>
+    <img src="/favicon.svg" alt="" width="96" height="96" class="splash-logo" data-splash-logo />
+  </div>
+
   <a href="#main" class="skip-link">Skip to content</a>
 
   <header class="site-header">
@@ -59,6 +75,16 @@
       </nav>
       <div class="flex items-center gap-2">
         <button type="button" data-theme-toggle class="theme-toggle" aria-label="Change color theme">
+          <svg data-theme-icon="light" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg data-theme-icon="dark" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg data-theme-icon="umber" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2c4 5 7 9.5 7 13a7 7 0 0 1-14 0c0-3.5 3-8 7-13z"></path>
+          </svg>
           <span data-theme-toggle-label></span>
         </button>
         <details class="nav-mobile">
