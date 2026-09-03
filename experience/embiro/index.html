@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="umber">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,10 +10,16 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         html.classList.add('motion-reduced');
       }
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'umber' || theme === 'light') {
+          html.setAttribute('data-theme', theme);
+        }
+      } catch (e) {}
     })(document.documentElement);
   </script>
 
-  <title>Embiro Technologies — Farhan Segujja</title>
+  <title>Embiro Technologies | Farhan Segujja</title>
   <meta
     name="description"
     content="Software Engineering Intern at Embiro Technologies since March 2026: client website delivery, QA/UAT, debugging and full-stack contribution to an internal operations platform."
@@ -21,11 +27,15 @@
   <link rel="canonical" href="https://farhansegujja.com/experience/embiro/" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Embiro Technologies — Farhan Segujja" />
+  <meta property="og:title" content="Embiro Technologies | Farhan Segujja" />
   <meta property="og:description" content="Software Engineering Intern at Embiro Technologies since March 2026." />
   <meta property="og:url" content="https://farhansegujja.com/experience/embiro/" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preload" href="/fonts/nunito.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/revalia.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/sour-gummy.woff2" as="font" type="font/woff2" crossorigin />
+
   <link rel="stylesheet" href="/src/styles.css" />
 </head>
 <body>
@@ -34,10 +44,12 @@
 
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="sticky top-0 z-40 border-b border-rule bg-paper">
+  <header class="site-header">
     <div class="container-page flex flex-wrap items-center justify-between gap-4 py-4">
-      <a href="/" class="font-mono text-sm font-semibold tracking-tight text-ink">Farhan Segujja</a>
-      <nav aria-label="Primary">
+      <a href="/" class="inline-flex items-center" aria-label="Farhan Segujja">
+        <img src="/favicon.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      </a>
+      <nav aria-label="Primary" class="hidden lg:block">
         <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-muted">
           <li><a href="/#work" class="hover:text-ink">Work</a></li>
           <li><a href="/#experience" class="hover:text-ink">Experience</a></li>
@@ -45,6 +57,26 @@
           <li><a href="/#contact" class="hover:text-ink">Contact</a></li>
         </ul>
       </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" data-theme-toggle class="theme-toggle" aria-label="Change color theme">
+          <span data-theme-toggle-label></span>
+        </button>
+        <details class="nav-mobile">
+          <summary class="nav-toggle" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </summary>
+          <nav aria-label="Primary (mobile)" class="nav-drawer">
+            <ul class="flex flex-col gap-1">
+              <li><a href="/#work" class="nav-drawer-link">Work</a></li>
+              <li><a href="/#experience" class="nav-drawer-link">Experience</a></li>
+              <li><a href="/#about" class="nav-drawer-link">About</a></li>
+              <li><a href="/#contact" class="nav-drawer-link">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
     </div>
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
@@ -54,7 +86,7 @@
       <p class="kicker mb-2">Professional Experience</p>
       <h1 class="h-display mb-4">Embiro Technologies</h1>
       <p class="measure mb-6 text-base text-ink-muted sm:text-lg">
-        Software Engineering Intern · March 2026 — Present
+        Software Engineering Intern · March 2026 – Present
       </p>
       <p class="measure text-ink-muted">
         Work started with AI-assisted website builds and has progressed into direct source-code
@@ -69,39 +101,39 @@
       <div class="pin-steps" data-pin-steps>
         <div data-step>
           <p class="kicker mb-3">01 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">AI-assisted website implementation — translating requirements into working sites quickly.</p>
+          <p class="text-xl text-ink sm:text-2xl">AI-assisted website implementation: translating requirements into working sites quickly.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">02 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">Direct React/Vite/Tailwind development — writing source code directly rather than through a generator.</p>
+          <p class="text-xl text-ink sm:text-2xl">Direct React/Vite/Tailwind development: writing source code directly rather than through a generator.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">03 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">Client project responsibility — Next Media, handling the majority of the engineering implementation.</p>
+          <p class="text-xl text-ink sm:text-2xl">Client project responsibility: Next Media, handling the majority of the engineering implementation.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">04 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">CMS and external-data integrations — including Nile Post's RSS feed on the Next Media site.</p>
+          <p class="text-xl text-ink sm:text-2xl">CMS and external-data integrations: including Nile Post's RSS feed on the Next Media site.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">05 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">QA and UAT — testing an internal operations platform for bugs, workflow gaps and permission issues.</p>
+          <p class="text-xl text-ink sm:text-2xl">QA and UAT: testing an internal operations platform for bugs, workflow gaps and permission issues.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">06 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">Bug and feature discovery — flagging issues and proposing fixes before being assigned to build them.</p>
+          <p class="text-xl text-ink sm:text-2xl">Bug and feature discovery: flagging issues and proposing fixes before being assigned to build them.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">07 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">Full-stack codebase contribution — implementing features such as session timeout and staff two-factor authentication inside an existing application.</p>
+          <p class="text-xl text-ink sm:text-2xl">Full-stack codebase contribution: implementing features such as session timeout and staff two-factor authentication inside an existing application.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">08 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">Git and pull-request workflow — feature branches, review and iteration on feedback.</p>
+          <p class="text-xl text-ink sm:text-2xl">Git and pull-request workflow: feature branches, review and iteration on feedback.</p>
         </div>
         <div data-step>
           <p class="kicker mb-3">09 / 09</p>
-          <p class="text-xl text-ink sm:text-2xl">Code-level AI-assisted engineering — using Claude Code inside an existing repository, reviewing and testing generated changes before accepting them.</p>
+          <p class="text-xl text-ink sm:text-2xl">Code-level AI-assisted engineering: using Claude Code inside an existing repository, reviewing and testing generated changes before accepting them.</p>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="umber">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,10 +10,16 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         html.classList.add('motion-reduced');
       }
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'umber' || theme === 'light') {
+          html.setAttribute('data-theme', theme);
+        }
+      } catch (e) {}
     })(document.documentElement);
   </script>
 
-  <title>Farhan Segujja — Frontend-focused developer building real, shipped work</title>
+  <title>Farhan Segujja | Frontend-focused developer building real, shipped work</title>
   <meta
     name="description"
     content="Computer Science student and frontend-focused developer at Embiro Technologies. Real client work, a community website campaign, and engineering evidence from an internal operations platform."
@@ -21,7 +27,7 @@
   <link rel="canonical" href="https://farhansegujja.com/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Farhan Segujja — Frontend-focused developer building real, shipped work" />
+  <meta property="og:title" content="Farhan Segujja | Frontend-focused developer building real, shipped work" />
   <meta property="og:description" content="Real client work, a community website campaign, and engineering evidence from an internal operations platform." />
   <meta property="og:url" content="https://farhansegujja.com/" />
 
@@ -41,6 +47,10 @@
   }
   </script>
 
+  <link rel="preload" href="/fonts/nunito.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/revalia.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/sour-gummy.woff2" as="font" type="font/woff2" crossorigin />
+
   <link rel="stylesheet" href="/src/styles.css" />
 </head>
 <body>
@@ -49,10 +59,12 @@
 
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="sticky top-0 z-40 border-b border-rule bg-paper">
+  <header class="site-header">
     <div class="container-page flex flex-wrap items-center justify-between gap-4 py-4">
-      <a href="/" class="font-mono text-sm font-semibold tracking-tight text-ink">Farhan Segujja</a>
-      <nav aria-label="Primary">
+      <a href="/" class="inline-flex items-center" aria-label="Farhan Segujja">
+        <img src="/favicon.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      </a>
+      <nav aria-label="Primary" class="hidden lg:block">
         <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-muted">
           <li><a href="#work" class="hover:text-ink">Work</a></li>
           <li><a href="#experience" class="hover:text-ink">Experience</a></li>
@@ -60,6 +72,26 @@
           <li><a href="#contact" class="hover:text-ink">Contact</a></li>
         </ul>
       </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" data-theme-toggle class="theme-toggle" aria-label="Change color theme">
+          <span data-theme-toggle-label></span>
+        </button>
+        <details class="nav-mobile">
+          <summary class="nav-toggle" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </summary>
+          <nav aria-label="Primary (mobile)" class="nav-drawer">
+            <ul class="flex flex-col gap-1">
+              <li><a href="#work" class="nav-drawer-link">Work</a></li>
+              <li><a href="#experience" class="nav-drawer-link">Experience</a></li>
+              <li><a href="#about" class="nav-drawer-link">About</a></li>
+              <li><a href="#contact" class="nav-drawer-link">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
     </div>
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
@@ -73,8 +105,8 @@
           <p class="kicker mb-4" data-hero-kicker>Computer Science student · Frontend-focused developer · Growing full-stack experience</p>
           <h1 class="h-display mb-4">Farhan Segujja</h1>
           <p class="measure mb-6 text-base text-ink-muted sm:text-lg" data-hero-copy>
-            I build and ship real websites — from a weekly community campaign to production
-            client work at Embiro Technologies — and I'm growing into full-stack engineering
+            I build and ship real websites, from a weekly community campaign to production
+            client work at Embiro Technologies, and I'm growing into full-stack engineering
             through QA, debugging and feature work inside an existing operations platform.
           </p>
           <div class="flex flex-wrap gap-3" data-hero-actions>
@@ -93,7 +125,7 @@
             />
           </a>
           <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <span class="caption">C23 Digital Spotlight — community campaign · frontend + deployment</span>
+            <span class="caption">C23 Digital Spotlight · community campaign · frontend + deployment</span>
             <a href="/work/c23/" class="caption whitespace-nowrap font-medium text-ink hover:text-signal">View case study →</a>
           </figcaption>
         </figure>
@@ -148,7 +180,7 @@
             <p class="caption mb-3">Client project at Embiro Technologies · corporate website redesign</p>
             <p class="measure mb-4 text-ink-muted">
               Embiro Technologies was contracted to redesign the corporate website for Next
-              Media — Uganda's NBS TV, Sanyuka TV, Salam TV, Next Radio and Nile Post. I handled
+              Media, Uganda's NBS TV, Sanyuka TV, Salam TV, Next Radio and Nile Post. I handled
               the majority of the engineering implementation, working alongside another intern
               who contributed smaller changes and reviewed parts of the build.
             </p>
@@ -191,7 +223,7 @@
       <div class="mb-10" data-reveal>
         <p class="kicker mb-2">Professional Experience</p>
         <h2 class="h-section">Embiro Technologies</h2>
-        <p class="caption mt-2">Software Engineering Intern · March 2026 — Present</p>
+        <p class="caption mt-2">Software Engineering Intern · March 2026 – Present</p>
       </div>
 
       <p class="measure mb-8 text-ink-muted" data-reveal>
@@ -225,7 +257,7 @@
       <p class="measure mb-10 text-ink-muted" data-reveal>
         QA, UAT, debugging, security thinking and full-stack engineering inside an existing
         internal application used to run Embiro's operations. Everything below is described in
-        general terms — no client records, credentials or private source code.
+        general terms: no client records, credentials or private source code.
       </p>
 
       <div class="space-y-10" data-reveal-group>
@@ -277,7 +309,7 @@
             <dt class="kicker">Observed</dt>
             <dd class="text-ink-muted">Kanban columns overflowed on smaller screens, project-detail layouts broke, mobile tab navigation and an orientation selector misbehaved, and forecast cards overflowed their containers.</dd>
             <dt class="kicker">Investigation</dt>
-            <dd class="text-ink-muted">Diagnosed each failure individually — several traced back to hard-coded minimum widths — rather than patching with generic CSS.</dd>
+            <dd class="text-ink-muted">Diagnosed each failure individually (several traced back to hard-coded minimum widths) rather than patching with generic CSS.</dd>
             <dt class="kicker">Implemented</dt>
             <dd class="text-ink-muted">Removed the hard-coded widths and reworked overflow, tab navigation and orientation handling per view.</dd>
             <dt class="kicker">Verified</dt>
@@ -295,7 +327,7 @@
             <dt class="kicker">Decision</dt>
             <dd class="text-ink-muted">Reuse the existing workflow instead of building a duplicate implementation.</dd>
             <dt class="kicker">Result</dt>
-            <dd class="text-ink-muted">Connected the existing control to the existing workflow — editing worked without parallel logic.</dd>
+            <dd class="text-ink-muted">Connected the existing control to the existing workflow: editing worked without parallel logic.</dd>
           </dl>
         </article>
       </div>
@@ -318,28 +350,28 @@
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
           <div>
             <a href="https://ikorushoneystore.com" class="font-medium text-ink hover:text-signal">ikorushoneystore.com</a>
-            <p class="caption mt-1">i-Koru's Honey Store — honey from West Nile beekeepers, mobile-money and WhatsApp ordering</p>
+            <p class="caption mt-1">i-Koru's Honey Store · honey from West Nile beekeepers, mobile-money and WhatsApp ordering</p>
           </div>
           <span class="tag whitespace-nowrap">Custom domain</span>
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
           <div>
             <a href="https://readusafrica.org" class="font-medium text-ink hover:text-signal">readusafrica.org</a>
-            <p class="caption mt-1">Read Us Africa — literacy and publishing social enterprise operating across 14 countries</p>
+            <p class="caption mt-1">Read Us Africa · literacy and publishing social enterprise operating across 14 countries</p>
           </div>
           <span class="tag whitespace-nowrap">Custom domain</span>
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
           <div>
             <a href="https://yourafricanneighbour.com" class="font-medium text-ink hover:text-signal">yourafricanneighbour.com</a>
-            <p class="caption mt-1">Your Afrikan Neighbour — Pan-African podcast and cultural platform</p>
+            <p class="caption mt-1">Your Afrikan Neighbour · Pan-African podcast and cultural platform</p>
           </div>
           <span class="tag whitespace-nowrap">Custom domain</span>
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-5">
           <div>
             <a href="https://sapondo.com" class="font-medium text-ink hover:text-signal">sapondo.com</a>
-            <p class="caption mt-1">Sapondo Consultants — ESG and labour-compliance advisory firm</p>
+            <p class="caption mt-1">Sapondo Consultants · ESG and labour-compliance advisory firm</p>
           </div>
           <span class="tag whitespace-nowrap">Custom domain</span>
         </li>
@@ -361,7 +393,10 @@
             Limitation: single-model image classification, not built or tested for real-time
             driving conditions.
           </p>
-          <a href="https://github.com/Al-Farhan-Seg/traffic-sign-recognition-app" class="text-sm font-medium text-ink hover:text-signal">Source on GitHub →</a>
+          <div class="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="https://ml-group-3-traffic-sign-recogniser.streamlit.app/" class="text-sm font-medium text-ink hover:text-signal">Live demo →</a>
+            <a href="https://github.com/Al-Farhan-Seg/traffic-sign-recognition-app" class="text-sm font-medium text-ink hover:text-signal">Source on GitHub →</a>
+          </div>
         </div>
         <div class="evidence-frame" data-reveal>
           <img
@@ -373,121 +408,49 @@
       </div>
     </section>
 
-    <!-- Currently Building -->
-    <section id="currently-building" class="rule-top container-page py-16 lg:py-20" data-reveal>
-      <p class="kicker mb-2">Currently Building</p>
-      <h2 class="h-section mb-4">C23 Digital Spotlight — pilot cohort</h2>
-      <p class="measure mb-4 text-ink-muted">
-        Four alumni sites shipped over four consecutive weekly cycles: Nimu Timber & Woodworks
-        (9 Aug 2026), NUTKING (16 Aug 2026), The Modest Muse (23 Aug 2026) and Wrist Mode
-        (30 Aug 2026).
-      </p>
-      <a href="/work/c23/" class="text-sm font-medium text-ink hover:text-signal">Full status and architecture →</a>
-    </section>
-
-    <!-- Learning and Progression -->
-    <section id="learning" class="rule-top container-page py-16 lg:py-20">
-      <div class="mb-8" data-reveal>
-        <p class="kicker mb-2">Learning and Progression</p>
-        <h2 class="h-section">Deliberate practice, in the open</h2>
+    <!-- Technical Capabilities -->
+    <section id="capabilities" class="rule-top container-page py-16 lg:py-20">
+      <div class="mb-6" data-reveal>
+        <p class="kicker mb-2">Technical Capabilities</p>
+        <h2 class="h-section">Where the evidence points</h2>
       </div>
 
-      <ol class="space-y-6" data-reveal-group>
-        <li class="rule-top pt-5 sm:grid sm:grid-cols-[160px_1fr] sm:gap-6">
-          <p class="caption mb-1 sm:mb-0">2026 · ongoing</p>
-          <div>
-            <a href="https://github.com/Al-Farhan-Seg/react-challenges" class="font-medium text-ink hover:text-signal">React Challenges</a>
-            <p class="measure mt-1 text-ink-muted">Deliberate React practice organized as an npm workspaces monorepo with Vite and Tailwind CSS.</p>
-          </div>
-        </li>
-        <li class="rule-top pt-5 sm:grid sm:grid-cols-[160px_1fr] sm:gap-6">
-          <p class="caption mb-1 sm:mb-0">2026</p>
-          <div>
-            <a href="https://github.com/Al-Farhan-Seg/roadmap.sh-builds" class="font-medium text-ink hover:text-signal">roadmap.sh Builds</a>
-            <p class="measure mt-1 text-ink-muted">Frontend projects completing roadmap.sh's project-based challenges.</p>
-          </div>
-        </li>
-        <li class="rule-top pt-5 sm:grid sm:grid-cols-[160px_1fr] sm:gap-6">
-          <p class="caption mb-1 sm:mb-0">2026</p>
-          <div>
-            <a href="https://github.com/Al-Farhan-Seg/sacco-mgt-system" class="font-medium text-ink hover:text-signal">SACCO Management System</a>
-            <p class="measure mt-1 text-ink-muted">Python financial management system for member and account handling, built to practice OOP design.</p>
-          </div>
-        </li>
-        <li class="rule-top pt-5 sm:grid sm:grid-cols-[160px_1fr] sm:gap-6">
-          <p class="caption mb-1 sm:mb-0">2026</p>
-          <div>
-            <a href="https://github.com/Al-Farhan-Seg/oop-practice" class="font-medium text-ink hover:text-signal">OOP Practice</a>
-            <p class="measure mt-1 text-ink-muted">Python exercises for strengthening object-oriented programming fundamentals.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- Capabilities / Working Approach -->
-    <section id="capabilities" class="rule-top container-page py-16 lg:py-20">
-      <div class="grid gap-12 lg:grid-cols-2">
+      <div class="grid gap-x-12 gap-y-6 sm:grid-cols-2" data-reveal-group>
         <div>
-          <div data-reveal>
-            <p class="kicker mb-2">Technical Capabilities</p>
-            <h2 class="h-section mb-6">Where the evidence points</h2>
-          </div>
-
-          <div class="space-y-6" data-reveal-group>
-            <div>
-              <h3 class="mb-2 text-sm font-semibold text-ink">Interfaces</h3>
-              <ul class="flex flex-wrap gap-2">
-                <li class="tag">React</li><li class="tag">JavaScript</li><li class="tag">HTML</li>
-                <li class="tag">Tailwind CSS</li><li class="tag">Responsive design</li>
-                <li class="tag">React Router</li><li class="tag">Framer Motion</li>
-                <li class="tag">Swiper.js</li><li class="tag">shadcn/ui</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="mb-2 text-sm font-semibold text-ink">Data & Application Integration</h3>
-              <ul class="flex flex-wrap gap-2">
-                <li class="tag">Supabase</li><li class="tag">CMS integration</li>
-                <li class="tag">RSS</li><li class="tag">REST integrations</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="mb-2 text-sm font-semibold text-ink">Engineering Workflow</h3>
-              <ul class="flex flex-wrap gap-2">
-                <li class="tag">Git</li><li class="tag">GitHub</li><li class="tag">Pull requests</li>
-                <li class="tag">Code review</li><li class="tag">Debugging</li>
-                <li class="tag">QA</li><li class="tag">UAT</li><li class="tag">Loom</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="mb-2 text-sm font-semibold text-ink">Deployment</h3>
-              <ul class="flex flex-wrap gap-2">
-                <li class="tag">Cloudflare</li><li class="tag">Custom domains</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="mb-2 text-sm font-semibold text-ink">AI-Assisted Development</h3>
-              <ul class="flex flex-wrap gap-2">
-                <li class="tag">Claude Code</li><li class="tag">Lovable</li>
-              </ul>
-            </div>
-          </div>
+          <h3 class="mb-2 text-sm font-semibold text-ink">Interfaces</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class="tag">React</li><li class="tag">JavaScript</li><li class="tag">HTML</li>
+            <li class="tag">Tailwind CSS</li><li class="tag">Responsive design</li>
+            <li class="tag">React Router</li><li class="tag">Framer Motion</li>
+            <li class="tag">Swiper.js</li><li class="tag">shadcn/ui</li>
+          </ul>
         </div>
-
         <div>
-          <div data-reveal>
-            <p class="kicker mb-2">Working Approach</p>
-            <h2 class="h-section mb-6">How a task gets done</h2>
-          </div>
-          <ol class="space-y-4" data-reveal-group>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">01</span><span class="text-sm text-ink-muted"><strong class="text-ink">Understand</strong> — reproduce the problem or clarify the requirement.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">02</span><span class="text-sm text-ink-muted"><strong class="text-ink">Investigate</strong> — inspect the existing implementation before changing it.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">03</span><span class="text-sm text-ink-muted"><strong class="text-ink">Implement</strong> — make the smallest appropriate change.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">04</span><span class="text-sm text-ink-muted"><strong class="text-ink">Test</strong> — verify normal, edge-case and responsive behavior.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">05</span><span class="text-sm text-ink-muted"><strong class="text-ink">Review</strong> — inspect the resulting diff.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">06</span><span class="text-sm text-ink-muted"><strong class="text-ink">Demonstrate</strong> — record working behavior when useful.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">07</span><span class="text-sm text-ink-muted"><strong class="text-ink">Submit</strong> — open a pull request.</span></li>
-            <li class="flex gap-4"><span class="font-mono text-sm text-ink-muted/60">08</span><span class="text-sm text-ink-muted"><strong class="text-ink">Iterate</strong> — respond to review feedback.</span></li>
-          </ol>
+          <h3 class="mb-2 text-sm font-semibold text-ink">Data & Application Integration</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class="tag">Supabase</li><li class="tag">CMS integration</li>
+            <li class="tag">RSS</li><li class="tag">REST integrations</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-ink">Engineering Workflow</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class="tag">Git</li><li class="tag">GitHub</li><li class="tag">Pull requests</li>
+            <li class="tag">Code review</li><li class="tag">Debugging</li>
+            <li class="tag">QA</li><li class="tag">UAT</li><li class="tag">Loom</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-ink">Deployment</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class="tag">Cloudflare</li><li class="tag">Custom domains</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-2 text-sm font-semibold text-ink">AI-Assisted Development</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li class="tag">Claude Code</li><li class="tag">Lovable</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -499,10 +462,9 @@
           <p class="kicker mb-2">About</p>
           <h2 class="h-section mb-4">Farhan Segujja</h2>
           <p class="measure text-ink-muted">
-            Farhan is a Computer Science student whose development has progressed through
-            repeatedly building real projects, learning unfamiliar technologies when projects
-            required them, testing software, debugging issues, and gradually taking
-            responsibility for more complex engineering work.
+            Farhan is a Computer Science student and frontend-focused developer at Embiro
+            Technologies, shipping production client work, an independent community campaign,
+            and full-stack fixes inside an existing operations platform.
           </p>
         </div>
         <div class="space-y-4">

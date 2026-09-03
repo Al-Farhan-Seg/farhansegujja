@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="umber">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,10 +10,16 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         html.classList.add('motion-reduced');
       }
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'umber' || theme === 'light') {
+          html.setAttribute('data-theme', theme);
+        }
+      } catch (e) {}
     })(document.documentElement);
   </script>
 
-  <title>C23 Digital Spotlight — Farhan Segujja</title>
+  <title>C23 Digital Spotlight | Farhan Segujja</title>
   <meta
     name="description"
     content="A weekly giveaway for Kawempe Muslim Secondary School's Class of 2023: one alumnus or alumna gets a free professional starter website, built and launched in seven days."
@@ -21,11 +27,15 @@
   <link rel="canonical" href="https://farhansegujja.com/work/c23/" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="C23 Digital Spotlight — Farhan Segujja" />
+  <meta property="og:title" content="C23 Digital Spotlight | Farhan Segujja" />
   <meta property="og:description" content="A weekly community giveaway: one free website, built and launched in seven days, for four consecutive weeks." />
   <meta property="og:url" content="https://farhansegujja.com/work/c23/" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <link rel="preload" href="/fonts/nunito.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/revalia.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/sour-gummy.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/src/styles.css" />
 </head>
@@ -35,10 +45,12 @@
 
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="sticky top-0 z-40 border-b border-rule bg-paper">
+  <header class="site-header">
     <div class="container-page flex flex-wrap items-center justify-between gap-4 py-4">
-      <a href="/" class="font-mono text-sm font-semibold tracking-tight text-ink">Farhan Segujja</a>
-      <nav aria-label="Primary">
+      <a href="/" class="inline-flex items-center" aria-label="Farhan Segujja">
+        <img src="/favicon.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      </a>
+      <nav aria-label="Primary" class="hidden lg:block">
         <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-muted">
           <li><a href="/#work" class="hover:text-ink">Work</a></li>
           <li><a href="/#experience" class="hover:text-ink">Experience</a></li>
@@ -46,6 +58,26 @@
           <li><a href="/#contact" class="hover:text-ink">Contact</a></li>
         </ul>
       </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" data-theme-toggle class="theme-toggle" aria-label="Change color theme">
+          <span data-theme-toggle-label></span>
+        </button>
+        <details class="nav-mobile">
+          <summary class="nav-toggle" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </summary>
+          <nav aria-label="Primary (mobile)" class="nav-drawer">
+            <ul class="flex flex-col gap-1">
+              <li><a href="/#work" class="nav-drawer-link">Work</a></li>
+              <li><a href="/#experience" class="nav-drawer-link">Experience</a></li>
+              <li><a href="/#about" class="nav-drawer-link">About</a></li>
+              <li><a href="/#contact" class="nav-drawer-link">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
     </div>
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
@@ -57,11 +89,11 @@
       <h1 class="h-display mb-4">C23 Digital Spotlight</h1>
       <p class="measure mb-6 text-base text-ink-muted sm:text-lg">
         A weekly giveaway offering one Kawempe Muslim Secondary School Class of 2023 alumnus or
-        alumna a free, professional one-page website — scoped, built and launched within seven
+        alumna a free, professional one-page website, scoped, built and launched within seven
         days.
       </p>
       <dl class="flex flex-wrap gap-x-10 gap-y-3 text-sm">
-        <div><dt class="kicker">Status</dt><dd class="text-ink">Pilot cohort complete — 4 launches</dd></div>
+        <div><dt class="kicker">Status</dt><dd class="text-ink">Pilot cohort complete · 4 launches</dd></div>
         <div><dt class="kicker">Timeline</dt><dd class="text-ink">9 Aug – 30 Aug 2026</dd></div>
         <div><dt class="kicker">Role</dt><dd class="text-ink">Sole creator and builder</dd></div>
       </dl>
@@ -76,7 +108,7 @@
           width="1600" height="1000" loading="eager"
         />
       </figure>
-      <figcaption class="caption mt-3">Campaign hub — c23.farhansegujja.com</figcaption>
+      <figcaption class="caption mt-3">Campaign hub · c23.farhansegujja.com</figcaption>
     </section>
 
     <!-- Campaign context / community -->
@@ -144,19 +176,19 @@
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
           <span class="font-mono text-ink">nimu-timber.farhansegujja.com</span>
-          <span class="caption">Participant site — launched 9 Aug 2026</span>
+          <span class="caption">Participant site · launched 9 Aug 2026</span>
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
           <span class="font-mono text-ink">nutking.farhansegujja.com</span>
-          <span class="caption">Participant site — launched 16 Aug 2026</span>
+          <span class="caption">Participant site · launched 16 Aug 2026</span>
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
           <span class="font-mono text-ink">modestmuse.farhansegujja.com</span>
-          <span class="caption">Participant site — launched 23 Aug 2026</span>
+          <span class="caption">Participant site · launched 23 Aug 2026</span>
         </li>
         <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
           <span class="font-mono text-ink">wrist-mode.farhansegujja.com</span>
-          <span class="caption">Participant site — launched 30 Aug 2026</span>
+          <span class="caption">Participant site · launched 30 Aug 2026</span>
         </li>
       </ul>
     </section>

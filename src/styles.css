@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+/* Self-hosted (not Google's CDN) so there is no third-party connection delay,
+   and font-display: block + <link rel="preload"> in every page's <head> keep
+   the fallback face from ever being painted before the real one is ready. */
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/nunito.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("/fonts/sour-gummy.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Revalia";
+  src: url("/fonts/revalia.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 @theme {
   --color-paper: #f7f4ec;
   --color-paper-subtle: #efeadd;
@@ -9,20 +36,72 @@
   --color-signal: #a8471f;
   --color-signal-strong: #7e3313;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Rounded / warm: the body workhorse, keeps a playful tone without the reading fatigue of a display face. */
+  --font-sans: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Unchanged: reserved for genuinely technical/code-like text (hostnames, tech tags, step numbers). */
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* Art deco: the display face for the name/brand heading. */
+  --font-heading: "Revalia", var(--font-sans);
+  /* Playful: small eyebrow/label accents. */
+  --font-playful: "Sour Gummy", var(--font-sans);
+}
+
+/* Theme variants: swap the semantic tokens above by referencing Tailwind's own
+   generated palette variables (--color-slate-*, --color-stone-*, --color-amber-*)
+   instead of hand-picked hex, so the palette stays inside Tailwind's scale.
+   Dark ~= slate family, Umber ~= stone/amber family. Applied to <html> via
+   data-theme, set by an inline head script before first paint (see each page's
+   head) so there is never a flash of the wrong theme. */
+:root[data-theme="dark"] {
+  --color-paper: var(--color-slate-900);
+  --color-paper-subtle: var(--color-slate-800);
+  --color-ink: var(--color-slate-100);
+  --color-ink-muted: var(--color-slate-400);
+  --color-rule: var(--color-slate-700);
+  --color-signal: var(--color-amber-400);
+  --color-signal-strong: var(--color-amber-300);
+}
+
+:root[data-theme="umber"] {
+  --color-paper: var(--color-stone-900);
+  --color-paper-subtle: var(--color-stone-800);
+  --color-ink: var(--color-stone-100);
+  --color-ink-muted: var(--color-stone-400);
+  --color-rule: var(--color-stone-700);
+  --color-signal: var(--color-amber-400);
+  --color-signal-strong: var(--color-amber-300);
+}
+
+/* Umber is the site default (set as a static data-theme attribute in each
+   page's <html> tag). Light becomes an explicit, named variant rather than
+   "attribute absent", so all three themes are symmetric overrides of the
+   same token set. */
+:root[data-theme="light"] {
+  --color-paper: #f7f4ec;
+  --color-paper-subtle: #efeadd;
+  --color-ink: #1e1c18;
+  --color-ink-muted: #5b5a4e;
+  --color-rule: #dcd5c4;
+  --color-signal: #a8471f;
+  --color-signal-strong: #7e3313;
 }
 
 @layer base {
   html {
-    color-scheme: light;
+    font-size: 112.5%;
+    color-scheme: dark;
     -webkit-text-size-adjust: 100%;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
   }
 
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   :focus-visible {
@@ -88,10 +167,6 @@
     transform: scaleY(0);
     transform-origin: top;
     pointer-events: none;
-  }
-
-  .js .page-transition {
-    transform: scaleY(1);
   }
 
   .motion-reduced .page-transition {
@@ -185,11 +260,11 @@
   }
 
   .kicker {
-    @apply font-mono text-xs uppercase tracking-wider text-ink-muted;
+    @apply font-playful text-xs uppercase tracking-wider text-ink-muted;
   }
 
   .h-display {
-    @apply text-3xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-4xl lg:text-5xl;
+    @apply font-heading text-3xl font-normal leading-[1.15] tracking-tight text-ink sm:text-4xl lg:text-5xl;
   }
 
   .h-section {
@@ -222,5 +297,86 @@
 
   .rule-top {
     @apply border-t border-rule;
+  }
+
+  .site-header {
+    @apply sticky top-0 z-40 border-b border-transparent bg-paper/80 backdrop-blur-sm transition-colors duration-300;
+  }
+
+  .site-header.is-scrolled {
+    @apply border-rule bg-paper-subtle shadow-sm;
+  }
+
+  .theme-toggle {
+    @apply hidden items-center gap-2 rounded-sm border border-rule px-3 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
+  }
+
+  .js .theme-toggle {
+    @apply inline-flex;
+  }
+
+  /* Hamburger nav: a native <details>/<summary> disclosure, so the menu opens
+     and closes with zero JS (motion.js only adds close-on-link-click and
+     close-on-outside-click as an enhancement). Visible below lg; the
+     horizontal nav (.nav-desktop) takes over at lg and up. */
+  .nav-toggle {
+    @apply inline-flex h-9 w-9 flex-col items-center justify-center gap-1 rounded-sm border border-rule lg:hidden;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .nav-toggle::marker,
+  .nav-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-toggle-bar {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background-color: var(--color-ink-muted);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-mobile[open] > .nav-toggle .nav-toggle-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .nav-mobile[open] > .nav-toggle .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-mobile[open] > .nav-toggle .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .nav-drawer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    border-bottom: 1px solid var(--color-rule);
+    background-color: var(--color-paper);
+    padding: 0.5rem 1.5rem 1.25rem;
+  }
+
+  .nav-drawer-link {
+    @apply block rounded-sm px-2 py-2.5 text-base text-ink-muted hover:bg-paper-subtle hover:text-ink;
+  }
+
+  /* Label text is pure CSS, keyed off the same data-theme attribute the
+     inline head script sets before paint, so it is always correct on first
+     render with no JS-driven text sync (and thus nothing to flicker). */
+  [data-theme-toggle-label]::before {
+    content: "Light";
+  }
+
+  :root[data-theme="dark"] [data-theme-toggle-label]::before {
+    content: "Dark";
+  }
+
+  :root[data-theme="umber"] [data-theme-toggle-label]::before {
+    content: "Umber";
   }
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="umber">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,10 +10,16 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         html.classList.add('motion-reduced');
       }
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'umber' || theme === 'light') {
+          html.setAttribute('data-theme', theme);
+        }
+      } catch (e) {}
     })(document.documentElement);
   </script>
 
-  <title>Next Media — Farhan Segujja</title>
+  <title>Next Media | Farhan Segujja</title>
   <meta
     name="description"
     content="Corporate website redesign for Next Media, Uganda's NBS TV, Sanyuka TV, Salam TV, Next Radio and Nile Post, built at Embiro Technologies."
@@ -21,11 +27,15 @@
   <link rel="canonical" href="https://farhansegujja.com/work/next-media/" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Next Media — Farhan Segujja" />
+  <meta property="og:title" content="Next Media | Farhan Segujja" />
   <meta property="og:description" content="Corporate website redesign for Uganda's Next Media, built at Embiro Technologies." />
   <meta property="og:url" content="https://farhansegujja.com/work/next-media/" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <link rel="preload" href="/fonts/nunito.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/revalia.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/sour-gummy.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/src/styles.css" />
 </head>
@@ -35,10 +45,12 @@
 
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="sticky top-0 z-40 border-b border-rule bg-paper">
+  <header class="site-header">
     <div class="container-page flex flex-wrap items-center justify-between gap-4 py-4">
-      <a href="/" class="font-mono text-sm font-semibold tracking-tight text-ink">Farhan Segujja</a>
-      <nav aria-label="Primary">
+      <a href="/" class="inline-flex items-center" aria-label="Farhan Segujja">
+        <img src="/favicon.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      </a>
+      <nav aria-label="Primary" class="hidden lg:block">
         <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-muted">
           <li><a href="/#work" class="hover:text-ink">Work</a></li>
           <li><a href="/#experience" class="hover:text-ink">Experience</a></li>
@@ -46,6 +58,26 @@
           <li><a href="/#contact" class="hover:text-ink">Contact</a></li>
         </ul>
       </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" data-theme-toggle class="theme-toggle" aria-label="Change color theme">
+          <span data-theme-toggle-label></span>
+        </button>
+        <details class="nav-mobile">
+          <summary class="nav-toggle" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </summary>
+          <nav aria-label="Primary (mobile)" class="nav-drawer">
+            <ul class="flex flex-col gap-1">
+              <li><a href="/#work" class="nav-drawer-link">Work</a></li>
+              <li><a href="/#experience" class="nav-drawer-link">Experience</a></li>
+              <li><a href="/#about" class="nav-drawer-link">About</a></li>
+              <li><a href="/#contact" class="nav-drawer-link">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
     </div>
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
@@ -55,7 +87,7 @@
       <p class="kicker mb-2">Client project · Embiro Technologies</p>
       <h1 class="h-display mb-4">Next Media</h1>
       <p class="measure mb-6 text-base text-ink-muted sm:text-lg">
-        Corporate website redesign for Next Media — Uganda's NBS TV, Sanyuka TV, Salam TV, Next
+        Corporate website redesign for Next Media, Uganda's NBS TV, Sanyuka TV, Salam TV, Next
         Radio, NBS Sport and Nile Post.
       </p>
       <dl class="flex flex-wrap gap-x-10 gap-y-3 text-sm">
@@ -73,7 +105,7 @@
           width="1600" height="1000" loading="eager"
         />
       </figure>
-      <figcaption class="caption mt-3">nextmedia.co.ug — desktop homepage</figcaption>
+      <figcaption class="caption mt-3">nextmedia.co.ug · desktop homepage</figcaption>
     </section>
 
     <section class="rule-top container-page py-12 lg:py-16" data-reveal>
@@ -101,7 +133,7 @@
       <div class="grid gap-x-8 gap-y-6 sm:grid-cols-2" data-reveal-group>
         <div>
           <h3 class="mb-1 text-sm font-semibold text-ink">Brand ecosystem showcase</h3>
-          <p class="text-sm text-ink-muted">A homepage section presenting Next Media's full portfolio — 20+ properties across television, radio, digital news and sport.</p>
+          <p class="text-sm text-ink-muted">A homepage section presenting Next Media's full portfolio: 20+ properties across television, radio, digital news and sport.</p>
         </div>
         <div>
           <h3 class="mb-1 text-sm font-semibold text-ink">Leadership presentation</h3>
@@ -121,7 +153,7 @@
         </div>
         <div>
           <h3 class="mb-1 text-sm font-semibold text-ink">Responsive layout</h3>
-          <p class="text-sm text-ink-muted">Desktop-to-mobile layout work across image-heavy sections — brand grids, carousels and leadership photography.</p>
+          <p class="text-sm text-ink-muted">Desktop-to-mobile layout work across image-heavy sections: brand grids, carousels and leadership photography.</p>
         </div>
       </div>
     </section>
@@ -143,7 +175,7 @@
       <p class="measure mb-4 text-ink-muted">
         Alongside Next Media, the same client relationship included work on
         <span class="font-mono">kinkariisa.com</span>, the personal site of Next Media's Group
-        CEO — supporting contributions to responsive layout, typography, navigation, content
+        CEO, supporting contributions to responsive layout, typography, navigation, content
         hierarchy, animation and the Insights/blog section.
       </p>
       <a href="https://kinkariisa.com" class="text-sm font-medium text-ink hover:text-signal">kinkariisa.com →</a>
