@@ -118,11 +118,12 @@
     transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  /* Diamond-lattice background texture, drawn from `--color-rule` (the
-     token already used for hairlines/borders) so it re-themes for free
-     across all three color schemes — no separate light/dark/umber assets.
-     Lives on a `position: fixed` pseudo-element, not `body`'s own
-     background: a plain CSS `opacity` (the generator's own recipe used one)
+  /* Scalloped background texture, drawn from `--color-paper`/`--color-rule`
+     (tokens already used for the page background and hairlines/borders) so
+     it re-themes for free across all three color schemes — no separate
+     light/dark/umber assets. Lives on a `position: fixed` pseudo-element,
+     not `body`'s own background: a plain CSS `opacity` (the generator's own
+     recipe used one, on `body` itself, alongside a literal `#E5E5F7` fill)
      would fade the whole page's text along with the pattern, and
      `background-attachment: fixed` is silently ignored on iOS Safari and
      repaints on every scroll frame elsewhere — a fixed pseudo-element behind
@@ -134,15 +135,15 @@
     z-index: -1;
     pointer-events: none;
     background-image:
-      linear-gradient(30deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
-      linear-gradient(150deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
-      linear-gradient(30deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
-      linear-gradient(150deg, var(--color-rule) 12%, transparent 12.5%, transparent 87%, var(--color-rule) 87.5%, var(--color-rule)),
-      linear-gradient(60deg, color-mix(in srgb, var(--color-rule) 60%, transparent) 25%, transparent 25.5%, transparent 75%, color-mix(in srgb, var(--color-rule) 60%, transparent) 75%, color-mix(in srgb, var(--color-rule) 60%, transparent)),
-      linear-gradient(60deg, color-mix(in srgb, var(--color-rule) 60%, transparent) 25%, transparent 25.5%, transparent 75%, color-mix(in srgb, var(--color-rule) 60%, transparent) 75%, color-mix(in srgb, var(--color-rule) 60%, transparent));
-    background-size: 44px 76px;
-    background-position: 0 0, 0 0, 22px 38px, 22px 38px, 0 0, 22px 38px;
-    opacity: 0.6;
+      radial-gradient(circle farthest-side at 0% 50%, var(--color-paper) 23.5%, transparent 0),
+      radial-gradient(circle farthest-side at 0% 50%, var(--color-rule) 24%, transparent 0),
+      linear-gradient(var(--color-paper) 14%, transparent 0, transparent 85%, var(--color-paper) 0),
+      linear-gradient(150deg, var(--color-paper) 24%, var(--color-rule) 0 26%, transparent 0 74%, var(--color-rule) 0 76%, var(--color-paper) 0),
+      linear-gradient(30deg, var(--color-paper) 24%, var(--color-rule) 0 26%, transparent 0 74%, var(--color-rule) 0 76%, var(--color-paper) 0),
+      linear-gradient(90deg, var(--color-rule) 1.6%, var(--color-paper) 0 98.4%, var(--color-rule) 0);
+    background-size: 30px 45px;
+    background-position: 16px 23px, 14px 23px, 0 0, 0 0, 0 0, 0 0;
+    opacity: 0.8;
   }
 
   :focus-visible {
