@@ -185,6 +185,7 @@
     z-index: 200;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     background-color: var(--color-paper);
   }
 
@@ -428,5 +429,21 @@
 
   :root[data-theme="umber"] [data-theme-toggle-label]::before {
     content: "Umber";
+  }
+
+  /* Theme icons: same pure-CSS, keyed-off-data-theme pattern as the label
+     above — all three icons are always in the DOM, only the matching one
+     is shown, so there is nothing for JS to sync and nothing to flicker. */
+  .theme-icon {
+    display: none;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  :root[data-theme="light"] [data-theme-icon="light"],
+  :root[data-theme="dark"] [data-theme-icon="dark"],
+  :root[data-theme="umber"] [data-theme-icon="umber"] {
+    display: block;
   }
 }

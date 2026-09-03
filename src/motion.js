@@ -120,6 +120,8 @@ function initPageTransitions() {
 }
 
 function initThemeToggle() {
+  syncThemeColorMeta()
+
   const btn = document.querySelector('[data-theme-toggle]')
   if (!btn) return
 
@@ -130,6 +132,7 @@ function initThemeToggle() {
     const next = themes[(themes.indexOf(current) + 1) % themes.length]
 
     root.setAttribute('data-theme', next)
+    syncThemeColorMeta()
 
     try {
       localStorage.setItem('theme', next)
@@ -137,6 +140,17 @@ function initThemeToggle() {
       // Private browsing / storage disabled: theme still applies for this load.
     }
   })
+}
+
+// Keeps the mobile browser-chrome color (address bar / status bar) matching
+// the active theme instead of sitting stuck on whatever the static <meta>
+// fallback in <head> declared. Reads the resolved custom property rather
+// than a hand-picked value so it can never drift from the real token.
+function syncThemeColorMeta() {
+  const meta = document.querySelector('meta[name="theme-color"]')
+  if (!meta) return
+  const paper = getComputedStyle(root).getPropertyValue('--color-paper').trim()
+  if (paper) meta.setAttribute('content', paper)
 }
 
 function initMobileNav() {
@@ -203,7 +217,11 @@ function initSplash() {
     particles.push(span)
   }
 
-  const spread = () => Math.max(window.innerWidth, window.innerHeight) * 0.5
+  // Smaller viewport dimension, not larger — otherwise the circle the
+  // particles form is sized off the tall axis on a narrow phone screen and
+  // spills past the (already overflow-hidden) edges instead of reading as
+  // a clean circle.
+  const spread = () => Math.min(window.innerWidth, window.innerHeight) * 0.5
   const angleStep = (Math.PI * 2) / PARTICLE_COUNT
 
   gsap.set(particles, {
