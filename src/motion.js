@@ -319,9 +319,11 @@ function initHeroIntro() {
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
+  tl.to(hero.querySelectorAll('[data-hero-kicker]'), { opacity: 1, y: 0, duration: 0.5 })
+
   if (split) {
     gsap.set(split.words, { opacity: 0, yPercent: 130 })
-    tl.to(split.words, { opacity: 1, yPercent: 0, duration: 0.8, stagger: 0.06 })
+    tl.to(split.words, { opacity: 1, yPercent: 0, duration: 0.8, stagger: 0.06 }, '-=0.25')
   }
 
   tl.to(hero.querySelectorAll('[data-hero-role]'), { opacity: 1, duration: 0.5 }, '-=0.3')
@@ -393,6 +395,28 @@ function initReveals() {
 
   document.querySelectorAll('[data-reveal-group]').forEach((group) => {
     const items = gsap.utils.toArray(group.children)
+
+    // Large grids (the /work page's 5/5/21-card sections) use ScrollTrigger.batch
+    // instead of one whole-group tween: a group this size finishes animating well
+    // before its later rows scroll into view, so those rows would otherwise just
+    // appear already-opaque with no visible stagger. Batching re-triggers the
+    // stagger per row as it actually enters the viewport.
+    if (group.hasAttribute('data-reveal-batch')) {
+      ScrollTrigger.batch(items, {
+        start: 'top 92%',
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            stagger: 0.08,
+            overwrite: true,
+          }),
+      })
+      return
+    }
+
     gsap.to(items, {
       opacity: 1,
       y: 0,
@@ -489,7 +513,7 @@ function initCursor() {
 }
 
 function initEvidenceHover() {
-  document.querySelectorAll('.evidence-frame').forEach((frame) => {
+  document.querySelectorAll('.evidence-frame, .bento-card--media').forEach((frame) => {
     const img = frame.querySelector('img')
     if (!img) return
     frame.addEventListener('mouseenter', () => {
