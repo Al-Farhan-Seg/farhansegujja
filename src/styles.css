@@ -401,20 +401,15 @@
     @apply inline-flex items-center gap-2 rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-ink hover:text-ink;
   }
 
-  /* Hero's two CTAs alternate treatment on purpose: the working link (WhatsApp)
-     carries the solid accent fill, the not-yet-wired one stays deliberately
-     quiet so nothing pulls attention toward a dead control. */
+  /* Hero's two CTAs: the primary action (WhatsApp) carries the solid accent
+     fill; the secondary one (View My Work) stays outlined so it doesn't
+     compete with it. */
   .btn-signal {
     @apply inline-flex items-center gap-2 rounded-lg bg-signal px-4 py-2 text-sm font-medium text-paper transition-colors;
   }
 
   .btn-signal:hover {
     background-color: var(--color-signal-strong);
-  }
-
-  .btn-inactive {
-    @apply inline-flex items-center gap-2 rounded-lg border border-rule px-4 py-2 text-sm font-medium text-ink-muted opacity-60;
-    cursor: not-allowed;
   }
 
   /* Hero owns the first viewport on its own: without an explicit floor, the
