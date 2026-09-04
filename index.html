@@ -33,14 +33,20 @@
   <title>Farhan Segujja | Frontend-focused developer building real, shipped work</title>
   <meta
     name="description"
-    content="Computer Science student and frontend-focused developer at Embiro Technologies. Real client work, a community website campaign, and engineering evidence from an internal operations platform."
+    content="Computer Science student and frontend-focused developer at Embiro Technologies. Real client work and a community website campaign, built and shipped end to end."
   />
   <link rel="canonical" href="https://farhansegujja.com/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Farhan Segujja | Frontend-focused developer building real, shipped work" />
-  <meta property="og:description" content="Real client work, a community website campaign, and engineering evidence from an internal operations platform." />
+  <meta property="og:description" content="Real client work and a community website campaign, built and shipped end to end." />
   <meta property="og:url" content="https://farhansegujja.com/" />
+  <meta property="og:image" content="https://farhansegujja.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://farhansegujja.com/og-image.png" />
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -197,7 +203,7 @@
         </article>
 
         <article class="bento-card bento-card--media lg:col-span-5">
-          <a href="/work/next-media/" class="block" data-cursor="View">
+          <a href="https://nextmedia.embiro.tech" class="block" data-cursor="Visit" target="_blank" rel="noopener noreferrer">
             <img
               src="/assets/next-media/next-media-desktop.webp"
               alt="Next Media corporate website homepage"
@@ -220,29 +226,8 @@
               <li class="tag">Supabase</li>
               <li class="tag">RSS</li>
             </ul>
-            <a href="/work/next-media/" class="text-sm font-medium text-ink hover:text-signal">View case study →</a>
+            <a href="https://nextmedia.embiro.tech" class="text-sm font-medium text-ink hover:text-signal" target="_blank" rel="noopener noreferrer">nextmedia.embiro.tech →</a>
           </div>
-        </article>
-
-        <article class="bento-card lg:col-span-12">
-          <h3 class="mb-1 text-xl font-semibold text-ink">Embiro Operations Platform</h3>
-          <p class="caption mb-2">Engineering evidence · QA, debugging and feature work inside an existing application</p>
-          <ol class="mb-2 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-xs uppercase tracking-wide text-ink-muted" data-reveal-group>
-            <li>QA / UAT</li><li aria-hidden="true">→</li>
-            <li>Issue discovery</li><li aria-hidden="true">→</li>
-            <li>Feature proposal</li><li aria-hidden="true">→</li>
-            <li>Implementation</li><li aria-hidden="true">→</li>
-            <li>Testing</li><li aria-hidden="true">→</li>
-            <li>Loom</li><li aria-hidden="true">→</li>
-            <li>PR / review</li>
-          </ol>
-          <p class="measure text-ink-muted">
-            One example: inactive staff sessions stayed authenticated indefinitely on a platform
-            holding sensitive operational data. I flagged it during testing, was later assigned
-            to implement it, and shipped a configurable session idle timeout with enforcement,
-            expiry and admin controls. Full detail in
-            <a href="#engineering" class="font-medium text-ink hover:text-signal">Engineering Evidence</a>.
-          </p>
         </article>
       </div>
     </section>
@@ -276,72 +261,6 @@
       <a href="/experience/embiro/" class="mt-8 inline-block text-sm font-medium text-ink hover:text-signal">More on this role →</a>
     </section>
 
-    <!-- Engineering Evidence: EOP -->
-    <section id="engineering" class="rule-top container-page py-16 lg:py-20">
-      <div class="mb-10" data-reveal>
-        <p class="kicker mb-2">Engineering Evidence</p>
-        <h2 class="h-section">Embiro Operations Platform</h2>
-      </div>
-
-      <p class="measure mb-10 text-ink-muted" data-reveal>
-        QA, UAT, debugging, security thinking and full-stack engineering inside an existing
-        internal application used to run Embiro's operations. Everything below is described in
-        general terms: no client records, credentials or private source code.
-      </p>
-
-      <div class="bento-grid" data-reveal-group>
-        <article class="bento-card lg:col-span-7">
-          <h3 class="mb-1 text-lg font-semibold text-ink">Session idle timeout</h3>
-          <dl class="grid grid-cols-1 gap-y-3 text-sm">
-            <div><dt class="kicker mb-0.5">Problem</dt><dd class="text-ink-muted">Inactive staff sessions stayed authenticated on a platform holding sensitive operational data.</dd></div>
-            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">Flagged during QA/UAT testing, proposed as a feature, then assigned to implement it.</dd></div>
-            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">Configurable timeout thresholds, session expiry enforcement, admin controls and audit logging.</dd></div>
-            <div><dt class="kicker mb-0.5">Verified</dt><dd class="text-ink-muted">Manually tested expiry behavior and admin override paths before release.</dd></div>
-          </dl>
-        </article>
-
-        <article class="bento-card lg:col-span-5">
-          <h3 class="mb-1 text-lg font-semibold text-ink">Staff two-factor authentication</h3>
-          <dl class="grid grid-cols-1 gap-y-3 text-sm">
-            <div><dt class="kicker mb-0.5">Problem</dt><dd class="text-ink-muted">Staff accounts on a sensitive operational platform were protected by password only.</dd></div>
-            <div><dt class="kicker mb-0.5">Proposal</dt><dd class="text-ink-muted">Proposed TOTP-based two-factor authentication for staff accounts.</dd></div>
-            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">TOTP enrollment (QR and manual setup), authenticator verification, backup codes with reuse protection, disable/re-enable, admin-assisted reset.</dd></div>
-            <div><dt class="kicker mb-0.5">Verified</dt><dd class="text-ink-muted">Manually tested enrollment, verification, backup-code redemption and reset paths.</dd></div>
-          </dl>
-        </article>
-
-        <article class="bento-card lg:col-span-4">
-          <h3 class="mb-1 text-lg font-semibold text-ink">Invoice PDF export</h3>
-          <dl class="grid grid-cols-1 gap-y-3 text-sm">
-            <div><dt class="kicker mb-0.5">Observed</dt><dd class="text-ink-muted">Invoice PDF export failed to produce usable output for some client accounts.</dd></div>
-            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">Traced the failure through the existing PDF-generation path rather than building a new one.</dd></div>
-            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">Fixed the failing path, reusing the existing generation logic instead of duplicating it.</dd></div>
-            <div><dt class="kicker mb-0.5">Result</dt><dd class="text-ink-muted">Invoice export worked reliably across accounts.</dd></div>
-          </dl>
-        </article>
-
-        <article class="bento-card lg:col-span-4">
-          <h3 class="mb-1 text-lg font-semibold text-ink">Responsive pipeline views</h3>
-          <dl class="grid grid-cols-1 gap-y-3 text-sm">
-            <div><dt class="kicker mb-0.5">Observed</dt><dd class="text-ink-muted">Kanban columns overflowed on smaller screens, project-detail layouts broke, mobile tab navigation and an orientation selector misbehaved, and forecast cards overflowed their containers.</dd></div>
-            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">Diagnosed each failure individually (several traced back to hard-coded minimum widths) rather than patching with generic CSS.</dd></div>
-            <div><dt class="kicker mb-0.5">Implemented</dt><dd class="text-ink-muted">Removed the hard-coded widths and reworked overflow, tab navigation and orientation handling per view.</dd></div>
-            <div><dt class="kicker mb-0.5">Verified</dt><dd class="text-ink-muted">Re-tested each view across phone and tablet widths.</dd></div>
-          </dl>
-        </article>
-
-        <article class="bento-card lg:col-span-4">
-          <h3 class="mb-1 text-lg font-semibold text-ink">Reusing existing application logic</h3>
-          <dl class="grid grid-cols-1 gap-y-3 text-sm">
-            <div><dt class="kicker mb-0.5">Problem</dt><dd class="text-ink-muted">The visible EDIT action on a client profile did nothing.</dd></div>
-            <div><dt class="kicker mb-0.5">Investigation</dt><dd class="text-ink-muted">A complete edit workflow already existed elsewhere in the application.</dd></div>
-            <div><dt class="kicker mb-0.5">Decision</dt><dd class="text-ink-muted">Reuse the existing workflow instead of building a duplicate implementation.</dd></div>
-            <div><dt class="kicker mb-0.5">Result</dt><dd class="text-ink-muted">Connected the existing control to the existing workflow: editing worked without parallel logic.</dd></div>
-          </dl>
-        </article>
-      </div>
-    </section>
-
     <!-- Shipping Breadth: #SheBuilds -->
     <section id="shipping" class="rule-top container-page py-16 lg:py-20">
       <div class="mb-8" data-reveal>
@@ -356,27 +275,37 @@
       </p>
 
       <div class="bento-grid" data-reveal-group>
-        <div class="bento-card lg:col-span-7">
-          <a href="https://ikorushoneystore.com" class="font-medium text-ink hover:text-signal">ikorushoneystore.com</a>
-          <p class="caption">i-Koru's Honey Store · honey from West Nile beekeepers, mobile-money and WhatsApp ordering</p>
-          <span class="tag self-start">Custom domain</span>
-        </div>
-        <div class="bento-card lg:col-span-5">
-          <a href="https://readusafrica.org" class="font-medium text-ink hover:text-signal">readusafrica.org</a>
-          <p class="caption">Read Us Africa · literacy and publishing social enterprise operating across 14 countries</p>
-          <span class="tag self-start">Custom domain</span>
-        </div>
-        <div class="bento-card lg:col-span-5">
-          <a href="https://yourafricanneighbour.com" class="font-medium text-ink hover:text-signal">yourafricanneighbour.com</a>
-          <p class="caption">Your Afrikan Neighbour · Pan-African podcast and cultural platform</p>
-          <span class="tag self-start">Custom domain</span>
-        </div>
-        <div class="bento-card lg:col-span-7">
-          <a href="https://sapondo.com" class="font-medium text-ink hover:text-signal">sapondo.com</a>
-          <p class="caption">Sapondo Consultants · ESG and labour-compliance advisory firm</p>
-          <span class="tag self-start">Custom domain</span>
-        </div>
+        <a href="https://ikorushoneystore.com" class="bento-card bento-card--media lg:col-span-7" data-cursor="Visit" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/work/custom/ikorushoneystore.webp" alt="i-Koru's Honey Store homepage" width="1600" height="1000" loading="lazy" />
+          <div class="bento-card-body">
+            <span class="font-medium text-ink">ikorushoneystore.com</span>
+            <span class="caption">i-Koru's Honey Store · honey from West Nile beekeepers, mobile-money and WhatsApp ordering</span>
+          </div>
+        </a>
+        <a href="https://readusafrica.org" class="bento-card bento-card--media lg:col-span-5" data-cursor="Visit" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/work/custom/readusafrica.webp" alt="Read Us Africa homepage" width="1600" height="1000" loading="lazy" />
+          <div class="bento-card-body">
+            <span class="font-medium text-ink">readusafrica.org</span>
+            <span class="caption">Read Us Africa · literacy and publishing social enterprise operating across 14 countries</span>
+          </div>
+        </a>
+        <a href="https://yourafricanneighbour.com" class="bento-card bento-card--media lg:col-span-5" data-cursor="Visit" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/work/custom/yourafricanneighbour.webp" alt="Your Afrikan Neighbour homepage" width="1600" height="1000" loading="lazy" />
+          <div class="bento-card-body">
+            <span class="font-medium text-ink">yourafricanneighbour.com</span>
+            <span class="caption">Your Afrikan Neighbour · Pan-African podcast and cultural platform</span>
+          </div>
+        </a>
+        <a href="https://sapondo.com" class="bento-card bento-card--media lg:col-span-7" data-cursor="Visit" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/work/custom/sapondo.webp" alt="Sapondo Consultants homepage" width="1600" height="1000" loading="lazy" />
+          <div class="bento-card-body">
+            <span class="font-medium text-ink">sapondo.com</span>
+            <span class="caption">Sapondo Consultants · ESG and labour-compliance advisory firm</span>
+          </div>
+        </a>
       </div>
+
+      <a href="/work/" class="btn mt-8">See all shipped work →</a>
     </section>
 
     <!-- Technical Project -->
@@ -497,27 +426,420 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="rule-top container-page py-16 lg:py-20" data-reveal>
-      <p class="kicker mb-2">Contact</p>
-      <h2 class="h-section mb-4">Get in touch</h2>
-      <p class="measure mb-6 text-ink-muted">
-        Open to freelance projects, collaboration and employment opportunities.
-      </p>
-      <div class="flex flex-wrap gap-3">
-        <a href="https://wa.me/256754882329" class="btn">WhatsApp Farhan</a>
-        <a href="mailto:farhan.segujja@gmail.com" class="btn-quiet">Email</a>
-        <a href="https://github.com/Al-Farhan-Seg" class="btn-quiet">GitHub</a>
+    <section id="contact" class="rule-top contact-hero" data-reveal>
+      <div class="contact-veil" aria-hidden="true"></div>
+
+      <div class="container-page contact-main">
+        <div class="contact-grid">
+          <div class="contact-copy">
+            <p class="kicker mb-3">Contact</p>
+            <h2 class="h-contact">
+              <span class="block">Let's build</span>
+              <span class="block">something</span>
+              <span class="block">that ships.</span>
+            </h2>
+            <p class="measure mt-5 mb-8 text-ink-muted sm:text-lg">
+              Open to freelance projects, new roles, and problems worth solving.
+              Tell me what you're building — I'll tell you if I can help.
+            </p>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+              <a href="https://wa.me/256754882329" class="btn-signal-lg">
+                Start a conversation
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 5 7 7-7 7" /></svg>
+              </a>
+              <div class="flex flex-wrap gap-x-5 gap-y-2">
+                <a href="mailto:farhan.segujja@gmail.com" class="text-sm font-medium text-ink hover:text-signal">Email →</a>
+                <a href="https://github.com/Al-Farhan-Seg" class="text-sm font-medium text-ink hover:text-signal">GitHub →</a>
+              </div>
+            </div>
+            <p class="caption mt-4">
+              <a href="tel:+256754882329" class="hover:text-ink">+256 754 882 329</a> — WhatsApp and calls
+            </p>
+          </div>
+
+          <div class="contact-schematic" data-schematic aria-hidden="true">
+            <svg viewBox="0 0 480 460" data-schematic-svg>
+              <g class="sc-cross"><line x1="14" y1="20" x2="26" y2="20" /><line x1="20" y1="14" x2="20" y2="26" /></g>
+              <g class="sc-cross"><line x1="454" y1="20" x2="466" y2="20" /><line x1="460" y1="14" x2="460" y2="26" /></g>
+              <g class="sc-cross"><line x1="14" y1="440" x2="26" y2="440" /><line x1="20" y1="434" x2="20" y2="446" /></g>
+              <g class="sc-cross"><line x1="454" y1="440" x2="466" y2="440" /><line x1="460" y1="434" x2="460" y2="446" /></g>
+
+              <g class="sc-ticks">
+                <line x1="40" y1="448" x2="40" y2="456" /><line x1="80" y1="448" x2="80" y2="456" />
+                <line x1="120" y1="448" x2="120" y2="456" /><line x1="160" y1="448" x2="160" y2="456" />
+                <line x1="200" y1="448" x2="200" y2="456" /><line x1="240" y1="448" x2="240" y2="456" />
+                <line x1="280" y1="448" x2="280" y2="456" /><line x1="320" y1="448" x2="320" y2="456" />
+                <line x1="360" y1="448" x2="360" y2="456" /><line x1="400" y1="448" x2="400" y2="456" />
+                <line x1="440" y1="448" x2="440" y2="456" />
+              </g>
+
+              <path class="sc-path sc-path--primary" data-path="whatsapp" d="M100,230 L400,230" />
+              <path class="sc-path" data-path="email" d="M100,230 L210,230 L210,96 L374,96" />
+              <path class="sc-path" data-path="github" d="M100,230 L210,230 L210,364 L374,364" />
+              <path class="sc-path sc-path--minor" data-path="ui" d="M100,230 L160,230 L160,40 L214,40" />
+              <path class="sc-path sc-path--minor" data-path="api" d="M100,230 L160,230 L160,420 L214,420" />
+
+              <circle class="sc-pulse" data-pulse="whatsapp" r="4" cx="100" cy="230" />
+              <circle class="sc-pulse" data-pulse="email" r="4" cx="100" cy="230" />
+              <circle class="sc-pulse" data-pulse="github" r="4" cx="100" cy="230" />
+              <circle class="sc-pulse" data-pulse="ui" r="4" cx="100" cy="230" />
+              <circle class="sc-pulse" data-pulse="api" r="4" cx="100" cy="230" />
+
+              <g class="sc-hub">
+                <rect x="87" y="217" width="26" height="26" />
+                <text x="100" y="235" text-anchor="middle">FS</text>
+              </g>
+
+              <g class="sc-node" data-node="whatsapp" data-cx="400" data-cy="230">
+                <circle class="sc-hit" cx="400" cy="230" r="26" />
+                <circle class="sc-dot sc-dot--primary" cx="400" cy="230" r="6" />
+                <text class="sc-label" x="414" y="234">WhatsApp</text>
+              </g>
+              <g class="sc-node" data-node="email" data-cx="380" data-cy="96">
+                <circle class="sc-hit" cx="380" cy="96" r="24" />
+                <circle class="sc-dot" cx="380" cy="96" r="5" />
+                <text class="sc-label" x="392" y="100">Email</text>
+              </g>
+              <g class="sc-node" data-node="github" data-cx="380" data-cy="364">
+                <circle class="sc-hit" cx="380" cy="364" r="24" />
+                <circle class="sc-dot" cx="380" cy="364" r="5" />
+                <text class="sc-label" x="392" y="368">GitHub</text>
+              </g>
+              <g class="sc-node sc-node--minor" data-node="ui" data-cx="220" data-cy="40">
+                <circle class="sc-hit" cx="220" cy="40" r="20" />
+                <circle class="sc-dot sc-dot--minor" cx="220" cy="40" r="4" />
+                <text class="sc-label sc-label--minor" x="230" y="44">UI</text>
+              </g>
+              <g class="sc-node sc-node--minor" data-node="api" data-cx="220" data-cy="420">
+                <circle class="sc-hit" cx="220" cy="420" r="20" />
+                <circle class="sc-dot sc-dot--minor" cx="220" cy="420" r="4" />
+                <text class="sc-label sc-label--minor" x="230" y="424">API</text>
+              </g>
+            </svg>
+          </div>
+        </div>
       </div>
-      <p class="caption mt-4">
-        <a href="tel:+256754882329" class="hover:text-ink">+256 754 882 329</a> — WhatsApp and calls
-      </p>
+
+      <div class="container-page contact-rail">
+        <div class="grid gap-x-8 gap-y-4 sm:grid-cols-3">
+          <div class="rule-top pt-3">
+            <p class="kicker mb-1">Location</p>
+            <p class="text-sm text-ink">Kampala, Uganda</p>
+          </div>
+          <div class="rule-top pt-3">
+            <p class="kicker mb-1">Timezone</p>
+            <p class="text-sm text-ink">UTC+3</p>
+          </div>
+          <div class="rule-top pt-3">
+            <p class="kicker mb-1">Work</p>
+            <p class="text-sm text-ink">Freelance, collaboration and employment opportunities</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="rule-top container-page py-16 lg:py-20">
+      <p class="kicker mb-8">Questions</p>
+      <div class="faq-list">
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>What kind of projects do you work on?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-ink-muted">
+              Client websites end to end, CMS and external-data integrations, and full-stack
+              fixes inside an existing operations platform — plus independent work like the
+              #SheBuilds campaign and a TensorFlow-backed classifier deployed as a Streamlit app.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Are you available for freelance work or employment?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-ink-muted">
+              Yes — open to freelance projects, collaboration and employment opportunities.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>What technologies do you work with?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-ink-muted">
+              React, JavaScript, Tailwind CSS and responsive frontend work day to day, plus
+              Supabase, CMS and REST integrations on the data side. See the full breakdown in
+              Technical Capabilities above.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Can you work with an existing codebase?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-ink-muted">
+              Yes — at Embiro Technologies that work has grown into direct source-code
+              development, client project responsibility, and full-stack contribution inside
+              an existing codebase, not just greenfield builds.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>What's the best way to contact you?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-ink-muted">
+              WhatsApp — <a href="tel:+256754882329" class="text-ink hover:text-signal">+256 754 882 329</a> —
+              for the fastest reply, or email if you prefer to write things out.
+            </p>
+          </div>
+        </details>
+      </div>
     </section>
   </main>
 
-  <footer class="rule-top">
-    <div class="container-page flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-ink-muted">
-      <p>© 2026 Farhan Segujja</p>
-      <p class="font-mono text-xs">farhansegujja.com</p>
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <path id="wm-F" d="M0,10L10,0L117,0L126,9L126,27L117,36L40,36L40,72L97,72L106,81L106,99L97,108L40,108L40,170L30,180L10,180L0,170Z" />
+      <path id="wm-A" d="M73.3,6.4L83,0L97,0L106.7,6.4L176.1,170.8L170,180L145.8,180L132.2,171L128.4,162L51.6,162L47.8,171L34.2,180L10,180L3.9,170.8ZM93.9,80.3L86.1,80.3L70.7,116.8L76.8,126L103.2,126L109.3,116.8Z" />
+      <path id="wm-R" d="M0,10L10,0L84,0C114,0 134,21.6 134,54C134,68.1 128.3,80.2 120.2,89.3L154.2,170.8L148,180L124,180L110.2,170.8L84,108L40,108L40,170L30,180L10,180L0,170ZM40,45L49,36L84,36C92.4,36 98,43.2 98,54C98,64.8 89.6,72 84,72L49,72L40,63Z" />
+      <path id="wm-H" d="M0,10L10,0L30,0L40,10L40,72L106,72L106,10L116,0L136,0L146,10L146,170L136,180L116,180L106,170L106,108L40,108L40,170L30,180L10,180L0,170Z" />
+      <path id="wm-N" d="M0,10L10,0L40,0L110,106L110,10L120,0L140,0L150,10L150,170L140,180L110,180L40,74L40,170L30,180L10,180L0,170Z" />
+      <path id="wm-S" d="M0,10L10,0L125,0L134,9L134,27L125,36L40,36L40,72L124,72L134,82L134,170L124,180L9,180L0,171L0,153L9,144L94,144L94,108L10,108L0,98Z" />
+      <path id="wm-E" d="M0,10L10,0L117,0L126,9L126,27L117,36L40,36L40,72L97,72L106,81L106,99L97,108L40,108L40,144L117,144L126,153L126,171L117,180L10,180L0,170Z" />
+      <path id="wm-G" d="M36,0L120,0L148.9,28.9L146,36L57.1,36L36,57.1L36,122.9L57.1,144L120,144L120,108L89,108L80,99L80,81L89,72L146,72L156,82L156,144L120,180L36,180L0,144L0,36Z" />
+      <path id="wm-U" d="M0,10L10,0L30,0L40,10L40,122.9L61.1,144L84.9,144L106,122.9L106,10L116,0L136,0L146,10L146,144L110,180L36,180L0,144Z" />
+      <path id="wm-J" d="M64,10L74,0L94,0L104,10L104,144L68,180L9,180L0,171L0,153L9,144L42.9,144L64,122.9Z" />
+    </defs>
+  </svg>
+
+  <footer class="site-footer rule-top">
+    <div class="footer-dissolve" aria-hidden="true"></div>
+
+    <div class="footer-wordmark" role="img" aria-label="Farhan Segujja">
+      <svg
+        class="footer-wordmark-desktop hidden lg:block"
+        data-wordmark
+        data-ink-radius="171"
+        viewBox="0 0 2342 324"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="wm-ink-warp-d" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G" result="warped" />
+            <feGaussianBlur in="warped" stdDeviation="4" result="soft" />
+            <feComponentTransfer in="soft">
+              <feFuncA type="linear" slope="3.4" intercept="-0.95" />
+            </feComponentTransfer>
+          </filter>
+          <mask id="wm-ink-mask-d" maskUnits="userSpaceOnUse" x="0" y="0" width="2342" height="324">
+            <g filter="url(#wm-ink-warp-d)">
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.85" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.7" />
+            </g>
+          </mask>
+        </defs>
+
+        <!-- rulers sit below the glyph layer, so no rule can cut a letter -->
+        <g class="wm-rulers">
+          <line class="wm-datum" x1="0" y1="30" x2="2342" y2="30" />
+          <line class="wm-datum" x1="0" y1="294" x2="2342" y2="294" />
+          <g class="wm-tick" data-edge="top"><line x1="19" y1="0" x2="19" y2="11" /><line x1="67" y1="0" x2="67" y2="5" /><line x1="115" y1="0" x2="115" y2="5" /><line x1="163" y1="0" x2="163" y2="5" /><line x1="211" y1="0" x2="211" y2="5" /><line x1="259" y1="0" x2="259" y2="11" /><line x1="307" y1="0" x2="307" y2="5" /><line x1="355" y1="0" x2="355" y2="5" /><line x1="403" y1="0" x2="403" y2="5" /><line x1="451" y1="0" x2="451" y2="5" /><line x1="499" y1="0" x2="499" y2="11" /><line x1="547" y1="0" x2="547" y2="5" /><line x1="595" y1="0" x2="595" y2="5" /><line x1="643" y1="0" x2="643" y2="5" /><line x1="691" y1="0" x2="691" y2="5" /><line x1="739" y1="0" x2="739" y2="11" /><line x1="787" y1="0" x2="787" y2="5" /><line x1="835" y1="0" x2="835" y2="5" /><line x1="883" y1="0" x2="883" y2="5" /><line x1="931" y1="0" x2="931" y2="5" /><line x1="979" y1="0" x2="979" y2="11" /><line x1="1027" y1="0" x2="1027" y2="5" /><line x1="1075" y1="0" x2="1075" y2="5" /><line x1="1123" y1="0" x2="1123" y2="5" /><line x1="1171" y1="0" x2="1171" y2="5" /><line x1="1219" y1="0" x2="1219" y2="11" /><line x1="1267" y1="0" x2="1267" y2="5" /><line x1="1315" y1="0" x2="1315" y2="5" /><line x1="1363" y1="0" x2="1363" y2="5" /><line x1="1411" y1="0" x2="1411" y2="5" /><line x1="1459" y1="0" x2="1459" y2="11" /><line x1="1507" y1="0" x2="1507" y2="5" /><line x1="1555" y1="0" x2="1555" y2="5" /><line x1="1603" y1="0" x2="1603" y2="5" /><line x1="1651" y1="0" x2="1651" y2="5" /><line x1="1699" y1="0" x2="1699" y2="11" /><line x1="1747" y1="0" x2="1747" y2="5" /><line x1="1795" y1="0" x2="1795" y2="5" /><line x1="1843" y1="0" x2="1843" y2="5" /><line x1="1891" y1="0" x2="1891" y2="5" /><line x1="1939" y1="0" x2="1939" y2="11" /><line x1="1987" y1="0" x2="1987" y2="5" /><line x1="2035" y1="0" x2="2035" y2="5" /><line x1="2083" y1="0" x2="2083" y2="5" /><line x1="2131" y1="0" x2="2131" y2="5" /><line x1="2179" y1="0" x2="2179" y2="11" /><line x1="2227" y1="0" x2="2227" y2="5" /><line x1="2275" y1="0" x2="2275" y2="5" /><line x1="2323" y1="0" x2="2323" y2="5" /></g>
+          <g class="wm-tick" data-edge="bottom"><line x1="19" y1="324" x2="19" y2="313" /><line x1="67" y1="324" x2="67" y2="319" /><line x1="115" y1="324" x2="115" y2="319" /><line x1="163" y1="324" x2="163" y2="319" /><line x1="211" y1="324" x2="211" y2="319" /><line x1="259" y1="324" x2="259" y2="313" /><line x1="307" y1="324" x2="307" y2="319" /><line x1="355" y1="324" x2="355" y2="319" /><line x1="403" y1="324" x2="403" y2="319" /><line x1="451" y1="324" x2="451" y2="319" /><line x1="499" y1="324" x2="499" y2="313" /><line x1="547" y1="324" x2="547" y2="319" /><line x1="595" y1="324" x2="595" y2="319" /><line x1="643" y1="324" x2="643" y2="319" /><line x1="691" y1="324" x2="691" y2="319" /><line x1="739" y1="324" x2="739" y2="313" /><line x1="787" y1="324" x2="787" y2="319" /><line x1="835" y1="324" x2="835" y2="319" /><line x1="883" y1="324" x2="883" y2="319" /><line x1="931" y1="324" x2="931" y2="319" /><line x1="979" y1="324" x2="979" y2="313" /><line x1="1027" y1="324" x2="1027" y2="319" /><line x1="1075" y1="324" x2="1075" y2="319" /><line x1="1123" y1="324" x2="1123" y2="319" /><line x1="1171" y1="324" x2="1171" y2="319" /><line x1="1219" y1="324" x2="1219" y2="313" /><line x1="1267" y1="324" x2="1267" y2="319" /><line x1="1315" y1="324" x2="1315" y2="319" /><line x1="1363" y1="324" x2="1363" y2="319" /><line x1="1411" y1="324" x2="1411" y2="319" /><line x1="1459" y1="324" x2="1459" y2="313" /><line x1="1507" y1="324" x2="1507" y2="319" /><line x1="1555" y1="324" x2="1555" y2="319" /><line x1="1603" y1="324" x2="1603" y2="319" /><line x1="1651" y1="324" x2="1651" y2="319" /><line x1="1699" y1="324" x2="1699" y2="313" /><line x1="1747" y1="324" x2="1747" y2="319" /><line x1="1795" y1="324" x2="1795" y2="319" /><line x1="1843" y1="324" x2="1843" y2="319" /><line x1="1891" y1="324" x2="1891" y2="319" /><line x1="1939" y1="324" x2="1939" y2="313" /><line x1="1987" y1="324" x2="1987" y2="319" /><line x1="2035" y1="324" x2="2035" y2="319" /><line x1="2083" y1="324" x2="2083" y2="319" /><line x1="2131" y1="324" x2="2131" y2="319" /><line x1="2179" y1="324" x2="2179" y2="313" /><line x1="2227" y1="324" x2="2227" y2="319" /><line x1="2275" y1="324" x2="2275" y2="319" /><line x1="2323" y1="324" x2="2323" y2="319" /></g>
+          <g class="wm-cross"><line x1="10" y1="16" x2="22" y2="16" /><line x1="16" y1="10" x2="16" y2="22" /></g>
+          <g class="wm-cross"><line x1="2320" y1="16" x2="2332" y2="16" /><line x1="2326" y1="10" x2="2326" y2="22" /></g>
+          <g class="wm-cross"><line x1="10" y1="308" x2="22" y2="308" /><line x1="16" y1="302" x2="16" y2="314" /></g>
+          <g class="wm-cross"><line x1="2320" y1="308" x2="2332" y2="308" /><line x1="2326" y1="302" x2="2326" y2="314" /></g>
+        </g>
+
+        <!-- glyph geometry: closed block contours, hairline stroke -->
+        <g class="wm-outline">
+          <use href="#wm-F" x="28" y="72" />
+          <use href="#wm-A" x="182" y="72" />
+          <use href="#wm-R" x="390" y="72" />
+          <use href="#wm-H" x="576" y="72" />
+          <use href="#wm-A" x="750" y="72" />
+          <use href="#wm-N" x="958" y="72" />
+          <use href="#wm-S" x="1196" y="72" />
+          <use href="#wm-E" x="1358" y="72" />
+          <use href="#wm-G" x="1512" y="72" />
+          <use href="#wm-U" x="1696" y="72" />
+          <use href="#wm-J" x="1870" y="72" />
+          <use href="#wm-J" x="2002" y="72" />
+          <use href="#wm-A" x="2134" y="72" />
+        </g>
+
+        <g class="wm-extension">
+          <line x1="28" y1="30" x2="28" y2="62" /><line x1="28" y1="262" x2="28" y2="294" />
+          <line x1="154" y1="30" x2="154" y2="62" /><line x1="154" y1="262" x2="154" y2="294" />
+          <line x1="182" y1="30" x2="182" y2="62" /><line x1="182" y1="262" x2="182" y2="294" />
+          <line x1="362" y1="30" x2="362" y2="62" /><line x1="362" y1="262" x2="362" y2="294" />
+          <line x1="390" y1="30" x2="390" y2="62" /><line x1="390" y1="262" x2="390" y2="294" />
+          <line x1="548" y1="30" x2="548" y2="62" /><line x1="548" y1="262" x2="548" y2="294" />
+          <line x1="576" y1="30" x2="576" y2="62" /><line x1="576" y1="262" x2="576" y2="294" />
+          <line x1="722" y1="30" x2="722" y2="62" /><line x1="722" y1="262" x2="722" y2="294" />
+          <line x1="750" y1="30" x2="750" y2="62" /><line x1="750" y1="262" x2="750" y2="294" />
+          <line x1="930" y1="30" x2="930" y2="62" /><line x1="930" y1="262" x2="930" y2="294" />
+          <line x1="958" y1="30" x2="958" y2="62" /><line x1="958" y1="262" x2="958" y2="294" />
+          <line x1="1108" y1="30" x2="1108" y2="62" /><line x1="1108" y1="262" x2="1108" y2="294" />
+          <line x1="1196" y1="30" x2="1196" y2="62" /><line x1="1196" y1="262" x2="1196" y2="294" />
+          <line x1="1330" y1="30" x2="1330" y2="62" /><line x1="1330" y1="262" x2="1330" y2="294" />
+          <line x1="1358" y1="30" x2="1358" y2="62" /><line x1="1358" y1="262" x2="1358" y2="294" />
+          <line x1="1484" y1="30" x2="1484" y2="62" /><line x1="1484" y1="262" x2="1484" y2="294" />
+          <line x1="1512" y1="30" x2="1512" y2="62" /><line x1="1512" y1="262" x2="1512" y2="294" />
+          <line x1="1668" y1="30" x2="1668" y2="62" /><line x1="1668" y1="262" x2="1668" y2="294" />
+          <line x1="1696" y1="30" x2="1696" y2="62" /><line x1="1696" y1="262" x2="1696" y2="294" />
+          <line x1="1842" y1="30" x2="1842" y2="62" /><line x1="1842" y1="262" x2="1842" y2="294" />
+          <line x1="1870" y1="30" x2="1870" y2="62" /><line x1="1870" y1="262" x2="1870" y2="294" />
+          <line x1="1974" y1="30" x2="1974" y2="62" /><line x1="1974" y1="262" x2="1974" y2="294" />
+          <line x1="2002" y1="30" x2="2002" y2="62" /><line x1="2002" y1="262" x2="2002" y2="294" />
+          <line x1="2106" y1="30" x2="2106" y2="62" /><line x1="2106" y1="262" x2="2106" y2="294" />
+          <line x1="2134" y1="30" x2="2134" y2="62" /><line x1="2134" y1="262" x2="2134" y2="294" />
+          <line x1="2314" y1="30" x2="2314" y2="62" /><line x1="2314" y1="262" x2="2314" y2="294" />
+        </g>
+
+        <!-- hover fill: the same geometry, filled, revealed through the ink mask -->
+        <g class="wm-fill" mask="url(#wm-ink-mask-d)">
+          <use href="#wm-F" x="28" y="72" />
+          <use href="#wm-A" x="182" y="72" />
+          <use href="#wm-R" x="390" y="72" />
+          <use href="#wm-H" x="576" y="72" />
+          <use href="#wm-A" x="750" y="72" />
+          <use href="#wm-N" x="958" y="72" />
+          <use href="#wm-S" x="1196" y="72" />
+          <use href="#wm-E" x="1358" y="72" />
+          <use href="#wm-G" x="1512" y="72" />
+          <use href="#wm-U" x="1696" y="72" />
+          <use href="#wm-J" x="1870" y="72" />
+          <use href="#wm-J" x="2002" y="72" />
+          <use href="#wm-A" x="2134" y="72" />
+        </g>
+
+        <rect class="wm-joint" x="678" y="140" width="8" height="8" />
+        <rect class="wm-joint" x="222" y="248" width="8" height="8" />
+        <rect class="wm-joint" x="1588" y="140" width="8" height="8" />
+        <rect class="wm-joint" x="1286" y="176" width="8" height="8" />
+      </svg>
+
+      <svg
+        class="footer-wordmark-mobile lg:hidden"
+        data-wordmark
+        data-ink-radius="171"
+        viewBox="0 0 1174 624"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="wm-ink-warp-m" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="11" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="warped" />
+            <feGaussianBlur in="warped" stdDeviation="4" result="soft" />
+            <feComponentTransfer in="soft">
+              <feFuncA type="linear" slope="3.4" intercept="-0.95" />
+            </feComponentTransfer>
+          </filter>
+          <mask id="wm-ink-mask-m" maskUnits="userSpaceOnUse" x="0" y="0" width="1174" height="624">
+            <g filter="url(#wm-ink-warp-m)">
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.85" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.7" />
+            </g>
+          </mask>
+        </defs>
+
+        <!-- rulers sit below the glyph layer, so no rule can cut a letter -->
+        <g class="wm-rulers">
+          <line class="wm-datum" x1="0" y1="30" x2="1174" y2="30" />
+          <line class="wm-datum" x1="0" y1="294" x2="1174" y2="294" />
+          <line class="wm-datum" x1="0" y1="330" x2="1174" y2="330" />
+          <line class="wm-datum" x1="0" y1="594" x2="1174" y2="594" />
+          <g class="wm-tick" data-edge="top"><line x1="11" y1="0" x2="11" y2="11" /><line x1="59" y1="0" x2="59" y2="5" /><line x1="107" y1="0" x2="107" y2="5" /><line x1="155" y1="0" x2="155" y2="5" /><line x1="203" y1="0" x2="203" y2="5" /><line x1="251" y1="0" x2="251" y2="11" /><line x1="299" y1="0" x2="299" y2="5" /><line x1="347" y1="0" x2="347" y2="5" /><line x1="395" y1="0" x2="395" y2="5" /><line x1="443" y1="0" x2="443" y2="5" /><line x1="491" y1="0" x2="491" y2="11" /><line x1="539" y1="0" x2="539" y2="5" /><line x1="587" y1="0" x2="587" y2="5" /><line x1="635" y1="0" x2="635" y2="5" /><line x1="683" y1="0" x2="683" y2="5" /><line x1="731" y1="0" x2="731" y2="11" /><line x1="779" y1="0" x2="779" y2="5" /><line x1="827" y1="0" x2="827" y2="5" /><line x1="875" y1="0" x2="875" y2="5" /><line x1="923" y1="0" x2="923" y2="5" /><line x1="971" y1="0" x2="971" y2="11" /><line x1="1019" y1="0" x2="1019" y2="5" /><line x1="1067" y1="0" x2="1067" y2="5" /><line x1="1115" y1="0" x2="1115" y2="5" /><line x1="1163" y1="0" x2="1163" y2="5" /></g>
+          <g class="wm-tick" data-edge="bottom"><line x1="11" y1="624" x2="11" y2="613" /><line x1="59" y1="624" x2="59" y2="619" /><line x1="107" y1="624" x2="107" y2="619" /><line x1="155" y1="624" x2="155" y2="619" /><line x1="203" y1="624" x2="203" y2="619" /><line x1="251" y1="624" x2="251" y2="613" /><line x1="299" y1="624" x2="299" y2="619" /><line x1="347" y1="624" x2="347" y2="619" /><line x1="395" y1="624" x2="395" y2="619" /><line x1="443" y1="624" x2="443" y2="619" /><line x1="491" y1="624" x2="491" y2="613" /><line x1="539" y1="624" x2="539" y2="619" /><line x1="587" y1="624" x2="587" y2="619" /><line x1="635" y1="624" x2="635" y2="619" /><line x1="683" y1="624" x2="683" y2="619" /><line x1="731" y1="624" x2="731" y2="613" /><line x1="779" y1="624" x2="779" y2="619" /><line x1="827" y1="624" x2="827" y2="619" /><line x1="875" y1="624" x2="875" y2="619" /><line x1="923" y1="624" x2="923" y2="619" /><line x1="971" y1="624" x2="971" y2="613" /><line x1="1019" y1="624" x2="1019" y2="619" /><line x1="1067" y1="624" x2="1067" y2="619" /><line x1="1115" y1="624" x2="1115" y2="619" /><line x1="1163" y1="624" x2="1163" y2="619" /></g>
+          <g class="wm-cross"><line x1="10" y1="16" x2="22" y2="16" /><line x1="16" y1="10" x2="16" y2="22" /></g>
+          <g class="wm-cross"><line x1="1152" y1="16" x2="1164" y2="16" /><line x1="1158" y1="10" x2="1158" y2="22" /></g>
+          <g class="wm-cross"><line x1="10" y1="608" x2="22" y2="608" /><line x1="16" y1="602" x2="16" y2="614" /></g>
+          <g class="wm-cross"><line x1="1152" y1="608" x2="1164" y2="608" /><line x1="1158" y1="602" x2="1158" y2="614" /></g>
+        </g>
+
+        <!-- glyph geometry: closed block contours, hairline stroke -->
+        <g class="wm-outline">
+          <use href="#wm-F" x="47" y="72" />
+          <use href="#wm-A" x="201" y="72" />
+          <use href="#wm-R" x="409" y="72" />
+          <use href="#wm-H" x="595" y="72" />
+          <use href="#wm-A" x="769" y="72" />
+          <use href="#wm-N" x="977" y="72" />
+          <use href="#wm-S" x="28" y="372" />
+          <use href="#wm-E" x="190" y="372" />
+          <use href="#wm-G" x="344" y="372" />
+          <use href="#wm-U" x="528" y="372" />
+          <use href="#wm-J" x="702" y="372" />
+          <use href="#wm-J" x="834" y="372" />
+          <use href="#wm-A" x="966" y="372" />
+        </g>
+
+        <g class="wm-extension">
+          <line x1="47" y1="30" x2="47" y2="62" /><line x1="47" y1="262" x2="47" y2="294" />
+          <line x1="173" y1="30" x2="173" y2="62" /><line x1="173" y1="262" x2="173" y2="294" />
+          <line x1="201" y1="30" x2="201" y2="62" /><line x1="201" y1="262" x2="201" y2="294" />
+          <line x1="381" y1="30" x2="381" y2="62" /><line x1="381" y1="262" x2="381" y2="294" />
+          <line x1="409" y1="30" x2="409" y2="62" /><line x1="409" y1="262" x2="409" y2="294" />
+          <line x1="567" y1="30" x2="567" y2="62" /><line x1="567" y1="262" x2="567" y2="294" />
+          <line x1="595" y1="30" x2="595" y2="62" /><line x1="595" y1="262" x2="595" y2="294" />
+          <line x1="741" y1="30" x2="741" y2="62" /><line x1="741" y1="262" x2="741" y2="294" />
+          <line x1="769" y1="30" x2="769" y2="62" /><line x1="769" y1="262" x2="769" y2="294" />
+          <line x1="949" y1="30" x2="949" y2="62" /><line x1="949" y1="262" x2="949" y2="294" />
+          <line x1="977" y1="30" x2="977" y2="62" /><line x1="977" y1="262" x2="977" y2="294" />
+          <line x1="1127" y1="30" x2="1127" y2="62" /><line x1="1127" y1="262" x2="1127" y2="294" />
+          <line x1="28" y1="330" x2="28" y2="362" /><line x1="28" y1="562" x2="28" y2="594" />
+          <line x1="162" y1="330" x2="162" y2="362" /><line x1="162" y1="562" x2="162" y2="594" />
+          <line x1="190" y1="330" x2="190" y2="362" /><line x1="190" y1="562" x2="190" y2="594" />
+          <line x1="316" y1="330" x2="316" y2="362" /><line x1="316" y1="562" x2="316" y2="594" />
+          <line x1="344" y1="330" x2="344" y2="362" /><line x1="344" y1="562" x2="344" y2="594" />
+          <line x1="500" y1="330" x2="500" y2="362" /><line x1="500" y1="562" x2="500" y2="594" />
+          <line x1="528" y1="330" x2="528" y2="362" /><line x1="528" y1="562" x2="528" y2="594" />
+          <line x1="674" y1="330" x2="674" y2="362" /><line x1="674" y1="562" x2="674" y2="594" />
+          <line x1="702" y1="330" x2="702" y2="362" /><line x1="702" y1="562" x2="702" y2="594" />
+          <line x1="806" y1="330" x2="806" y2="362" /><line x1="806" y1="562" x2="806" y2="594" />
+          <line x1="834" y1="330" x2="834" y2="362" /><line x1="834" y1="562" x2="834" y2="594" />
+          <line x1="938" y1="330" x2="938" y2="362" /><line x1="938" y1="562" x2="938" y2="594" />
+          <line x1="966" y1="330" x2="966" y2="362" /><line x1="966" y1="562" x2="966" y2="594" />
+          <line x1="1146" y1="330" x2="1146" y2="362" /><line x1="1146" y1="562" x2="1146" y2="594" />
+        </g>
+
+        <!-- hover fill: the same geometry, filled, revealed through the ink mask -->
+        <g class="wm-fill" mask="url(#wm-ink-mask-m)">
+          <use href="#wm-F" x="47" y="72" />
+          <use href="#wm-A" x="201" y="72" />
+          <use href="#wm-R" x="409" y="72" />
+          <use href="#wm-H" x="595" y="72" />
+          <use href="#wm-A" x="769" y="72" />
+          <use href="#wm-N" x="977" y="72" />
+          <use href="#wm-S" x="28" y="372" />
+          <use href="#wm-E" x="190" y="372" />
+          <use href="#wm-G" x="344" y="372" />
+          <use href="#wm-U" x="528" y="372" />
+          <use href="#wm-J" x="702" y="372" />
+          <use href="#wm-J" x="834" y="372" />
+          <use href="#wm-A" x="966" y="372" />
+        </g>
+
+        <rect class="wm-joint" x="697" y="140" width="8" height="8" />
+        <rect class="wm-joint" x="241" y="248" width="8" height="8" />
+        <rect class="wm-joint" x="420" y="440" width="8" height="8" />
+        <rect class="wm-joint" x="118" y="476" width="8" height="8" />
+      </svg>
     </div>
   </footer>
 
