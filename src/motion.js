@@ -213,7 +213,9 @@ function initSplash() {
     }
   }
 
-  const PARTICLE_COUNT = 32
+  // Kept low enough, at the storm radius below, that adjacent particles'
+  // rotated bounding boxes never touch even on the narrowest phone screens.
+  const PARTICLE_COUNT = 18
   const particles = []
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     const span = document.createElement('span')
@@ -229,10 +231,18 @@ function initSplash() {
   // a clean circle.
   const spread = () => Math.min(window.innerWidth, window.innerHeight) * 0.5
   const angleStep = (Math.PI * 2) / PARTICLE_COUNT
+  const STORM_RADIUS_FACTOR = 0.8
 
+  // xPercent/yPercent center each particle's own box on its circle-path
+  // point (top/left: 50% in CSS only anchors the box's corner there); GSAP
+  // keeps this offset in place through every later tween that only touches
+  // x/y, so the ring stays centered on the viewport instead of drifting
+  // toward the bottom-right by half a particle's size.
   gsap.set(particles, {
     x: (i) => Math.cos(angleStep * i) * spread() * 1.6,
     y: (i) => Math.sin(angleStep * i) * spread() * 1.6,
+    xPercent: -50,
+    yPercent: -50,
     rotation: () => gsap.utils.random(-180, 180),
     scale: 0.4,
     opacity: 0,
@@ -257,11 +267,15 @@ function initSplash() {
     },
   })
 
-  // Storm: "</>" particles rush in from every edge toward scattered
-  // mid-screen positions.
+  // Storm: "</>" particles rush in from every edge and settle into an even
+  // ring. Same angle per particle as the initial set() above, so each one
+  // travels a straight radial line inward — different particles' paths
+  // point at the same center but never cross — and lands evenly spaced
+  // around the circle instead of the bunched, uneven arcs a mismatched
+  // angle would produce.
   tl.to(particles, {
-    x: (i) => Math.cos(angleStep * i * 1.7) * spread() * 0.5,
-    y: (i) => Math.sin(angleStep * i * 1.7) * spread() * 0.5,
+    x: (i) => Math.cos(angleStep * i) * spread() * STORM_RADIUS_FACTOR,
+    y: (i) => Math.sin(angleStep * i) * spread() * STORM_RADIUS_FACTOR,
     rotation: () => gsap.utils.random(-40, 40),
     scale: 1,
     opacity: 1,
@@ -270,7 +284,19 @@ function initSplash() {
     stagger: { each: 0.012, from: 'random' },
   })
 
-  // Converge: the storm collapses into the center and the logo pops out of it.
+  // Converge: the whole ring gives one quick spin as it collapses into the
+  // center, then the logo pops out of it. Rotating the shared layer (rather
+  // than each particle around its own point) keeps the ring intact as it
+  // spins instead of scattering it.
+  tl.to(
+    particlesLayer,
+    {
+      rotation: 130,
+      duration: 0.45,
+      ease: 'power1.inOut',
+    },
+    '-=0.15'
+  )
   tl.to(
     particles,
     {
@@ -282,12 +308,12 @@ function initSplash() {
       ease: 'power2.in',
       stagger: { each: 0.008, from: 'random' },
     },
-    '-=0.15'
+    '<'
   )
   tl.to(
     logo,
     { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' },
-    '-=0.35'
+    '-=0.1'
   )
 
   // Hold on the logo for a beat.
