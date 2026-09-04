@@ -972,11 +972,11 @@
      platform rather than a hand-built aria-expanded state machine. motion.js
      only layers a height/opacity reveal on top, exactly like the nav drawer. */
   .faq-item {
-    border-top: 1px solid var(--color-rule);
+    border-top: 1px solid color-mix(in srgb, var(--color-rule) 70%, transparent);
   }
 
   .faq-item:last-child {
-    border-bottom: 1px solid var(--color-rule);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-rule) 70%, transparent);
   }
 
   .faq-q {
@@ -984,21 +984,23 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding-block: 1.5rem;
+    padding-block: 1.125rem;
     cursor: pointer;
     list-style: none;
   }
 
+  .faq-q span:first-child {
+    @apply text-lg font-semibold tracking-tight text-ink sm:text-xl;
+    transition: color 0.2s ease;
+  }
+
+  .faq-q:hover span:first-child,
+  .faq-q:focus-visible span:first-child {
+    color: var(--color-signal);
+  }
+
   .faq-q::-webkit-details-marker {
     display: none;
-  }
-
-  .faq-q span:first-child {
-    @apply text-lg font-semibold tracking-tight text-ink sm:text-2xl;
-  }
-
-  .faq-q:hover span:first-child {
-    color: var(--color-signal);
   }
 
   /* Plus, drawn as two lines: the vertical one rotates flat into the
@@ -1018,6 +1020,7 @@
     inset: 0;
     margin: auto;
     background-color: var(--color-ink);
+    transition: background-color 0.2s ease;
   }
 
   .faq-icon::before {
@@ -1028,7 +1031,14 @@
   .faq-icon::after {
     width: 1.5px;
     height: 16px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.2s ease;
+  }
+
+  .faq-q:hover .faq-icon::before,
+  .faq-q:hover .faq-icon::after,
+  .faq-q:focus-visible .faq-icon::before,
+  .faq-q:focus-visible .faq-icon::after {
+    background-color: var(--color-signal);
   }
 
   .faq-item[open] .faq-icon::after {
@@ -1036,11 +1046,16 @@
   }
 
   .js .faq-item[open] .faq-icon::after {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.2s ease;
+  }
+
+  .faq-item[open] .faq-icon::before,
+  .faq-item[open] .faq-icon::after {
+    background-color: var(--color-signal);
   }
 
   .faq-a {
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.125rem;
     overflow: hidden;
   }
 
