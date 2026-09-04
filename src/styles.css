@@ -206,6 +206,20 @@
     transform: translateY(10px);
   }
 
+  /* /work hero: the two cards start fully off-canvas (left card off the
+     left edge, right card off the right edge) so they can run in via
+     initWorkHeroSlideIn()'s GSAP timeline. Set here too, not just in JS,
+     so there's no flash of the resting position before the script runs —
+     same reasoning as the kicker/media rules above. Homepage has no
+     .work-hero-card elements, so this is a no-op there. */
+  .js:not(.motion-reduced) [data-hero] .work-hero-card--copy {
+    transform: translateX(-120vw);
+  }
+
+  .js:not(.motion-reduced) [data-hero] .work-hero-card--signal {
+    transform: translateX(120vw);
+  }
+
   .hero-role-cursor {
     display: none;
   }
@@ -453,6 +467,71 @@
     @apply block aspect-square w-full object-cover;
   }
 
+  /* /work page hero: two gradient cards split the width — left keeps the
+     kicker/heading/copy/jump-nav, right is a pure visual beat (the rocket
+     stands for shipped work). Both gradients stay inside the site's own
+     paper/signal tokens (no new hex), so they still re-theme for free. */
+  .work-hero-grid {
+    @apply grid gap-6 lg:grid-cols-2;
+  }
+
+  .work-hero-card {
+    @apply rounded-2xl border border-rule p-8 lg:p-10;
+    box-shadow: var(--shadow-card);
+  }
+
+  .work-hero-card--copy {
+    background: linear-gradient(155deg, var(--color-paper), var(--color-paper-subtle));
+  }
+
+  .work-hero-card--signal {
+    @apply flex min-h-64 items-center justify-center lg:min-h-0;
+    background: linear-gradient(155deg, var(--color-signal), var(--color-signal-strong));
+  }
+
+  .work-hero-rocket {
+    @apply h-28 w-28 sm:h-32 sm:w-32 lg:h-40 lg:w-40;
+    color: var(--color-paper);
+    filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.25));
+  }
+
+  /* /work hero jump-nav: three CTAs to three sections, given three distinct
+     accent weights (solid -> outline -> ghost) instead of one repeated
+     style, so the trio reads as a deliberate set rather than clones. The
+     tapering weight mirrors the sections' own order: bespoke custom-domain
+     client work (boldest), the curated C23 campaign (mid), then the
+     broader subdomain breadth (quietest at rest, still signals on hover).
+     All three colors are the site's existing signal/paper/ink/rule tokens —
+     nothing new. border-2 is shared by all three (transparent on solid) so
+     the pills stay the same size regardless of variant. */
+  .work-cta {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-full border-2 px-5 py-2 text-sm font-medium transition-colors;
+  }
+
+  .work-cta--solid {
+    @apply border-transparent bg-signal text-paper;
+  }
+
+  .work-cta--solid:hover {
+    background-color: var(--color-signal-strong);
+  }
+
+  .work-cta--outline {
+    @apply border-signal text-signal;
+  }
+
+  .work-cta--outline:hover {
+    @apply bg-signal text-paper;
+  }
+
+  .work-cta--ghost {
+    @apply border-rule text-ink-muted;
+  }
+
+  .work-cta--ghost:hover {
+    @apply border-signal text-signal;
+  }
+
   .tag {
     @apply inline-flex items-center gap-1.5 rounded-full border border-rule px-2.5 py-1 font-mono text-xs text-ink-muted;
   }
@@ -610,4 +689,447 @@
   :root[data-theme="umber"] [data-theme-icon="umber"] {
     display: block;
   }
+
+  /* ============================================================
+     Contact: full-viewport composition + Connection Schematic
+     ============================================================ */
+
+  /* Below md this is a plain flow section (same py rhythm as every other
+     section). From md up it becomes a viewport-scale moment like .hero-section,
+     with the two-column grid centered in the free space above a bottom-pinned
+     info rail -- margin-block:auto on .contact-main does both jobs at once
+     (center it, and push the rail to the section's end) with no extra wrapper. */
+  .contact-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .contact-hero {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding-block: 5rem 2.5rem;
+    }
+
+    .contact-main {
+      margin-block: auto;
+    }
+  }
+
+  .contact-main {
+    padding-block: 4rem 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-main {
+      padding-block: 0;
+    }
+  }
+
+  /* Local wash over the sitewide hex pattern (drawn on body::before, fixed
+     and shared by the whole page) so it stays legible behind the headline
+     without touching that global layer or any other section. Heaviest over
+     the copy column, easing off toward the schematic so the pattern still
+     shows through there -- texture behind the diagram, not behind the type.
+     Two gradients layered the same way body::before already does: one for
+     the vertical seam against the rules above/below, one for the horizontal
+     wash. color-mix keeps every stop on the theme's own --color-paper, so it
+     re-themes for free. */
+  .contact-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to bottom, var(--color-paper) 0%, transparent 12%, transparent 88%, var(--color-paper) 100%),
+      linear-gradient(
+        115deg,
+        var(--color-paper) 0%,
+        color-mix(in srgb, var(--color-paper) 85%, transparent) 30%,
+        color-mix(in srgb, var(--color-paper) 30%, transparent) 56%,
+        transparent 76%
+      );
+  }
+
+  .contact-main,
+  .contact-rail {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      gap: 4rem;
+    }
+  }
+
+  /* Second (and only other) place Revalia appears at display scale -- the
+     hero opens with it on the name, Contact closes the page's content with
+     it on the invitation to reach out. Capped at the same lg:text-6xl
+     ceiling as .h-display so the hero's name stays the single largest thing
+     on the page; this is "substantially larger," not "biggest." */
+  .h-contact {
+    @apply font-heading text-4xl font-normal leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-6xl;
+  }
+
+  .btn-signal-lg {
+    @apply inline-flex items-center gap-2.5 rounded-lg bg-signal px-6 py-3.5 text-base font-semibold text-paper transition-colors sm:text-lg;
+  }
+
+  .btn-signal:hover,
+  .btn-signal-lg:hover {
+    background-color: var(--color-signal-strong);
+  }
+
+  .contact-schematic {
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .contact-schematic {
+      max-width: none;
+      margin-inline: 0;
+    }
+  }
+
+  .contact-schematic svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .contact-rail {
+    padding-block: 0 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-rail {
+      padding-block: 2rem 0;
+    }
+  }
+
+  /* Connection Schematic: same construction-line vocabulary as the footer
+     wordmark (identical stroke widths and resting opacities on .sc-cross /
+     .sc-ticks / hub outline as .wm-cross / .wm-tick / .wm-outline) so the two
+     technical drawings read as one family. Resting attribute values here are
+     already the complete drawing -- prefers-reduced-motion and no-JS both
+     render this exact state, nothing hidden waiting on script. */
+  .sc-cross {
+    stroke: var(--color-signal);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.55;
+  }
+
+  .sc-ticks line {
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.25;
+  }
+
+  .sc-path {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 1.4;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.22;
+  }
+
+  /* The one straight, unbent connection -- WhatsApp is the established
+     preferred channel sitewide, so its line is the schematic's strongest
+     even at rest, before any interaction adds to it. */
+  .sc-path--primary {
+    stroke: var(--color-signal);
+    opacity: 0.4;
+  }
+
+  .sc-path--minor {
+    opacity: 0.16;
+  }
+
+  .sc-hub rect {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 1.4;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.55;
+  }
+
+  .sc-hub text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--color-ink);
+    opacity: 0.6;
+  }
+
+  .sc-hit {
+    fill: transparent;
+    pointer-events: all;
+  }
+
+  .js .sc-hit {
+    cursor: pointer;
+  }
+
+  .sc-dot {
+    fill: var(--color-signal);
+    opacity: 0.75;
+  }
+
+  .sc-dot--primary {
+    opacity: 0.95;
+  }
+
+  .sc-dot--minor {
+    opacity: 0.55;
+  }
+
+  .sc-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    fill: var(--color-ink-muted);
+    opacity: 0.85;
+  }
+
+  .sc-label--minor {
+    font-size: 11px;
+    opacity: 0.6;
+  }
+
+  .sc-pulse {
+    fill: var(--color-signal);
+    opacity: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .sc-label {
+      font-size: 14px;
+    }
+  }
+
+  /* ============================================================
+     FAQ: technical accordion
+     ============================================================ */
+
+  /* Native <details>/<summary> -- same zero-JS-required disclosure already
+     used for .nav-mobile, so full keyboard support and correct semantics
+     (summary carries an implicit, AT-exposed disclosure role) come from the
+     platform rather than a hand-built aria-expanded state machine. motion.js
+     only layers a height/opacity reveal on top, exactly like the nav drawer. */
+  .faq-item {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .faq-item:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-q span:first-child {
+    @apply text-lg font-semibold tracking-tight text-ink sm:text-2xl;
+  }
+
+  .faq-q:hover span:first-child {
+    color: var(--color-signal);
+  }
+
+  /* Plus, drawn as two lines: the vertical one rotates flat into the
+     horizontal to become a minus, so open/closed is one continuous turn
+     rather than a swapped icon. */
+  .faq-icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background-color: var(--color-ink);
+  }
+
+  .faq-icon::before {
+    width: 16px;
+    height: 1.5px;
+  }
+
+  .faq-icon::after {
+    width: 1.5px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] .faq-icon::after {
+    transform: rotate(90deg);
+  }
+
+  .js .faq-item[open] .faq-icon::after {
+    transition: transform 0.3s ease;
+  }
+
+  .faq-a {
+    padding-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  /* No-JS / reduced-motion fallback: <details> toggles instantly and this
+     rule never runs, so content is simply present with no animation to skip. */
+
+  /* ============================================================
+     Footer: dissolve transition + monumental technical wordmark
+     ============================================================ */
+
+  .site-footer {
+    position: relative;
+    background-color: var(--color-paper-subtle);
+    overflow: hidden;
+  }
+
+  /* Sits directly above the footer's own box (bottom:100%), overlapping the
+     tail end of whatever section precedes it. backdrop-filter + a mask that
+     fades from transparent (top) to opaque (bottom) means the blur strength
+     itself ramps up toward the footer boundary — content stays sharp higher
+     up the page and only diffuses right where it meets the footer. Nothing
+     inside the footer itself is touched (this element occupies only the
+     negative space above the footer's top edge), and no filter is ever
+     applied to the page's real content containers. */
+  .footer-dissolve {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: min(28vh, 260px);
+    pointer-events: none;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  }
+
+  .footer-dissolve::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, var(--color-paper-subtle));
+  }
+
+  /* The wordmark is the one interactive hit area in the footer. Every layer
+     inside it is decorative and must not intercept the pointer, or the ink
+     mask would start stealing the events that drive it the moment it paints.
+     Listeners go on the <svg> once — never on individual letters. */
+  .footer-wordmark {
+    position: relative;
+    width: 100%;
+    line-height: 0;
+    --wm-hairline: clamp(1px, 0.1vw, 1.6px);
+  }
+
+  /* Height comes from the viewBox aspect, not a viewport unit: the glyphs are
+     a designed type system now, so preserveAspectRatio stays at its default
+     and nothing is stretched. Desktop is 8:1, mobile ~2:1. */
+  .footer-wordmark svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: auto;
+    touch-action: pan-y;
+  }
+
+  .wm-rulers,
+  .wm-outline,
+  .wm-extension,
+  .wm-fill,
+  .wm-joint {
+    pointer-events: none;
+  }
+
+  /* Resting state: the block contour drawn as a hairline. The stroke is thin;
+     the glyph shape it traces is not. */
+  .wm-outline {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: var(--wm-hairline);
+    stroke-linejoin: miter;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.5;
+  }
+
+  /* Hover state: the exact same geometry, filled solid, revealed only where
+     the ink mask uncovers it. evenodd is what punches the counters through. */
+  .wm-fill {
+    fill: var(--color-ink);
+    fill-rule: evenodd;
+    stroke: none;
+  }
+
+  .wm-datum {
+    stroke: var(--color-signal);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.4;
+  }
+
+  .wm-tick {
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.28;
+  }
+
+  .wm-extension {
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.16;
+  }
+
+  .wm-cross {
+    stroke: var(--color-signal);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.6;
+  }
+
+  .wm-joint {
+    fill: var(--color-signal);
+    opacity: 0.7;
+  }
+
+  /* No-JS resting state is already correct: outline fully drawn, ink mask
+     collapsed to r=0. Script only ever animates away from this and back. */
 }

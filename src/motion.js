@@ -16,10 +16,13 @@ initPageTransitions()
 initThemeToggle()
 initHeaderScrollState()
 initMobileNav()
+initFooterWordmark()
+initContactSchematic()
 
 if (!reduced) {
   initSplash()
   initHeroIntro()
+  initWorkHeroSlideIn()
   initRoleTypewriter()
   initReveals()
   initPinSteps()
@@ -28,6 +31,7 @@ if (!reduced) {
     initCursor()
   }
   initEvidenceHover()
+  initFaqAccordion()
 }
 
 function initScrollProgress() {
@@ -342,6 +346,53 @@ function initHeroIntro() {
   )
 }
 
+// /work hero: the two cards run in from fully off-canvas — left from the
+// left edge, then, the instant it settles, right from the right edge —
+// each landing with an elastic overshoot-and-shake, like braking hard after
+// a run rather than gliding to a smooth stop. No-op anywhere else (the
+// homepage hero doesn't have these cards).
+function initWorkHeroSlideIn() {
+  const hero = document.querySelector('[data-hero]')
+  if (!hero) return
+
+  const grid = hero.querySelector('.work-hero-grid')
+  const left = hero.querySelector('.work-hero-card--copy')
+  const right = hero.querySelector('.work-hero-card--signal')
+  if (!grid || !left || !right) return
+
+  // The off-canvas travel briefly exceeds the viewport width, which would
+  // otherwise open a horizontal scrollbar for the ~1.8s the sequence runs;
+  // contained only for that window, not permanently, so the cards' resting
+  // box-shadow is never clipped.
+  grid.style.overflow = 'hidden'
+
+  // A plain elastic ease overshoots in proportion to the distance travelled
+  // — over a ~120vw run that reads as a wild several-hundred-pixel swing,
+  // not the "shake a little" the brief asked for. So each card gets its own
+  // nested timeline instead: a hard braking run in (hits its mark with no
+  // overshoot), then a short, rapidly-decaying shudder with its own small,
+  // fixed amplitude — independent of how far the card actually travelled.
+  function shockIn(target, fromX) {
+    const run = gsap.timeline()
+    run.fromTo(target, { x: fromX }, { x: 0, duration: 0.55, ease: 'power4.out' })
+    run.to(target, { x: 16, duration: 0.07, ease: 'power1.inOut' })
+    run.to(target, { x: -11, duration: 0.07, ease: 'power1.inOut' })
+    run.to(target, { x: 6, duration: 0.06, ease: 'power1.inOut' })
+    run.to(target, { x: -3, duration: 0.06, ease: 'power1.inOut' })
+    run.to(target, { x: 0, duration: 0.08, ease: 'power1.inOut' })
+    return run
+  }
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      grid.style.overflow = ''
+    },
+  })
+
+  tl.add(shockIn(left, '-120vw'))
+  tl.add(shockIn(right, '120vw'))
+}
+
 function initRoleTypewriter() {
   const el = document.querySelector('[data-role-text]')
   if (!el) return
@@ -552,5 +603,662 @@ function initLightbox() {
   lightbox.addEventListener('close', () => {
     lightboxImg.src = ''
     lastTrigger?.focus()
+  })
+}
+
+// ===========================================================================
+// Footer wordmark: a monumental "FARHAN SEGUJJA" set in a geometric block
+// alphabet (see tools/build-wordmark.mjs -- the glyphs are closed contours
+// generated from one shared measurement system, not hand-drawn per letter).
+//
+// Three layers over the same <use> layout: a hairline outline (resting), a
+// solid fill revealed only through a pointer-following ink mask (hover), and
+// a construction layer of rulers / ticks / registration crosses.
+//
+// Reactive to prefers-reduced-motion and pointer type via GSAP's own
+// matchMedia rather than the one-time `reduced`/`finePointer` checks above,
+// so it stays correct if either changes live.
+// ===========================================================================
+function initFooterWordmark() {
+  const wordmarks = document.querySelectorAll('[data-wordmark]')
+  if (!wordmarks.length) return
+
+  const mm = gsap.matchMedia()
+
+  mm.add(
+    {
+      isFine: '(pointer: fine)',
+      noPreference: '(prefers-reduced-motion: no-preference)',
+    },
+    (context) => {
+      const { isFine, noPreference } = context.conditions
+      const cleanups = []
+
+      wordmarks.forEach((svg) => {
+        if (!noPreference) return // CSS resting state is already correct
+        cleanups.push(animateWordmarkEntrance(svg))
+        cleanups.push(isFine ? initWordmarkInk(svg) : initWordmarkTapInk(svg))
+      })
+
+      // matchMedia reverts this context on a condition change; each cleanup
+      // only ever touches tweens, listeners and ticker callbacks it created
+      // itself, so nothing else on the page is affected.
+      return () => cleanups.forEach((fn) => fn && fn())
+    }
+  )
+}
+
+// The letterforms live in <defs> as <path>, drawn via <use> -- so the real
+// <path> elements are never descendants of .wm-outline in the light DOM, and
+// querying for "path" under it finds nothing. getTotalLength() only exists on
+// the source path. <use> does inherit stroke-dasharray/-dashoffset down into
+// the referenced content though, so: read the length from the source path,
+// but set the dash properties on the <use> instance (each instance animates
+// independently even though they share one source path).
+function animateWordmarkEntrance(svg) {
+  const outlineUses = svg.querySelectorAll('.wm-outline use')
+  const rulers = svg.querySelectorAll('.wm-datum, .wm-tick, .wm-cross')
+  const extensions = svg.querySelectorAll('.wm-extension line')
+  const joints = svg.querySelectorAll('.wm-joint')
+
+  outlineUses.forEach((use) => {
+    const id = (use.getAttribute('href') || use.getAttribute('xlink:href') || '').slice(1)
+    const source = document.getElementById(id)
+    const len = source ? source.getTotalLength() : 0
+    gsap.set(use, { strokeDasharray: len, strokeDashoffset: len })
+  })
+  gsap.set([rulers, extensions], { opacity: 0 })
+  gsap.set(joints, { scale: 0, transformOrigin: '50% 50%' })
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: svg, start: 'top 88%', once: true },
+  })
+
+  tl.to(rulers, { opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power1.out' })
+  tl.to(outlineUses, { strokeDashoffset: 0, duration: 1.6, stagger: 0.055, ease: 'power2.inOut' }, '-=0.25')
+  tl.to(extensions, { opacity: 1, duration: 0.4, stagger: 0.01 }, '-=0.9')
+  tl.to(joints, { scale: 1, duration: 0.4, stagger: 0.05, ease: 'back.out(2.2)' }, '-=0.7')
+
+  return () => {
+    tl.scrollTrigger && tl.scrollTrigger.kill()
+    tl.kill()
+    // Leave the wordmark drawn rather than half-drawn if the context reverts
+    // mid-entrance.
+    gsap.set(outlineUses, { strokeDasharray: 'none', strokeDashoffset: 0 })
+    gsap.set([rulers, extensions], { opacity: 1 })
+    gsap.set(joints, { scale: 1 })
+  }
+}
+
+// Client -> viewBox coordinates. Recomputed from the live screen CTM on every
+// move, so this stays correct across resize, zoom and scroll with no cached
+// geometry to invalidate.
+function svgPoint(svg, clientX, clientY) {
+  const ctm = svg.getScreenCTM()
+  if (!ctm) return null
+  const pt = svg.createSVGPoint()
+  pt.x = clientX
+  pt.y = clientY
+  const p = pt.matrixTransform(ctm.inverse())
+  return { x: p.x, y: p.y }
+}
+
+// ---------------------------------------------------------------------------
+// Pointer ink.
+//
+// Note on the previous implementation: gsap.quickTo(circle, 'cx', ...) cannot
+// work. `circle.cx` is a read-only SVGAnimatedLength, so GSAP's default
+// property setter assigns to it and the browser silently discards the write
+// -- no error, no movement. The attr plugin (`{attr: {cx}}`) is the only
+// tween route, and quickTo takes a single property name with no plugin path,
+// so there is no quickTo form of it either.
+//
+// So: one gsap.ticker callback owns all three blobs and writes the attributes
+// directly. That also satisfies the harder requirement -- the reveal must
+// stay alive for as long as the pointer is inside, with no tween created per
+// pointermove and nothing that can complete and switch it off. `hovering` is
+// the only thing that gates it, and only pointerleave clears that.
+// ---------------------------------------------------------------------------
+const INK_LAG = [0.28, 0.16, 0.1] // per-blob follow response; lower = more lag
+const INK_SCALE = [1, 0.78, 0.56] // per-blob radius, as a fraction of base
+const INK_EPSILON = 0.015 // fraction of base radius below which ink is invisible
+
+// Sized off the cap height by the generator (data-ink-radius), so retuning
+// the drafting frame's air never changes how much the ink uncovers.
+function inkRadius(svg) {
+  const declared = parseFloat(svg.dataset.inkRadius)
+  return Number.isFinite(declared) ? declared : svg.viewBox.baseVal.height * 0.55
+}
+
+function initWordmarkInk(svg) {
+  const blobs = Array.from(svg.querySelectorAll('.wm-blob'))
+  // The pointer and touch reveals drive the same three mask circles, so only
+  // one of them may ever be bound to a given wordmark. The flag lives on the
+  // element rather than in a module-level WeakSet because every `const` in
+  // this file is declared below the top-level init calls -- reading one from
+  // inside an initialiser hits its temporal dead zone.
+  if (!blobs.length || svg.dataset.wmInk) return null
+  svg.dataset.wmInk = 'pointer'
+
+  const baseRadius = inkRadius(svg)
+  const state = blobs.map(() => ({ x: 0, y: 0, r: 0, primed: false }))
+  const target = { x: 0, y: 0 }
+
+  // A plain object, so the enter/leave tween can never collide with (or be
+  // overwritten by) anything that touches the DOM nodes.
+  const reveal = { amount: 0 }
+  let hovering = false
+  let running = false
+
+  function write(i) {
+    const s = state[i]
+    const b = blobs[i]
+    b.setAttribute('cx', s.x.toFixed(2))
+    b.setAttribute('cy', s.y.toFixed(2))
+    b.setAttribute('r', s.r.toFixed(2))
+  }
+
+  function tick(time, deltaMs) {
+    const dt = Math.min(deltaMs, 50) / 1000 // clamp: tab-restore can hand us a huge delta
+    let alive = reveal.amount > 0.001
+
+    for (let i = 0; i < blobs.length; i++) {
+      const s = state[i]
+      // Frame-rate independent smoothing, so the trail is identical at 60
+      // and 144Hz. Interpolating (rather than restarting a tween) is what
+      // makes a fast flick trail behind the cursor instead of snapping.
+      const k = 1 - Math.pow(1 - INK_LAG[i % INK_LAG.length], dt * 60)
+      s.x += (target.x - s.x) * k
+      s.y += (target.y - s.y) * k
+      const wanted = baseRadius * INK_SCALE[i % INK_SCALE.length] * reveal.amount
+      s.r += (wanted - s.r) * k
+      // The slowest blob decays at its own lag rate, which trails well past
+      // the leave tween; cut the invisible tail so the ticker detaches.
+      if (!hovering && s.r < baseRadius * INK_EPSILON) s.r = 0
+      if (s.r > 0) alive = true
+      write(i)
+    }
+
+    if (!hovering && !alive) {
+      gsap.ticker.remove(tick)
+      running = false
+    }
+  }
+
+  function start() {
+    if (running) return
+    running = true
+    gsap.ticker.add(tick)
+  }
+
+  function onEnter(e) {
+    const p = svgPoint(svg, e.clientX, e.clientY)
+    if (!p) return
+    hovering = true
+    target.x = p.x
+    target.y = p.y
+    // Snap the blobs to the entry point the first time rather than sweeping
+    // them in from wherever they were left.
+    state.forEach((s) => {
+      if (!s.primed) {
+        s.x = p.x
+        s.y = p.y
+        s.primed = true
+      }
+    })
+    start()
+    gsap.to(reveal, { amount: 1, duration: 0.32, ease: 'power2.out', overwrite: true })
+  }
+
+  function onMove(e) {
+    const p = svgPoint(svg, e.clientX, e.clientY)
+    if (!p) return
+    // pointerenter can be missed when the pointer is already over the element
+    // on load, or after a scroll brings the footer up under a stationary
+    // cursor. Treat any move as an implicit enter.
+    if (!hovering) {
+      onEnter(e)
+      return
+    }
+    target.x = p.x
+    target.y = p.y
+  }
+
+  function onLeave() {
+    hovering = false
+    // Fades the reveal out. The ticker keeps interpolating until the radii
+    // reach zero and then removes itself -- state, listeners and blobs all
+    // stay mounted, so re-entering picks straight back up.
+    gsap.to(reveal, { amount: 0, duration: 0.5, ease: 'power2.out', overwrite: true })
+    state.forEach((s) => { s.primed = false })
+  }
+
+  svg.addEventListener('pointerenter', onEnter)
+  svg.addEventListener('pointermove', onMove)
+  svg.addEventListener('pointerleave', onLeave)
+  svg.addEventListener('pointercancel', onLeave)
+
+  return () => {
+    svg.removeEventListener('pointerenter', onEnter)
+    svg.removeEventListener('pointermove', onMove)
+    svg.removeEventListener('pointerleave', onLeave)
+    svg.removeEventListener('pointercancel', onLeave)
+    gsap.ticker.remove(tick)
+    gsap.killTweensOf(reveal)
+    running = false
+    hovering = false
+    reveal.amount = 0
+    state.forEach((s, i) => {
+      s.r = 0
+      write(i)
+    })
+    delete svg.dataset.wmInk
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Touch ink.
+//
+// A touch device has no hover to track, so the reveal is a staged bloom
+// rather than a follower: tap -> a large ink flood opens at the touch point
+// across several letterforms, holds, then dissolves.
+//
+// Why this is sized off the viewBox and not data-ink-radius: the hover reveal
+// is a cursor-sized spotlight -- one cap height, ~15% of the mobile wordmark's
+// width -- because the pointer stays put to move it around, and a patch that
+// size is legible at desk distance under a 1px cursor. A tap gets one shot,
+// at arm's length, under a fingertip that covers the thing it is revealing.
+// At a third of the viewBox width the flood is 2.3x the hover radius (over 5x
+// the area) and washes across most of both lines of the mobile lockup.
+// ---------------------------------------------------------------------------
+const TAP_INK_WIDTH = 0.34 // max radius, as a fraction of the viewBox width
+const TAP_INK_SCALE = [1, 1.18, 0.82] // primary, wider trailing halo, edge
+// Blob centres, offset from the touch point by a fraction of the max radius,
+// so their union reads as one irregular flood and not three concentric discs.
+const TAP_INK_OFFSET = [[0, 0], [0.13, -0.08], [-0.15, 0.11]]
+const TAP_INK_SEED = 0.16 // starting radius, as a fraction of the max
+const TAP_IN = 0.45 // bloom
+const TAP_IN_STAGGER = 0.06 // the halo and edge trail the primary out
+const TAP_HOLD = 0.7 // at full radius; extended while the finger stays down
+const TAP_OUT = 0.65 // dissolve
+const TAP_OUT_STAGGER = 0.03 // and lag it back in, so the edge is last to go
+
+function initWordmarkTapInk(svg) {
+  const blobs = Array.from(svg.querySelectorAll('.wm-blob'))
+  if (!blobs.length || svg.dataset.wmInk) return null
+  svg.dataset.wmInk = 'tap'
+
+  // The authored per-blob opacities are the ink's density stack. Everything
+  // here stays in attribute space (never CSS opacity) so restoring them is a
+  // plain setAttribute -- a style written by a tween would outrank it.
+  const baseOpacity = blobs.map((b) => parseFloat(b.getAttribute('opacity')) || 1)
+
+  let bloomTl = null
+  let dissolveTl = null
+  let hold = null
+  let pointerDown = false
+  let holdElapsed = false // hold ran out while the finger was still down
+
+  function stop() {
+    bloomTl && bloomTl.kill()
+    dissolveTl && dissolveTl.kill()
+    hold && hold.kill()
+    bloomTl = dissolveTl = hold = null
+    holdElapsed = false
+  }
+
+  // Read off the live viewBox at tap time rather than cached at init, in the
+  // same spirit as svgPoint's per-move CTM read: no geometry to invalidate.
+  function maxRadius() {
+    return svg.viewBox.baseVal.width * TAP_INK_WIDTH
+  }
+
+  function dissolve() {
+    dissolveTl = gsap.timeline()
+    dissolveTl.to(blobs, {
+      attr: { r: 0, opacity: 0 },
+      duration: TAP_OUT,
+      stagger: TAP_OUT_STAGGER,
+      ease: 'power2.inOut',
+    })
+  }
+
+  function onDown(e) {
+    if (!e.isPrimary) return
+    const p = svgPoint(svg, e.clientX, e.clientY)
+    if (!p) return
+    pointerDown = true
+
+    // One mask, one set of blobs, reused for the life of the page. A tap
+    // during an existing reveal kills only this wordmark's own tweens and
+    // re-seeds the same three circles at the new point -- no node is created,
+    // and no half-finished dissolve is left queued to snap r back to 0 later.
+    stop()
+    const max = maxRadius()
+    blobs.forEach((b, i) => {
+      const [ox, oy] = TAP_INK_OFFSET[i % TAP_INK_OFFSET.length]
+      b.setAttribute('cx', (p.x + ox * max).toFixed(2))
+      b.setAttribute('cy', (p.y + oy * max).toFixed(2))
+      b.setAttribute('r', (max * TAP_INK_SEED).toFixed(2))
+      b.setAttribute('opacity', baseOpacity[i])
+    })
+
+    bloomTl = gsap.timeline({
+      onComplete: () => {
+        // Hold at full radius. If the finger is still down when it runs out,
+        // wait for it: pointerup only ever releases the hold, it never cuts
+        // the reveal short.
+        hold = gsap.delayedCall(TAP_HOLD, () => {
+          if (pointerDown) holdElapsed = true
+          else dissolve()
+        })
+      },
+    })
+    bloomTl.to(blobs, {
+      attr: { r: (i) => max * TAP_INK_SCALE[i % TAP_INK_SCALE.length] },
+      duration: TAP_IN,
+      stagger: TAP_IN_STAGGER,
+      ease: 'power2.out',
+    })
+  }
+
+  function onUp(e) {
+    if (!e.isPrimary) return
+    pointerDown = false
+    if (holdElapsed) {
+      holdElapsed = false
+      dissolve()
+    }
+  }
+
+  svg.addEventListener('pointerdown', onDown)
+  svg.addEventListener('pointerup', onUp)
+  svg.addEventListener('pointercancel', onUp)
+
+  return () => {
+    svg.removeEventListener('pointerdown', onDown)
+    svg.removeEventListener('pointerup', onUp)
+    svg.removeEventListener('pointercancel', onUp)
+    stop()
+    pointerDown = false
+    blobs.forEach((b, i) => {
+      b.setAttribute('r', '0')
+      b.setAttribute('opacity', baseOpacity[i])
+    })
+    delete svg.dataset.wmInk
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Contact: Connection Schematic.
+//
+// Same construction-line vocabulary as the footer wordmark (.sc-cross /
+// .sc-ticks / hub outline share stroke widths and resting opacities with
+// .wm-cross / .wm-tick / .wm-outline) and the same interaction shape: a fine
+// pointer gets a continuous, lerped proximity follower -- nodes and paths
+// ease toward "activated" rather than snapping, the same per-frame
+// `amount += (wanted - amount) * k` the wordmark ink uses. Touch gets a
+// one-shot bloom/hold/dissolve per tap, the wordmark tap ink's own shape.
+// Both share one pulse -- a dot walked along a path with getPointAtLength(),
+// the native API the wordmark's entrance draw already relies on -- fired
+// once per activation rather than looping, so it reads as a signal sent, not
+// a decoration running in the background.
+// ---------------------------------------------------------------------------
+const SC_PROXIMITY = 130 // svg units the pointer must be within to light a node
+const SC_LERP = 0.18
+const SC_REST_PATH = 0.22
+const SC_REST_PRIMARY = 0.4
+const SC_REST_MINOR = 0.16
+const SC_ACTIVE_PATH = 0.85
+const SC_REST_SCALE = 1
+const SC_ACTIVE_SCALE = 1.35
+const SC_PULSE_DURATION = 0.7
+
+function initContactSchematic() {
+  const svg = document.querySelector('[data-schematic-svg]')
+  if (!svg) return
+
+  const mm = gsap.matchMedia()
+
+  mm.add(
+    {
+      isFine: '(pointer: fine)',
+      noPreference: '(prefers-reduced-motion: no-preference)',
+    },
+    (context) => {
+      const { isFine, noPreference } = context.conditions
+      if (!noPreference) return undefined // CSS resting state is already the complete drawing
+
+      return isFine ? bindSchematicProximity(svg) : bindSchematicTaps(svg)
+    }
+  )
+}
+
+function schematicNodes(svg) {
+  return Array.from(svg.querySelectorAll('.sc-node')).map((g) => ({
+    el: g,
+    key: g.dataset.node,
+    cx: parseFloat(g.dataset.cx),
+    cy: parseFloat(g.dataset.cy),
+    path: svg.querySelector(`.sc-path[data-path="${g.dataset.node}"]`),
+    pulse: svg.querySelector(`.sc-pulse[data-pulse="${g.dataset.node}"]`),
+  }))
+}
+
+function schematicRestingOpacity(path) {
+  if (!path) return 0
+  if (path.classList.contains('sc-path--primary')) return SC_REST_PRIMARY
+  if (path.classList.contains('sc-path--minor')) return SC_REST_MINOR
+  return SC_REST_PATH
+}
+
+// Walks node.pulse from the hub to the node along its own connecting path.
+// Snaps to the path's start point before animating so a pulse fired while an
+// earlier one is still fading never flashes at its previous, unrelated
+// position for a frame.
+function firePulse(node) {
+  if (!node.path || !node.pulse) return
+  const len = node.path.getTotalLength()
+  const start = node.path.getPointAtLength(0)
+  gsap.killTweensOf(node.pulse)
+  gsap.set(node.pulse, { attr: { cx: start.x, cy: start.y }, opacity: 1 })
+
+  const p = { t: 0 }
+  gsap.to(p, {
+    t: 1,
+    duration: SC_PULSE_DURATION,
+    ease: 'power1.inOut',
+    onUpdate: () => {
+      const pt = node.path.getPointAtLength(len * p.t)
+      node.pulse.setAttribute('cx', pt.x.toFixed(2))
+      node.pulse.setAttribute('cy', pt.y.toFixed(2))
+    },
+    onComplete: () => gsap.to(node.pulse, { opacity: 0, duration: 0.25 }),
+  })
+}
+
+function bindSchematicProximity(svg) {
+  const nodes = schematicNodes(svg)
+  if (!nodes.length) return null
+
+  const state = nodes.map(() => ({ amount: 0, pulsed: false }))
+  const target = { x: -9999, y: -9999 }
+  let running = false
+
+  function write(i) {
+    const n = nodes[i]
+    const s = state[i]
+    const scale = SC_REST_SCALE + (SC_ACTIVE_SCALE - SC_REST_SCALE) * s.amount
+    n.el.setAttribute(
+      'transform',
+      `translate(${n.cx} ${n.cy}) scale(${scale.toFixed(3)}) translate(${-n.cx} ${-n.cy})`
+    )
+    if (n.path) {
+      const resting = schematicRestingOpacity(n.path)
+      n.path.style.opacity = resting + (SC_ACTIVE_PATH - resting) * s.amount
+    }
+  }
+
+  function tick() {
+    let alive = false
+    nodes.forEach((n, i) => {
+      const s = state[i]
+      const d = Math.hypot(target.x - n.cx, target.y - n.cy)
+      const wanted = d < SC_PROXIMITY ? 1 - d / SC_PROXIMITY : 0
+      s.amount += (wanted - s.amount) * SC_LERP
+      if (s.amount < 0.02) s.amount = 0
+      else alive = true
+
+      if (wanted > 0.6 && !s.pulsed) {
+        s.pulsed = true
+        firePulse(n)
+      } else if (wanted < 0.2) {
+        s.pulsed = false
+      }
+
+      write(i)
+    })
+
+    if (!alive) {
+      gsap.ticker.remove(tick)
+      running = false
+    }
+  }
+
+  function start() {
+    if (running) return
+    running = true
+    gsap.ticker.add(tick)
+  }
+
+  function onMove(e) {
+    const p = svgPoint(svg, e.clientX, e.clientY)
+    if (!p) return
+    target.x = p.x
+    target.y = p.y
+    start()
+  }
+
+  function onLeave() {
+    target.x = -9999
+    target.y = -9999
+    start()
+  }
+
+  svg.addEventListener('pointermove', onMove)
+  svg.addEventListener('pointerleave', onLeave)
+
+  return () => {
+    svg.removeEventListener('pointermove', onMove)
+    svg.removeEventListener('pointerleave', onLeave)
+    gsap.ticker.remove(tick)
+    running = false
+    nodes.forEach((n, i) => {
+      state[i].amount = 0
+      write(i)
+      n.el.removeAttribute('transform')
+      if (n.path) n.path.style.opacity = ''
+      gsap.killTweensOf(n.pulse)
+      if (n.pulse) gsap.set(n.pulse, { opacity: 0 })
+    })
+  }
+}
+
+// Touch: no proximity to read, only discrete taps -- each node's own hit
+// circle blooms that node and its path to full strength, holds, then relaxes
+// back to the resting drawing. A tap mid-relax kills only that node's own
+// timeline and restarts cleanly, so repeated taps on the same or different
+// nodes always work.
+function bindSchematicTaps(svg) {
+  const nodes = schematicNodes(svg)
+  if (!nodes.length) return null
+
+  const timelines = new Map()
+  const handlers = []
+
+  nodes.forEach((n) => {
+    const hit = n.el.querySelector('.sc-hit')
+    if (!hit) return
+
+    const onDown = (e) => {
+      e.stopPropagation()
+      timelines.get(n.key)?.kill()
+      const resting = schematicRestingOpacity(n.path)
+
+      const tl = gsap.timeline()
+      tl.to(n.el, { transformOrigin: `${n.cx}px ${n.cy}px`, scale: SC_ACTIVE_SCALE, duration: 0.3, ease: 'power2.out' })
+      if (n.path) tl.to(n.path, { opacity: SC_ACTIVE_PATH, duration: 0.3, ease: 'power2.out' }, '<')
+      tl.call(() => firePulse(n))
+      tl.to(n.el, { scale: SC_REST_SCALE, duration: 0.5, ease: 'power2.inOut' }, '+=0.5')
+      if (n.path) tl.to(n.path, { opacity: resting, duration: 0.5, ease: 'power2.inOut' }, '<')
+
+      timelines.set(n.key, tl)
+    }
+
+    hit.addEventListener('pointerdown', onDown)
+    handlers.push({ hit, onDown })
+  })
+
+  return () => {
+    handlers.forEach(({ hit, onDown }) => hit.removeEventListener('pointerdown', onDown))
+    timelines.forEach((tl) => tl.kill())
+    nodes.forEach((n) => {
+      gsap.set(n.el, { clearProps: 'scale,transformOrigin' })
+      if (n.path) gsap.set(n.path, { clearProps: 'opacity' })
+      gsap.killTweensOf(n.pulse)
+      if (n.pulse) gsap.set(n.pulse, { opacity: 0 })
+    })
+  }
+}
+
+// ---------------------------------------------------------------------------
+// FAQ accordion.
+//
+// Layers a height/opacity reveal onto the native <details> disclosure
+// already used for the mobile nav drawer. Only called `if (!reduced)` by the
+// top-level init list, so under prefers-reduced-motion (or with this script
+// absent entirely) <details> just toggles instantly -- fully correct and
+// keyboard-operable with zero JS, exactly like the nav drawer.
+// ---------------------------------------------------------------------------
+function initFaqAccordion() {
+  document.querySelectorAll('[data-faq]').forEach((item) => {
+    const panel = item.querySelector('.faq-a')
+    if (!panel) return
+
+    item.addEventListener('click', (e) => {
+      // Only the summary's own toggle is handled here -- a click on a link
+      // inside an already-open panel (the phone number in the last item)
+      // must reach its own default action, not get cancelled by this.
+      if (e.target.closest('.faq-a')) return
+      e.preventDefault()
+
+      if (item.open) {
+        gsap.to(panel, {
+          height: 0,
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            item.open = false
+            gsap.set(panel, { clearProps: 'height,opacity' })
+          },
+        })
+        return
+      }
+
+      item.open = true
+      const h = panel.scrollHeight
+      gsap.fromTo(
+        panel,
+        { height: 0, opacity: 0 },
+        {
+          height: h,
+          opacity: 1,
+          duration: 0.35,
+          ease: 'power2.out',
+          onComplete: () => gsap.set(panel, { clearProps: 'height' }),
+        }
+      )
+    })
   })
 }
