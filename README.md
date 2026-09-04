@@ -21,7 +21,6 @@ Some of the main work covered on the site includes:
 * **C23 Digital Spotlight** — a community website campaign and multi-site deployment project.
 * **Embiro Technologies** — professional experience involving client websites, QA/UAT, debugging, Git workflows, and software engineering contributions.
 * **Next Media** — a major client website project built with React, Vite, Tailwind CSS, CMS integrations, and dynamic content.
-* **Embiro Operations Platform (EOP)** — testing, bug discovery, feature suggestions, and implementation work including session security, 2FA, responsive fixes, and invoice functionality.
 * **#SheBuilds** — a collection of client websites I implemented during my time at Embiro.
 * Other frontend, Python, and machine-learning projects.
 

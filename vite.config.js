@@ -12,7 +12,6 @@ export default defineConfig({
         main: resolve(root, 'index.html'),
         work: resolve(root, 'work/index.html'),
         c23: resolve(root, 'work/c23/index.html'),
-        nextMedia: resolve(root, 'work/next-media/index.html'),
         embiro: resolve(root, 'experience/embiro/index.html'),
         notFound: resolve(root, '404.html'),
       },
