@@ -399,27 +399,113 @@
       </div>
     </section>
 
-    <!-- About + Education -->
-    <section id="about" class="rule-top container-page py-16 lg:py-20">
-      <div class="grid gap-10 lg:grid-cols-[2fr_1fr]" data-reveal-group>
-        <div>
-          <p class="kicker mb-2">About</p>
-          <h2 class="h-section mb-4">Farhan Segujja</h2>
-          <p class="measure text-ink-muted">
-            Farhan is a Computer Science student and frontend-focused developer at Embiro
-            Technologies, shipping production client work, an independent community campaign,
-            and full-stack fixes inside an existing operations platform.
+    <!-- About: how Farhan thinks, works and develops as an engineer -->
+    <section id="about" class="rule-top about-section container-page py-16 lg:py-20" aria-label="About Farhan">
+      <div class="about-top">
+        <div data-reveal>
+          <h2 class="about-statement">
+            <span class="block">I build software</span>
+            <span class="block">that has to work</span>
+            <span class="block">outside the demo.</span>
+          </h2>
+          <p class="measure mt-6 text-ink-muted sm:text-lg">
+            Most of what I build has to survive real users, real data and real deadlines —
+            not just a demo. I'd rather understand how a system behaves before changing it,
+            keep changes small enough to reason about, and grow deliberately from frontend
+            work toward full-stack and systems thinking.
           </p>
         </div>
-        <div class="space-y-4">
-          <div>
-            <p class="kicker mb-1">Education</p>
-            <p class="text-sm text-ink">Bachelor of Science in Computer Science</p>
-            <p class="text-sm text-ink-muted">Islamic University in Uganda, Kampala Campus · Class of 2027</p>
+
+        <div class="fc-wrap" data-farhan-core aria-hidden="true">
+          <svg viewBox="0 0 480 520" data-farhan-core-svg>
+            <g class="fc-depth-back">
+              <g class="fc-cross" data-rest="0.55"><line x1="18" y1="24" x2="30" y2="24" /><line x1="24" y1="18" x2="24" y2="30" /></g>
+              <g class="fc-cross" data-rest="0.55"><line x1="450" y1="24" x2="462" y2="24" /><line x1="456" y1="18" x2="456" y2="30" /></g>
+              <g class="fc-cross" data-rest="0.55"><line x1="18" y1="500" x2="30" y2="500" /><line x1="24" y1="494" x2="24" y2="506" /></g>
+              <g class="fc-cross" data-rest="0.55"><line x1="450" y1="500" x2="462" y2="500" /><line x1="456" y1="494" x2="456" y2="506" /></g>
+
+              <g class="fc-ticks" data-rest="0.25">
+                <line x1="64" y1="486" x2="64" y2="494" /><line x1="114" y1="486" x2="114" y2="494" />
+                <line x1="164" y1="486" x2="164" y2="494" /><line x1="214" y1="486" x2="214" y2="494" />
+                <line x1="264" y1="486" x2="264" y2="494" /><line x1="314" y1="486" x2="314" y2="494" />
+                <line x1="364" y1="486" x2="364" y2="494" /><line x1="414" y1="486" x2="414" y2="494" />
+              </g>
+
+              <circle class="fc-ring" data-rest="0.18" cx="238" cy="268" r="150" />
+
+              <line class="fc-radial" data-rest="0.28" x1="238" y1="246" x2="238" y2="118" />
+              <line class="fc-radial-tick" data-rest="0.28" x1="228" y1="118" x2="248" y2="118" />
+              <text class="fc-frag-label" data-rest="0.4" x="252" y="121">R150</text>
+            </g>
+
+            <g class="fc-depth-front">
+              <path class="fc-path fc-path--minor" data-rest="0.14" pathLength="1" d="M392,108 Q460,240 410,372" />
+              <path class="fc-path fc-path--minor" data-rest="0.14" pathLength="1" d="M86,150 Q18,275 110,400" />
+
+              <path class="fc-path" data-path="frontend" data-rest="0.22" data-deform="1" data-start="238,268" data-c1="190,210" data-c2="130,175" data-end="86,150" pathLength="1" d="M238,268 C190,210 130,175 86,150" />
+              <path class="fc-path" data-path="systems" data-rest="0.22" pathLength="1" d="M238,268 C300,220 350,150 392,108" />
+              <path class="fc-path fc-path--primary" data-path="fullstack" data-rest="0.42" data-deform="1" data-start="238,268" data-c1="310,300" data-c2="370,345" data-end="410,372" pathLength="1" d="M238,268 C310,300 370,345 410,372" />
+              <path class="fc-path" data-path="product" data-rest="0.22" pathLength="1" d="M238,268 C175,320 140,365 110,400" />
+
+              <circle class="fc-pulse" data-pulse="frontend" r="4" cx="238" cy="268" />
+              <circle class="fc-pulse" data-pulse="systems" r="4" cx="238" cy="268" />
+              <circle class="fc-pulse" data-pulse="fullstack" r="4" cx="238" cy="268" />
+              <circle class="fc-pulse" data-pulse="product" r="4" cx="238" cy="268" />
+
+              <g class="fc-hub">
+                <rect x="221" y="251" width="34" height="34" />
+                <text x="238" y="273" text-anchor="middle">FS</text>
+                <text class="fc-hub-caption" data-rest="0.4" x="238" y="298" text-anchor="middle">CORE</text>
+              </g>
+
+              <g class="fc-node" data-node="frontend" data-cx="86" data-cy="150">
+                <circle class="fc-hit" cx="86" cy="150" r="26" />
+                <circle class="fc-dot" data-rest="0.8" cx="86" cy="150" r="5" />
+                <text class="fc-label" data-rest="0.8" x="86" y="126" text-anchor="middle">FRONTEND</text>
+              </g>
+              <g class="fc-node" data-node="systems" data-cx="392" data-cy="108">
+                <circle class="fc-hit" cx="392" cy="108" r="24" />
+                <circle class="fc-dot" data-rest="0.8" cx="392" cy="108" r="5" />
+                <text class="fc-label" data-rest="0.8" x="392" y="84" text-anchor="middle">SYSTEMS</text>
+              </g>
+              <g class="fc-node" data-node="fullstack" data-cx="410" data-cy="372">
+                <circle class="fc-hit" cx="410" cy="372" r="27" />
+                <circle class="fc-dot fc-dot--primary" data-rest="0.95" cx="410" cy="372" r="6" />
+                <text class="fc-label" data-rest="0.9" x="410" y="402" text-anchor="middle">FULL-STACK</text>
+              </g>
+              <g class="fc-node" data-node="product" data-cx="110" data-cy="400">
+                <circle class="fc-hit" cx="110" cy="400" r="24" />
+                <circle class="fc-dot" data-rest="0.8" cx="110" cy="400" r="5" />
+                <text class="fc-label" data-rest="0.8" x="110" y="430" text-anchor="middle">PRODUCT</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="about-triptych" data-reveal-group>
+        <div class="about-col">
+          <p class="about-label">How I work</p>
+          <div class="space-y-1.5 text-sm text-ink-muted">
+            <p>Clarity over cleverness.</p>
+            <p>Understand the system before changing it.</p>
+            <p>Ship, observe, improve.</p>
           </div>
-          <div>
-            <p class="kicker mb-1">Availability</p>
-            <p class="text-sm text-ink-muted">Open to freelance projects, collaboration and employment opportunities.</p>
+        </div>
+        <div class="about-col">
+          <p class="about-label">Current focus</p>
+          <div class="space-y-1.5 text-sm text-ink-muted">
+            <p>Frontend engineering</p>
+            <p>Full-stack systems</p>
+            <p>Software architecture</p>
+          </div>
+        </div>
+        <div class="about-col">
+          <p class="about-label">Education</p>
+          <div class="space-y-1.5 text-sm text-ink-muted">
+            <p class="text-ink">BSc Computer Science</p>
+            <p>Islamic University in Uganda</p>
+            <p>Class of 2027</p>
           </div>
         </div>
       </div>

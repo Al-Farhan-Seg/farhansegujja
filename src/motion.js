@@ -18,6 +18,7 @@ initHeaderScrollState()
 initMobileNav()
 initFooterWordmark()
 initContactSchematic()
+initFarhanCore()
 
 if (!reduced) {
   initSplash()
@@ -1209,6 +1210,483 @@ function bindSchematicTaps(svg) {
       if (n.pulse) gsap.set(n.pulse, { opacity: 0 })
     })
   }
+}
+
+// ---------------------------------------------------------------------------
+// About: Farhan Core.
+//
+// A bespoke system schematic (radial routes + an orbit ring around a
+// central FS core) that constructs itself once About scrolls into view,
+// then goes idle-ambient (an occasional signal along a random route) and
+// interactive (pointer proximity + light path deformation on desktop, tap
+// on touch) -- the same three-stage shape as the footer wordmark and the
+// Connection Schematic, but its own layout and its own gsap.matchMedia
+// gate, since it needs a ScrollTrigger-driven entrance neither of those do.
+//
+// Resting opacities live on each element's data-rest attribute (see
+// styles.css) rather than duplicated per-class logic, so the entrance
+// timeline, the proximity ticker and the tap timeline all restore the exact
+// same number instead of three independent guesses.
+// ---------------------------------------------------------------------------
+const FC_PROXIMITY = 130
+const FC_LERP = 0.18
+const FC_ACTIVE_PATH = 0.85
+const FC_REST_SCALE = 1
+const FC_ACTIVE_SCALE = 1.35
+const FC_PULSE_DURATION = 0.7
+const FC_DEFORM_RADIUS = 190 // svg units: how close the pointer must be to a deform path's midpoint to pull it
+const FC_DEFORM_MAX = 10 // svg units: max control-point displacement toward the pointer, keeps the curve legible
+
+function initFarhanCore() {
+  const wrap = document.querySelector('[data-farhan-core]')
+  const svg = document.querySelector('[data-farhan-core-svg]')
+  if (!wrap || !svg) return
+
+  const mm = gsap.matchMedia()
+
+  mm.add(
+    {
+      isFine: '(pointer: fine)',
+      noPreference: '(prefers-reduced-motion: no-preference)',
+    },
+    (context) => {
+      const { isFine, noPreference } = context.conditions
+      if (!noPreference) return undefined // CSS resting state is already the complete drawing
+
+      let ambientCleanup = null
+      let interactionCleanup = null
+
+      const entrance = buildFarhanCoreEntrance(svg, () => {
+        ambientCleanup = bindFarhanCoreAmbientPulses(svg)
+        interactionCleanup = isFine ? bindFarhanCoreProximity(svg) : bindFarhanCoreTaps(svg)
+      })
+
+      const parallax = initFarhanCoreParallax(svg)
+
+      return () => {
+        entrance.scrollTrigger?.kill()
+        entrance.kill()
+        ambientCleanup?.()
+        interactionCleanup?.()
+        parallax.forEach((st) => st.kill())
+      }
+    }
+  )
+}
+
+function farhanCoreNodes(svg) {
+  return Array.from(svg.querySelectorAll('.fc-node')).map((g) => ({
+    el: g,
+    key: g.dataset.node,
+    cx: parseFloat(g.dataset.cx),
+    cy: parseFloat(g.dataset.cy),
+    path: svg.querySelector(`.fc-path[data-path="${g.dataset.node}"]`),
+    pulse: svg.querySelector(`.fc-pulse[data-pulse="${g.dataset.node}"]`),
+    dot: g.querySelector('.fc-dot'),
+    hit: g.querySelector('.fc-hit'),
+    label: g.querySelector('.fc-label'),
+  }))
+}
+
+// Walks node.pulse from the hub to the node along its own connecting path --
+// identical technique to the Connection Schematic's firePulse(), see there
+// for why getPointAtLength() rather than MotionPathPlugin (not part of this
+// bundle) or a plain positional tween (wouldn't follow the curve).
+function fireFarhanPulse(node) {
+  if (!node.path || !node.pulse) return
+  const len = node.path.getTotalLength()
+  const start = node.path.getPointAtLength(0)
+  gsap.killTweensOf(node.pulse)
+  gsap.set(node.pulse, { attr: { cx: start.x, cy: start.y }, opacity: 1 })
+
+  const p = { t: 0 }
+  gsap.to(p, {
+    t: 1,
+    duration: FC_PULSE_DURATION,
+    ease: 'power1.inOut',
+    onUpdate: () => {
+      const pt = node.path.getPointAtLength(len * p.t)
+      node.pulse.setAttribute('cx', pt.x.toFixed(2))
+      node.pulse.setAttribute('cy', pt.y.toFixed(2))
+    },
+    onComplete: () => gsap.to(node.pulse, { opacity: 0, duration: 0.25 }),
+  })
+}
+
+// Construction sequence: hub, then each route draws outward with its own
+// node blooming in only once that route's draw completes (a small
+// sub-timeline per branch, staggered against the others), then the two
+// peer-to-peer arcs, then the crosshairs/ticks/ring/measurement fragment,
+// then labels. `pathLength="1"` on every .fc-path normalizes stroke-dash
+// math to 0..1 regardless of each curve's real geometric length, so the
+// draw tween never has to call getTotalLength() itself (fireFarhanPulse
+// still does, for the actual point-following pulse, which pathLength does
+// not affect).
+function buildFarhanCoreEntrance(svg, onSettled) {
+  const hub = svg.querySelector('.fc-hub')
+  const primaryPaths = Array.from(svg.querySelectorAll('.fc-path[data-path]'))
+  const minorPaths = Array.from(svg.querySelectorAll('.fc-path--minor'))
+  const nodes = farhanCoreNodes(svg)
+  const constructionEls = [
+    ...svg.querySelectorAll('.fc-cross'),
+    svg.querySelector('.fc-ticks'),
+    svg.querySelector('.fc-ring'),
+    svg.querySelector('.fc-radial'),
+    svg.querySelector('.fc-radial-tick'),
+  ].filter(Boolean)
+  const labelEls = [
+    ...svg.querySelectorAll('.fc-label'),
+    svg.querySelector('.fc-hub-caption'),
+    svg.querySelector('.fc-frag-label'),
+  ].filter(Boolean)
+
+  // The hub sits inside .fc-depth-front, which the parallax tween also
+  // transforms -- GSAP's own scale/transformOrigin (and svgOrigin) resolve
+  // unpredictably once a transformed ancestor is in play (confirmed via a
+  // large bogus translate baked into the resulting matrix). Sidestepping
+  // that entirely: tween a plain proxy value and write the equivalent
+  // translate/scale/translate matrix onto the `transform` attribute by
+  // hand, exactly the technique bindFarhanCoreProximity's ticker already
+  // uses for the same reason.
+  const hubScale = { s: 0.55 }
+  const writeHub = () =>
+    hub.setAttribute('transform', `translate(238 268) scale(${hubScale.s.toFixed(4)}) translate(-238 -268)`)
+  writeHub()
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: svg, start: 'top 78%' },
+    onComplete: onSettled,
+  })
+
+  // 1. central FS node appears
+  tl.to(hub, { opacity: 1, duration: 0.55, ease: 'power2.out' })
+  tl.to(hubScale, { s: 1, duration: 0.55, ease: 'back.out(1.7)', onUpdate: writeHub }, '<')
+
+  // 2 + 3. structural routes draw outward; each node blooms in once its own
+  // route's draw finishes (sequential inside its own sub-timeline), the four
+  // branches overlapping each other slightly.
+  primaryPaths.forEach((path, i) => {
+    const node = nodes.find((n) => n.key === path.dataset.path)
+    const pathRest = parseFloat(path.dataset.rest || '0.22')
+    const sub = gsap.timeline()
+    sub.to(path, { strokeDashoffset: 0, opacity: pathRest, duration: 0.6, ease: 'power2.inOut' })
+    if (node?.dot) {
+      const dotRest = parseFloat(node.dot.dataset.rest || '0.8')
+      sub.to(node.dot, { opacity: dotRest, duration: 0.3, ease: 'back.out(2)' })
+    }
+    tl.add(sub, i === 0 ? '+=0.15' : '<+=0.16')
+  })
+
+  // 4. secondary paths (peer-to-peer construction arcs) draw
+  if (minorPaths.length) {
+    tl.to(
+      minorPaths,
+      {
+        strokeDashoffset: 0,
+        opacity: (i, t) => parseFloat(t.dataset.rest || '0.14'),
+        duration: 0.7,
+        ease: 'power2.inOut',
+        stagger: 0.12,
+      },
+      '+=0.05'
+    )
+  }
+
+  // 5. small construction geometry: crosshairs, ticks, ring, measurement fragment
+  if (constructionEls.length) {
+    tl.to(
+      constructionEls,
+      {
+        opacity: (i, t) => parseFloat(t.dataset.rest || '0.3'),
+        duration: 0.5,
+        ease: 'power1.out',
+        stagger: 0.02,
+      },
+      '-=0.3'
+    )
+  }
+
+  // 6. labels reveal
+  if (labelEls.length) {
+    tl.to(
+      labelEls,
+      {
+        opacity: (i, t) => parseFloat(t.dataset.rest || '0.8'),
+        y: 0,
+        duration: 0.4,
+        ease: 'power2.out',
+        stagger: 0.04,
+      },
+      '-=0.2'
+    )
+  }
+
+  // 7. ambient interaction becomes active -- see onSettled (tl's onComplete)
+
+  return tl
+}
+
+function bindFarhanCoreAmbientPulses(svg) {
+  const nodes = farhanCoreNodes(svg)
+  if (!nodes.length) return null
+
+  let stopped = false
+  let call = null
+
+  function schedule() {
+    if (stopped) return
+    call = gsap.delayedCall(gsap.utils.random(4.5, 8.5), () => {
+      if (stopped) return
+      if (!document.hidden) fireFarhanPulse(gsap.utils.random(nodes))
+      schedule()
+    })
+  }
+
+  schedule()
+
+  return () => {
+    stopped = true
+    call?.kill()
+  }
+}
+
+// Desktop: one ticker owns both the proximity bloom (scale/opacity toward
+// whichever node the pointer nears, dimming the others) and a very small
+// cursor-ward pull on two routes' Bezier control points -- combined into a
+// single loop rather than two, per the same "no tween per pointermove"
+// constraint the Connection Schematic already established (see its comment
+// on why circle attrs and computed transform strings can't go through
+// quickTo/quickSetter).
+function bindFarhanCoreProximity(svg) {
+  const nodes = farhanCoreNodes(svg)
+  if (!nodes.length) return null
+
+  const deformPaths = Array.from(svg.querySelectorAll('.fc-path[data-deform="1"]')).map((path) => {
+    const [sx, sy] = path.dataset.start.split(',').map(Number)
+    const [c1x, c1y] = path.dataset.c1.split(',').map(Number)
+    const [c2x, c2y] = path.dataset.c2.split(',').map(Number)
+    const [ex, ey] = path.dataset.end.split(',').map(Number)
+    return {
+      path,
+      sx,
+      sy,
+      c1x,
+      c1y,
+      c2x,
+      c2y,
+      ex,
+      ey,
+      midx: (c1x + c2x) / 2,
+      midy: (c1y + c2y) / 2,
+      ox: 0,
+      oy: 0,
+    }
+  })
+
+  const state = nodes.map(() => ({ amount: 0, pulsed: false }))
+  const target = { x: -9999, y: -9999 }
+  let running = false
+
+  function writeNode(i, dimAmount) {
+    const n = nodes[i]
+    const s = state[i]
+    const scale = FC_REST_SCALE + (FC_ACTIVE_SCALE - FC_REST_SCALE) * s.amount
+    n.el.setAttribute(
+      'transform',
+      `translate(${n.cx} ${n.cy}) scale(${scale.toFixed(3)}) translate(${-n.cx} ${-n.cy})`
+    )
+    if (n.path) {
+      const resting = parseFloat(n.path.dataset.rest || '0.22')
+      const boosted = resting + (FC_ACTIVE_PATH - resting) * s.amount
+      n.path.style.opacity = dimAmount > 0 && s.amount < dimAmount * 0.5 ? resting * (1 - dimAmount * 0.5) : boosted
+    }
+    if (n.label) {
+      const restingLabel = parseFloat(n.label.dataset.rest || '0.8')
+      n.label.style.opacity = restingLabel + (1 - restingLabel) * s.amount
+    }
+  }
+
+  function tick() {
+    let alive = false
+    let maxAmount = 0
+
+    nodes.forEach((n, i) => {
+      const s = state[i]
+      const d = Math.hypot(target.x - n.cx, target.y - n.cy)
+      const wanted = d < FC_PROXIMITY ? 1 - d / FC_PROXIMITY : 0
+      s.amount += (wanted - s.amount) * FC_LERP
+      if (s.amount < 0.02) s.amount = 0
+      else alive = true
+      if (s.amount > maxAmount) maxAmount = s.amount
+
+      if (wanted > 0.6 && !s.pulsed) {
+        s.pulsed = true
+        fireFarhanPulse(n)
+      } else if (wanted < 0.2) {
+        s.pulsed = false
+      }
+    })
+
+    nodes.forEach((_, i) => writeNode(i, maxAmount))
+
+    deformPaths.forEach((d) => {
+      const dx = target.x - d.midx
+      const dy = target.y - d.midy
+      const dist = Math.hypot(dx, dy)
+      // pull -> 1 as the pointer approaches the path's midpoint, -> 0 at
+      // FC_DEFORM_RADIUS away, so the displacement grows as the pointer gets
+      // CLOSER (a unit vector toward the pointer, scaled by that closeness)
+      // rather than growing with raw distance.
+      const pull = dist < FC_DEFORM_RADIUS ? 1 - dist / FC_DEFORM_RADIUS : 0
+      const ux = dist > 0.001 ? dx / dist : 0
+      const uy = dist > 0.001 ? dy / dist : 0
+      const wantedX = gsap.utils.clamp(-FC_DEFORM_MAX, FC_DEFORM_MAX, ux * pull * FC_DEFORM_MAX)
+      const wantedY = gsap.utils.clamp(-FC_DEFORM_MAX, FC_DEFORM_MAX, uy * pull * FC_DEFORM_MAX)
+      d.ox += (wantedX - d.ox) * FC_LERP
+      d.oy += (wantedY - d.oy) * FC_LERP
+      if (Math.abs(d.ox) > 0.05 || Math.abs(d.oy) > 0.05) alive = true
+
+      const c1x = d.c1x + d.ox
+      const c1y = d.c1y + d.oy
+      const c2x = d.c2x + d.ox * 0.6
+      const c2y = d.c2y + d.oy * 0.6
+      d.path.setAttribute(
+        'd',
+        `M${d.sx},${d.sy} C${c1x.toFixed(2)},${c1y.toFixed(2)} ${c2x.toFixed(2)},${c2y.toFixed(2)} ${d.ex},${d.ey}`
+      )
+    })
+
+    if (!alive) {
+      gsap.ticker.remove(tick)
+      running = false
+    }
+  }
+
+  function start() {
+    if (running) return
+    running = true
+    gsap.ticker.add(tick)
+  }
+
+  function onMove(e) {
+    const p = svgPoint(svg, e.clientX, e.clientY)
+    if (!p) return
+    target.x = p.x
+    target.y = p.y
+    start()
+  }
+
+  function onLeave() {
+    target.x = -9999
+    target.y = -9999
+    start()
+  }
+
+  svg.addEventListener('pointermove', onMove)
+  svg.addEventListener('pointerleave', onLeave)
+
+  return () => {
+    svg.removeEventListener('pointermove', onMove)
+    svg.removeEventListener('pointerleave', onLeave)
+    gsap.ticker.remove(tick)
+    running = false
+    nodes.forEach((n, i) => {
+      state[i].amount = 0
+      n.el.removeAttribute('transform')
+      if (n.path) n.path.style.opacity = ''
+      if (n.label) n.label.style.opacity = ''
+      gsap.killTweensOf(n.pulse)
+      if (n.pulse) gsap.set(n.pulse, { opacity: 0 })
+    })
+    deformPaths.forEach((d) => {
+      d.path.setAttribute('d', `M${d.sx},${d.sy} C${d.c1x},${d.c1y} ${d.c2x},${d.c2y} ${d.ex},${d.ey}`)
+    })
+  }
+}
+
+// Touch: no proximity to read, only discrete taps -- mirrors
+// bindSchematicTaps exactly (see there for why a tap kills its own node's
+// running timeline before restarting, rather than guarding with a flag).
+function bindFarhanCoreTaps(svg) {
+  const nodes = farhanCoreNodes(svg)
+  if (!nodes.length) return null
+
+  const timelines = new Map()
+  const handlers = []
+
+  nodes.forEach((n) => {
+    if (!n.hit) return
+
+    const onDown = (e) => {
+      e.stopPropagation()
+      timelines.get(n.key)?.kill()
+      const pathRest = parseFloat(n.path?.dataset.rest || '0.22')
+      const labelRest = parseFloat(n.label?.dataset.rest || '0.8')
+
+      // Same transform-attribute-by-hand technique as the hub's entrance and
+      // the proximity ticker's writeNode() -- n.el is a descendant of the
+      // parallax-transformed .fc-depth-front, where GSAP's own scale +
+      // (sv)transformOrigin resolves incorrectly (see buildFarhanCoreEntrance).
+      const scaleProxy = { s: FC_REST_SCALE }
+      const writeScale = () =>
+        n.el.setAttribute(
+          'transform',
+          `translate(${n.cx} ${n.cy}) scale(${scaleProxy.s.toFixed(3)}) translate(${-n.cx} ${-n.cy})`
+        )
+
+      const tl = gsap.timeline()
+      tl.to(scaleProxy, { s: FC_ACTIVE_SCALE, duration: 0.3, ease: 'power2.out', onUpdate: writeScale })
+      if (n.path) tl.to(n.path, { opacity: FC_ACTIVE_PATH, duration: 0.3, ease: 'power2.out' }, '<')
+      if (n.label) tl.to(n.label, { opacity: 1, duration: 0.3, ease: 'power2.out' }, '<')
+      tl.call(() => fireFarhanPulse(n))
+      tl.to(scaleProxy, { s: FC_REST_SCALE, duration: 0.5, ease: 'power2.inOut', onUpdate: writeScale }, '+=0.4')
+      if (n.path) tl.to(n.path, { opacity: pathRest, duration: 0.5, ease: 'power2.inOut' }, '<')
+      if (n.label) tl.to(n.label, { opacity: labelRest, duration: 0.5, ease: 'power2.inOut' }, '<')
+
+      timelines.set(n.key, tl)
+    }
+
+    n.hit.addEventListener('pointerdown', onDown)
+    handlers.push({ hit: n.hit, onDown })
+  })
+
+  return () => {
+    handlers.forEach(({ hit, onDown }) => hit.removeEventListener('pointerdown', onDown))
+    timelines.forEach((tl) => tl.kill())
+    nodes.forEach((n) => {
+      n.el.removeAttribute('transform')
+      if (n.path) gsap.set(n.path, { clearProps: 'opacity' })
+      if (n.label) gsap.set(n.label, { clearProps: 'opacity' })
+      gsap.killTweensOf(n.pulse)
+      if (n.pulse) gsap.set(n.pulse, { opacity: 0 })
+    })
+  }
+}
+
+// Scroll depth: the construction marks (crosshairs/ticks/ring/measurement
+// fragment) and the structural geometry (hub/routes/nodes) drift a few
+// pixels apart while About scrolls through -- the sitewide hex pattern
+// behind everything is `position:fixed` (see styles.css), so it is already
+// the "doesn't move with scroll" end of this same depth effect for free.
+function initFarhanCoreParallax(svg) {
+  const back = svg.querySelector('.fc-depth-back')
+  const front = svg.querySelector('.fc-depth-front')
+  const triggers = []
+
+  ;[
+    [back, -7, 7],
+    [front, 9, -9],
+  ].forEach(([el, from, to]) => {
+    if (!el) return
+    const tween = gsap.fromTo(
+      el,
+      { y: from },
+      { y: to, ease: 'none', scrollTrigger: { trigger: svg, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }
+    )
+    triggers.push(tween.scrollTrigger)
+  })
+
+  return triggers
 }
 
 // ---------------------------------------------------------------------------

@@ -376,6 +376,43 @@
   .js:not(.motion-reduced) .pin-steps [data-step]:not(:first-child) {
     opacity: 0;
   }
+
+  /* Farhan Core (About graphic): pre-entrance hidden state only. The resting
+     values these override live unconditionally in @layer components, so
+     no-JS and reduced-motion visitors get the complete, correct drawing with
+     nothing to skip -- exactly the same contract as [data-reveal] above and
+     the Connection Schematic's .sc-* rest state. */
+  /* Scale-in is written to the transform attribute by hand in JS (see
+     buildFarhanCoreEntrance) rather than via a CSS transform, so this only
+     needs to hide opacity -- letting CSS also drive the scale would fight
+     the attribute writes once the timeline starts. */
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-hub {
+    opacity: 0;
+  }
+
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-path {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-dot {
+    opacity: 0;
+  }
+
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-label,
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-hub-caption,
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-frag-label {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-cross,
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-ticks,
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-ring,
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-radial,
+  .js:not(.motion-reduced) [data-farhan-core-svg] .fc-radial-tick {
+    opacity: 0;
+  }
 }
 
 @layer components {
@@ -1132,4 +1169,240 @@
 
   /* No-JS resting state is already correct: outline fully drawn, ink mask
      collapsed to r=0. Script only ever animates away from this and back. */
+
+  /* ============================================================
+     About: editorial statement + Farhan Core system schematic
+     ============================================================ */
+
+  .about-section {
+    position: relative;
+    overflow-x: clip;
+  }
+
+  .about-top {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .about-top {
+      grid-template-columns: 3fr 2fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Deliberately not .h-section / .kicker: every other section on the page
+     announces itself with that eyebrow-plus-heading pair, so About takes a
+     different shape on purpose -- the statement itself is the section's
+     identity, not a labeled block. Nunito, not Revalia: Revalia is reserved
+     for the two display-scale headings (hero name, Contact's invitation) so
+     About reads as its own thing rather than a third repetition of either. */
+  .about-statement {
+    @apply text-3xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl lg:text-5xl;
+  }
+
+  .fc-wrap {
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .fc-wrap {
+      max-width: none;
+      margin-inline: 0;
+    }
+  }
+
+  .fc-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-triptych {
+    display: grid;
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-rule);
+    gap: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .about-triptych {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .about-col + .about-col {
+      border-left: 1px solid var(--color-rule);
+      padding-left: 2rem;
+    }
+  }
+
+  /* Small registration-mark crosshair in place of an eyebrow label -- ties
+     the triptych headers to the schematic's own construction-mark vocabulary
+     instead of reusing .kicker (Sour Gummy, playful) which every other
+     section's eyebrow already owns. */
+  .about-label {
+    position: relative;
+    margin-bottom: 0.85rem;
+    padding-left: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .about-label::before,
+  .about-label::after {
+    content: "";
+    position: absolute;
+    background-color: var(--color-signal);
+  }
+
+  .about-label::before {
+    left: 0;
+    top: 50%;
+    width: 8px;
+    height: 1px;
+    transform: translateY(-0.5px);
+  }
+
+  .about-label::after {
+    left: 3.5px;
+    top: calc(50% - 4px);
+    width: 1px;
+    height: 8px;
+  }
+
+  /* Farhan Core: a radial system map (curved routes, an orbit ring, a
+     measurement fragment) around a central FS core, sharing the resting
+     stroke/opacity vocabulary of the footer wordmark and Connection
+     Schematic without sharing their layout -- Contact's schematic is an
+     orthogonal routing bus, this is a curved, radial identity map. Each
+     animatable element carries its own resting value in data-rest so the
+     entrance timeline and the proximity ticker restore exactly this state
+     instead of duplicating magic numbers in JS. */
+  .fc-path {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.22;
+  }
+
+  .fc-path--primary {
+    stroke: var(--color-signal);
+    opacity: 0.42;
+  }
+
+  .fc-path--minor {
+    opacity: 0.14;
+  }
+
+  .fc-hub rect {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 1.6;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.6;
+  }
+
+  .fc-hub text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    fill: var(--color-ink);
+    opacity: 0.78;
+  }
+
+  .fc-hub-caption {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+    fill: var(--color-ink-muted);
+    opacity: 0.4;
+  }
+
+  .fc-hit {
+    fill: transparent;
+    pointer-events: all;
+  }
+
+  .js .fc-hit {
+    cursor: pointer;
+  }
+
+  .fc-dot {
+    fill: var(--color-signal);
+    opacity: 0.8;
+  }
+
+  .fc-dot--primary {
+    opacity: 0.95;
+  }
+
+  .fc-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    fill: var(--color-ink-muted);
+    opacity: 0.8;
+  }
+
+  .fc-pulse {
+    fill: var(--color-signal);
+    opacity: 0;
+  }
+
+  .fc-cross {
+    stroke: var(--color-signal);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.55;
+  }
+
+  .fc-ticks line {
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.25;
+  }
+
+  .fc-ring {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    stroke-dasharray: 2 7;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.18;
+  }
+
+  .fc-radial,
+  .fc-radial-tick {
+    stroke: var(--color-ink);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.28;
+  }
+
+  .fc-frag-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    fill: var(--color-ink-muted);
+    opacity: 0.4;
+  }
+
+  @media (min-width: 1024px) {
+    .fc-label {
+      font-size: 13px;
+    }
+  }
 }
