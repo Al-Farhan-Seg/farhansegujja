@@ -1567,3 +1567,9 @@
 .motion-reduced .site-ticker-pause { display: none; }
 .motion-reduced .site-ticker-item { padding: 0; white-space: normal; text-align: center; }
 .motion-reduced .site-ticker-item::after { display: none; }
+
+/* After the deadline the ticker is one static, centred line. */
+.site-ticker.is-closed .site-ticker-track { display: block; animation: none; width: auto; }
+.site-ticker.is-closed .site-ticker-group { min-width: 0; justify-content: center; padding: 0.55rem 1rem; }
+.site-ticker.is-closed .site-ticker-item { padding: 0; white-space: normal; text-align: center; text-decoration: none; }
+.site-ticker.is-closed .site-ticker-item::after { display: none; }

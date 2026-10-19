@@ -49,11 +49,6 @@
   box-shadow: var(--shadow-card);
 }
 
-.sales-highlight:last-child {
-  grid-column: 1 / -1;
-  min-height: 5.5rem;
-}
-
 .sales-highlight--signal {
   grid-column: 1 / -1;
   min-height: 9rem;
@@ -107,69 +102,41 @@
   color: var(--color-ink);
 }
 
+.sales-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 0.25rem;
+  border-radius: 0.85rem;
+  background: var(--color-signal);
+  color: var(--color-paper);
+}
+
+.sales-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
 .sales-step-num {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--color-signal);
 }
 
-.sales-card--featured {
-  border-color: var(--color-signal);
-}
-
-/* ---------- About: clarity panel ---------- */
-
-.sales-clarity {
-  padding: 1.5rem;
-  border: 1px solid var(--color-rule);
-  border-radius: 1rem;
-  background: var(--color-paper-subtle);
-  box-shadow: var(--shadow-card);
-}
-
-.sales-clarity-title {
-  margin-bottom: 1rem;
-  font-family: var(--font-playful);
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.sales-support {
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--color-signal);
   color: var(--color-ink-muted);
 }
 
-.sales-clarity-list {
-  display: grid;
-  gap: 0.9rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.45;
+.sales-support strong {
   color: var(--color-ink);
 }
 
-.sales-clarity-list li {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.sales-clarity-mark {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.4rem;
-  height: 1.4rem;
-  border-radius: 999px;
-  background: var(--color-signal);
-  color: var(--color-paper);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.sales-clarity-mark--no {
-  background: transparent;
-  border: 1.5px solid var(--color-ink-muted);
-  color: var(--color-ink-muted);
+.sales-card--featured {
+  border-color: var(--color-signal);
 }
 
 /* ---------- Earnings ---------- */
@@ -303,76 +270,6 @@
   color: var(--color-ink);
 }
 
-/* ---------- Who should apply ---------- */
-
-.sales-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  padding: 0;
-  list-style: none;
-}
-
-.sales-chip {
-  padding: 0.55rem 1rem;
-  border: 1.5px solid var(--color-rule);
-  border-radius: 999px;
-  background: var(--color-paper-subtle);
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-ink);
-}
-
-/* ---------- Process ---------- */
-
-.sales-process {
-  display: grid;
-  gap: 1.5rem;
-  padding: 0;
-  list-style: none;
-  counter-reset: none;
-}
-
-@media (min-width: 768px) {
-  .sales-process {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem;
-  }
-}
-
-.sales-process-step {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.sales-process-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 999px;
-  background: var(--color-signal);
-  color: var(--color-paper);
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-}
-
-@media (min-width: 768px) {
-  /* Connector from each step's number to the next. */
-  .sales-process-step:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 1.25rem;
-    left: 3.25rem;
-    right: -1.5rem;
-    border-top: 1.5px dashed var(--color-rule);
-  }
-}
-
 /* ---------- Application ---------- */
 
 .sales-apply {
@@ -391,31 +288,6 @@
     position: sticky;
     top: 8rem;
   }
-}
-
-.sales-apply-points {
-  display: grid;
-  gap: 0.6rem;
-  padding: 0;
-  list-style: none;
-  font-size: 0.95rem;
-  color: var(--color-ink-muted);
-}
-
-.sales-apply-points li {
-  position: relative;
-  padding-left: 1.4rem;
-}
-
-.sales-apply-points li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 999px;
-  background: var(--color-signal);
 }
 
 .sales-form-card {
@@ -639,4 +511,137 @@ textarea.sales-input {
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--color-ink);
+}
+
+/* ---------- Countdown (hero) ---------- */
+
+.sales-countdown {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.sales-countdown[hidden],
+.sales-closed-note[hidden] {
+  display: none;
+}
+
+.sales-countdown-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.sales-countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 4.75rem));
+  gap: 0.5rem;
+}
+
+.sales-cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.6rem 0.25rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.75rem;
+  background: var(--color-paper-subtle);
+}
+
+.sales-cd-num {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+
+.sales-cd-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.sales-success-mark svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/* ---------- CTA arrows ---------- */
+
+.sales-arrow {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.work-cta:hover .sales-arrow,
+.work-cta:focus-visible .sales-arrow {
+  transform: translateX(3px);
+}
+
+/* ---------- Extra form controls ---------- */
+
+select.sales-input {
+  cursor: pointer;
+}
+
+.sales-fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sales-fieldset:focus-visible {
+  outline-offset: 6px;
+}
+
+.sales-radios {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+@media (min-width: 640px) {
+  .sales-radios {
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+  }
+}
+
+.sales-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.9rem;
+  padding: 0.5rem 0.9rem;
+  border: 1.5px solid var(--color-rule);
+  border-radius: 0.75rem;
+  background: var(--color-paper);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.sales-radio:hover {
+  border-color: var(--color-ink-muted);
+}
+
+.sales-radio:has(input:checked) {
+  border-color: var(--color-signal);
+}
+
+.sales-radio:has(input:focus-visible) {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+.sales-radio input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--color-signal);
 }

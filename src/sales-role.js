@@ -5,6 +5,15 @@
 // access keys are designed to be public, but they live in config rather than
 // in this file. Applicant data is never logged to the console or analytics.
 
+import { applicationsClosed, msUntilDeadline } from './recruitment.js'
+
+// LIMITATION: the deadline is enforced in the browser only (countdown, locked
+// form, and a check right before every submit). Client-side code cannot stop
+// someone posting straight to the Web3Forms API, so for a strict cutoff also
+// disable the form (or rotate/delete the access key) in the Web3Forms
+// dashboard after the deadline, or move submission behind server-side logic.
+// Visitors with a wrong device clock can also see a shifted countdown.
+
 const ACCESS_KEY = (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '').trim()
 const ENDPOINT = 'https://api.web3forms.com/submit'
 const REQUEST_TIMEOUT_MS = 20000
@@ -13,6 +22,7 @@ const WHATSAPP_URL = 'https://wa.me/256754882329'
 const form = document.getElementById('apply-form')
 
 if (form) initApplicationForm(form)
+initRecruitmentDeadline()
 
 function initApplicationForm(form) {
   const submitBtn = form.querySelector('#submit-btn')
@@ -27,7 +37,8 @@ function initApplicationForm(form) {
   const fields = {
     name: { el: form.elements.name, check: checkName },
     whatsapp: { el: form.elements.whatsapp, check: checkWhatsapp },
-    course: { el: form.elements.course, check: checkCourse },
+    availability: { el: form.elements.availability, check: checkRequiredChoice('Please choose your weekly availability.') },
+    calling: { el: form.querySelector('#f-calling'), check: checkRadioGroup('Please choose how comfortable you are with cold-calling.') },
     scenario: { el: form.elements.scenario, check: checkLongAnswer('Tell me how you would respond to the director.') },
     clients: { el: form.elements.clients, check: checkLongAnswer('Tell me how you would find your first five potential clients.') },
     terms: { el: form.elements.terms, check: checkTicked('Please confirm you understand the commission-only arrangement.') },
@@ -56,6 +67,12 @@ function initApplicationForm(form) {
 
     hideFormError()
 
+    // Re-check the deadline at the moment of submission, not just on load.
+    if (applicationsClosed()) {
+      closeApplications()
+      return
+    }
+
     let firstInvalid = null
     for (const field of Object.values(fields)) {
       field.touched = true
@@ -77,6 +94,13 @@ function initApplicationForm(form) {
       showFormError(
         'Online applications are not open yet. Please message me on <a href="' + WHATSAPP_URL + '">WhatsApp</a> and I will help you apply.'
       )
+      return
+    }
+
+    // Validation can take a while (a person fixing fields); check once more
+    // immediately before any request is started.
+    if (applicationsClosed()) {
+      closeApplications()
       return
     }
 
@@ -103,9 +127,11 @@ function initApplicationForm(form) {
       botcheck: '',
       'Full name': name,
       'WhatsApp number': normalisePhone(value('whatsapp')),
-      'Course and year of study': value('course'),
+      'Weekly availability': value('availability'),
       'Previous sales experience': value('experience') || 'Not provided',
+      'Cold-calling confidence': value('calling'),
       'Scenario: school director says no website needed': value('scenario'),
+      'How they would respond to "our websites are too expensive"': value('objection') || 'Not provided',
       'How they would find their first five clients': value('clients'),
       'Acknowledged commission-only terms': 'Yes',
       'Consented to privacy notice and processing': 'Yes',
@@ -216,10 +242,6 @@ function checkWhatsapp(value) {
   return ''
 }
 
-function checkCourse(value) {
-  return value.trim() ? '' : 'Please tell me your course and year of study.'
-}
-
 function checkLongAnswer(emptyMessage) {
   return (value) => {
     const v = value.trim()
@@ -227,6 +249,15 @@ function checkLongAnswer(emptyMessage) {
     if (v.length < 30) return 'Please write a little more, at least a couple of sentences.'
     return ''
   }
+}
+
+function checkRequiredChoice(message) {
+  return (value) => (value ? '' : message)
+}
+
+// The "field" is the fieldset; valid when one of its radios is selected.
+function checkRadioGroup(message) {
+  return (_value, el) => (el.querySelector('input:checked') ? '' : message)
 }
 
 function checkTicked(message) {
@@ -259,4 +290,80 @@ function normalisePhone(raw) {
 
   if (digits.startsWith('256')) return /^256[1-9]\d{8}$/.test(digits) ? '+' + digits : null
   return /^[1-9]\d{7,14}$/.test(digits) ? '+' + digits : null
+}
+
+/* ---------- Deadline: countdown and closed state ---------- */
+
+function initRecruitmentDeadline() {
+  const countdown = document.querySelector('[data-countdown]')
+  const cells = countdown
+    ? {
+        days: countdown.querySelector('[data-cd="days"]'),
+        hours: countdown.querySelector('[data-cd="hours"]'),
+        minutes: countdown.querySelector('[data-cd="minutes"]'),
+        seconds: countdown.querySelector('[data-cd="seconds"]'),
+      }
+    : null
+  let timer = null
+
+  function tick() {
+    if (applicationsClosed()) {
+      clearInterval(timer)
+      closeApplications()
+      return
+    }
+    if (!cells) return
+    const total = Math.floor(msUntilDeadline() / 1000)
+    const pad = (n) => String(n).padStart(2, '0')
+    cells.days.textContent = pad(Math.floor(total / 86400))
+    cells.hours.textContent = pad(Math.floor((total % 86400) / 3600))
+    cells.minutes.textContent = pad(Math.floor((total % 3600) / 60))
+    cells.seconds.textContent = pad(total % 60)
+  }
+
+  tick()
+  if (applicationsClosed()) return
+  timer = setInterval(tick, 1000)
+  // Timers are throttled in background tabs; re-check as soon as the tab is back.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) tick()
+  })
+}
+
+// Idempotent. Swaps the form for the closed message (unless this visitor has
+// just submitted successfully, in which case their confirmation stays) and
+// stops the page encouraging applications.
+function closeApplications() {
+  const form = document.getElementById('apply-form')
+  const closedPanel = document.getElementById('apply-closed')
+  const success = document.getElementById('apply-success')
+  if (!form || !closedPanel) return
+
+  document.documentElement.classList.add('applications-closed')
+  document.getElementById('submit-btn').disabled = true
+
+  if (success.hidden) {
+    form.hidden = true
+    closedPanel.hidden = false
+  }
+
+  const heading = document.querySelector('[data-apply-heading]')
+  if (heading) heading.textContent = 'Applications closed'
+  const lead = document.querySelector('[data-apply-lead]')
+  if (lead) lead.hidden = true
+
+  const countdown = document.querySelector('[data-countdown]')
+  if (countdown) countdown.hidden = true
+  const positions = document.querySelector('[data-positions-note]')
+  if (positions) positions.hidden = true
+  const note = document.querySelector('[data-closed-note]')
+  if (note) note.hidden = false
+
+  const cta = document.querySelector('[data-apply-cta]')
+  if (cta) {
+    const closedLabel = document.createElement('span')
+    closedLabel.className = 'work-cta work-cta--ghost'
+    closedLabel.textContent = 'Applications closed'
+    cta.replaceWith(closedLabel)
+  }
 }
