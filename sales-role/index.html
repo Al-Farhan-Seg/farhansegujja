@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f4ec" />
+
+  <script>
+    (function (html) {
+      html.classList.add('js');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        html.classList.add('motion-reduced');
+      }
+      var theme = 'light';
+      try {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'dark' || stored === 'umber' || stored === 'light') {
+          theme = stored;
+          html.setAttribute('data-theme', theme);
+        }
+      } catch (e) {}
+      var themeColors = { light: '#f7f4ec', dark: '#0f172b', umber: '#1c1917' };
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', themeColors[theme]);
+    })(document.documentElement);
+  </script>
+
+  <title>Sales Representative Opportunity | Farhan Segujja</title>
+
+  <meta
+    name="description"
+    content="An independent, commission-based opportunity for university students: earn 15–20% introducing businesses and organizations to professional website solutions. No technical experience required."
+  />
+
+  <link rel="canonical" href="https://farhansegujja.com/sales-role/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sales Representative Opportunity | Farhan Segujja" />
+  <meta
+    property="og:description"
+    content="Earn 15–20% commission introducing businesses to professional website solutions. Flexible, student-friendly, no technical experience required."
+  />
+  <meta property="og:url" content="https://farhansegujja.com/sales-role/" />
+  <meta property="og:image" content="https://farhansegujja.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://farhansegujja.com/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preload" href="/fonts/nunito.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/revalia.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/sour-gummy.woff2" as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="stylesheet" href="/src/sales-role.css" />
+</head>
+<body>
+  <div class="page-transition" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <!-- Site-wide ticker: sits inside the sticky header and leads to the student sales opportunity. -->
+    <div class="site-ticker" data-ticker>
+      <a
+        href="#apply"
+        class="site-ticker-link"
+        aria-label="Student sales representative opportunity: now recruiting 1 to 2 students, 15 to 20 percent commission, flexible hours, no technical experience required. Go to the application form."
+      >
+        <span class="site-ticker-track" aria-hidden="true">
+          <span class="site-ticker-group">
+            <span class="site-ticker-item">Now recruiting: 1–2 student sales representatives</span>
+            <span class="site-ticker-item site-ticker-item--extra">15–20% commission</span>
+            <span class="site-ticker-item site-ticker-item--extra">Flexible hours around your studies</span>
+            <span class="site-ticker-item site-ticker-item--extra">No technical experience required</span>
+            <span class="site-ticker-item site-ticker-item--cta">Apply below →</span>
+          </span>
+          <span class="site-ticker-group site-ticker-group--copy">
+            <span class="site-ticker-item">Now recruiting: 1–2 student sales representatives</span>
+            <span class="site-ticker-item site-ticker-item--extra">15–20% commission</span>
+            <span class="site-ticker-item site-ticker-item--extra">Flexible hours around your studies</span>
+            <span class="site-ticker-item site-ticker-item--extra">No technical experience required</span>
+            <span class="site-ticker-item site-ticker-item--cta">Apply below →</span>
+          </span>
+        </span>
+      </a>
+      <button type="button" class="site-ticker-pause" data-ticker-pause aria-pressed="false" aria-label="Pause scrolling banner"></button>
+    </div>
+    <div class="container-page flex flex-wrap items-center justify-between gap-4 py-4">
+      <a href="/" class="inline-flex items-center" aria-label="Farhan Segujja">
+        <img src="/favicon.svg" alt="" width="40" height="40" class="h-10 w-10" />
+      </a>
+      <nav aria-label="Primary" class="hidden lg:block">
+        <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-muted">
+          <li><a href="/work/" class="hover:text-ink">Work</a></li>
+          <li><a href="/#experience" class="hover:text-ink">Experience</a></li>
+          <li><a href="/#about" class="hover:text-ink">About</a></li>
+          <li><a href="/#contact" class="hover:text-ink">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" data-theme-toggle class="theme-toggle" aria-label="Change color theme">
+          <svg data-theme-icon="light" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg data-theme-icon="dark" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg data-theme-icon="umber" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2c4 5 7 9.5 7 13a7 7 0 0 1-14 0c0-3.5 3-8 7-13z"></path>
+          </svg>
+          <span data-theme-toggle-label></span>
+        </button>
+        <details class="nav-mobile">
+          <summary class="nav-toggle" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </summary>
+          <nav aria-label="Primary (mobile)" class="nav-drawer">
+            <ul class="flex flex-col gap-1">
+              <li><a href="/work/" class="nav-drawer-link">Work</a></li>
+              <li><a href="/#experience" class="nav-drawer-link">Experience</a></li>
+              <li><a href="/#about" class="nav-drawer-link">About</a></li>
+              <li><a href="/#contact" class="nav-drawer-link">Contact</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="container-page py-12 lg:py-16" data-hero>
+      <div class="sales-hero">
+        <div class="sales-hero-copy">
+          <p class="kicker mb-3" data-hero-kicker>Student opportunity · Commission-based</p>
+          <h1 class="sales-h1 mb-5">Turn Conversations Into Opportunities.</h1>
+          <p class="measure mb-7 text-ink-muted" data-hero-copy>
+            Work directly with an independent web developer to connect businesses and organizations
+            with professional website solutions. Earn commissions, build valuable connections, and
+            gain practical sales experience while studying.
+          </p>
+          <div class="flex flex-wrap gap-3" data-hero-actions>
+            <a href="#apply" class="work-cta work-cta--solid" data-cursor="Apply">Apply for the Opportunity</a>
+            <a href="/work/" class="work-cta work-cta--outline" data-cursor="Explore">Explore My Work</a>
+          </div>
+        </div>
+
+        <ul class="sales-highlights" aria-label="Opportunity at a glance" data-hero-media>
+          <li class="sales-highlight sales-highlight--signal">
+            <span class="sales-highlight-value">15–20%</span>
+            <span class="sales-highlight-label">commission on successful deals</span>
+          </li>
+          <li class="sales-highlight">
+            <span class="sales-highlight-value">Flexible</span>
+            <span class="sales-highlight-label">working arrangement</span>
+          </li>
+          <li class="sales-highlight">
+            <span class="sales-highlight-value">No tech</span>
+            <span class="sales-highlight-label">experience required</span>
+          </li>
+          <li class="sales-highlight">
+            <span class="sales-highlight-value">1–2</span>
+            <span class="sales-highlight-label">positions available</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- About the opportunity -->
+    <section id="about-role" class="rule-top container-page py-12 lg:py-16">
+      <div class="sales-split">
+        <div data-reveal>
+          <p class="kicker mb-2">About the opportunity</p>
+          <h2 class="h-section mb-4">You find the conversations. I build the websites.</h2>
+          <p class="measure mb-4 text-ink-muted">
+            I'm an independent web developer looking for one or two motivated students to help
+            identify potential customers and introduce my web development services. The role is
+            about prospecting, outreach, client conversations and helping to secure projects.
+          </p>
+          <p class="measure text-ink-muted">
+            Representatives are not responsible for developing websites. Once a client says yes, I
+            handle the technical work from design to delivery.
+          </p>
+        </div>
+
+        <aside class="sales-clarity" aria-labelledby="clarity-title" data-reveal>
+          <h3 id="clarity-title" class="sales-clarity-title">To be clear</h3>
+          <ul class="sales-clarity-list">
+            <li>
+              <span class="sales-clarity-mark" aria-hidden="true">✓</span>
+              <span>An independent, commission-based arrangement between you and me.</span>
+            </li>
+            <li>
+              <span class="sales-clarity-mark" aria-hidden="true">✓</span>
+              <span>Open to university students, with room to work around your studies.</span>
+            </li>
+            <li>
+              <span class="sales-clarity-mark sales-clarity-mark--no" aria-hidden="true">✕</span>
+              <span>Not a vacancy at Embiro Technologies, and not a registered agency.</span>
+            </li>
+            <li>
+              <span class="sales-clarity-mark sales-clarity-mark--no" aria-hidden="true">✕</span>
+              <span>Not a salaried job. There is no fixed pay or guaranteed income.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Responsibilities -->
+    <section id="responsibilities" class="rule-top container-page py-12 lg:py-16">
+      <div class="mb-8" data-reveal>
+        <p class="kicker mb-2">What you would do</p>
+        <h2 class="h-section">Four parts of the role</h2>
+      </div>
+
+      <div class="bento-grid" data-reveal-group>
+        <article class="bento-card lg:col-span-3">
+          <span class="sales-step-num">01</span>
+          <h3 class="sales-card-title">Discover potential clients</h3>
+          <p class="caption">
+            Spot businesses, schools and organizations that need a website or a better one.
+          </p>
+        </article>
+        <article class="bento-card lg:col-span-3">
+          <span class="sales-step-num">02</span>
+          <h3 class="sales-card-title">Reach out and introduce services</h3>
+          <p class="caption">
+            Start the conversation by message, call or in person, and explain what I can build.
+          </p>
+        </article>
+        <article class="bento-card lg:col-span-3">
+          <span class="sales-step-num">03</span>
+          <h3 class="sales-card-title">Build relationships and follow up</h3>
+          <p class="caption">
+            Stay in touch, answer questions and keep promising leads warm.
+          </p>
+        </article>
+        <article class="bento-card lg:col-span-3">
+          <span class="sales-step-num">04</span>
+          <h3 class="sales-card-title">Help turn opportunities into projects</h3>
+          <p class="caption">
+            Support the conversation until a client is ready to commit, with me alongside.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Earnings and payments -->
+    <section id="earnings" class="rule-top container-page py-12 lg:py-16">
+      <div class="mb-8" data-reveal>
+        <p class="kicker mb-2">Earnings and payments</p>
+        <h2 class="h-section mb-2">How you get paid, in plain numbers</h2>
+        <p class="measure text-sm text-ink-muted">
+          Commission is earned on successful deals only. What you make depends on the deals you
+          help close, so nothing here is guaranteed.
+        </p>
+      </div>
+
+      <div class="sales-earn" data-reveal>
+        <div class="sales-earn-rate">
+          <p class="sales-earn-rate-value">15–20%</p>
+          <p class="sales-earn-rate-label">commission on successful deals</p>
+          <p class="sales-earn-rate-note">The applicable rate is agreed with you before work begins.</p>
+        </div>
+
+        <div class="sales-earn-example">
+          <p class="kicker mb-3">Worked example</p>
+          <p class="mb-5 text-ink">
+            An eligible project worth <strong>UGX 1,000,000</strong> at <strong>15%</strong> earns a
+            total commission of <strong>UGX 150,000</strong>.
+          </p>
+
+          <div class="sales-bar" role="img" aria-label="Commission of UGX 150,000 split into UGX 75,000 at the 50% client deposit and UGX 75,000 as the remaining payments clear">
+            <div class="sales-bar-seg sales-bar-seg--first">
+              <span class="sales-bar-amount">UGX 75,000</span>
+              <span class="sales-bar-text">when the 50% client deposit clears</span>
+            </div>
+            <div class="sales-bar-seg sales-bar-seg--rest">
+              <span class="sales-bar-amount">UGX 75,000</span>
+              <span class="sales-bar-text">as the remaining client payments clear</span>
+            </div>
+          </div>
+
+          <p class="caption mt-4">
+            Illustration only, not a promise of earnings. The same split applies to any rate: you
+            are paid in proportion to the client payments that have cleared.
+          </p>
+        </div>
+      </div>
+
+      <ul class="sales-terms" data-reveal-group>
+        <li class="sales-term">
+          <h3 class="sales-term-title">Paid as clients pay</h3>
+          <p class="caption">
+            Commissions are paid proportionally as cleared client payments are received.
+          </p>
+        </li>
+        <li class="sales-term">
+          <h3 class="sales-term-title">No guaranteed income</h3>
+          <p class="caption">
+            There is no fixed salary. If no deals close, no commission is earned.
+          </p>
+        </li>
+        <li class="sales-term">
+          <h3 class="sales-term-title">Your own airtime and internet</h3>
+          <p class="caption">
+            Representatives initially cover their own communication costs, unless reimbursement is
+            separately agreed.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Support provided -->
+    <section id="support" class="rule-top container-page py-12 lg:py-16">
+      <div class="mb-8" data-reveal>
+        <p class="kicker mb-2">Support provided</p>
+        <h2 class="h-section mb-2">You are not selling alone</h2>
+        <p class="measure text-sm text-ink-muted">
+          You do the talking. I back you up with the materials, answers and technical delivery.
+        </p>
+      </div>
+
+      <div class="bento-grid" data-reveal-group>
+        <article class="bento-card sales-card--featured lg:col-span-6">
+          <span class="sales-step-num">You sell. I build.</span>
+          <h3 class="sales-card-title">Full technical development and delivery</h3>
+          <p class="caption">
+            Every project I win is designed, built and delivered by me, so you never need to touch
+            code.
+          </p>
+        </article>
+        <article class="bento-card lg:col-span-3">
+          <h3 class="sales-card-title">Sales guidance and onboarding</h3>
+          <p class="caption">Basic guidance to get you confident before your first conversation.</p>
+        </article>
+        <article class="bento-card lg:col-span-3">
+          <h3 class="sales-card-title">My portfolio and previous work</h3>
+          <p class="caption">Real, live examples to show prospects what I have delivered.</p>
+        </article>
+        <article class="bento-card lg:col-span-4">
+          <h3 class="sales-card-title">Service and pricing guidance</h3>
+          <p class="caption">Clear answers on what I offer and what it costs.</p>
+        </article>
+        <article class="bento-card lg:col-span-4">
+          <h3 class="sales-card-title">Help with technical questions</h3>
+          <p class="caption">Pass tough questions to me rather than guessing.</p>
+        </article>
+        <article class="bento-card lg:col-span-4">
+          <h3 class="sales-card-title">Meetings, negotiation and closing</h3>
+          <p class="caption">I can join client meetings and help get the deal over the line.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Who should apply -->
+    <section id="who" class="rule-top container-page py-12 lg:py-16">
+      <div class="sales-split">
+        <div data-reveal>
+          <p class="kicker mb-2">Who should apply</p>
+          <h2 class="h-section mb-4">Attitude over experience</h2>
+          <p class="measure mb-4 text-ink-muted">
+            Prior sales experience is useful but not mandatory. Programming knowledge is not
+            required. If you are keen to learn and follow through, that is a strong start.
+          </p>
+        </div>
+
+        <ul class="sales-chips" aria-label="Qualities I am looking for" data-reveal-group>
+          <li class="sales-chip">Good communication skills</li>
+          <li class="sales-chip">Self-motivation</li>
+          <li class="sales-chip">Reliability</li>
+          <li class="sales-chip">Curiosity</li>
+          <li class="sales-chip">Initiative</li>
+          <li class="sales-chip">Willingness to learn</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Recruitment process -->
+    <section id="process" class="rule-top container-page py-12 lg:py-16">
+      <div class="mb-8" data-reveal>
+        <p class="kicker mb-2">Recruitment process</p>
+        <h2 class="h-section mb-2">Three simple stages</h2>
+        <p class="measure text-sm text-ink-muted">
+          The initial recruitment target is one to two people.
+        </p>
+      </div>
+
+      <ol class="sales-process" data-reveal-group>
+        <li class="sales-process-step">
+          <span class="sales-process-num" aria-hidden="true">1</span>
+          <h3 class="sales-card-title">Submit your application</h3>
+          <p class="caption">Complete the short form below.</p>
+        </li>
+        <li class="sales-process-step">
+          <span class="sales-process-num" aria-hidden="true">2</span>
+          <h3 class="sales-card-title">Brief conversation and scenario</h3>
+          <p class="caption">
+            Shortlisted candidates have a brief conversation and a practical scenario assessment.
+          </p>
+        </li>
+        <li class="sales-process-step">
+          <span class="sales-process-num" aria-hidden="true">3</span>
+          <h3 class="sales-card-title">30-day pilot</h3>
+          <p class="caption">Selected candidates begin a 30-day pilot arrangement.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="rule-top container-page py-12 lg:py-16">
+      <div class="mb-8" data-reveal>
+        <p class="kicker mb-2">FAQ</p>
+        <h2 class="h-section">Common questions</h2>
+      </div>
+
+      <div data-reveal>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Is this a salaried position?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-sm leading-relaxed text-ink-muted">
+              No. It is commission-only, with no fixed salary and no guaranteed income. You earn
+              15–20% on successful deals, and the applicable rate is agreed before work begins.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Do I need sales experience?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-sm leading-relaxed text-ink-muted">
+              No. Experience helps, but it is not mandatory. I provide basic sales guidance and
+              onboarding, and I support you in meetings, negotiation and closing.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Do I need programming skills?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-sm leading-relaxed text-ink-muted">
+              No. I build and deliver every project and answer any technical questions, so you can
+              focus on conversations with potential clients.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>When do commissions get paid?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-sm leading-relaxed text-ink-muted">
+              Proportionally, as cleared client payments are received. For example, on a
+              UGX 1,000,000 project at 15%, a 50% client deposit means UGX 75,000 of the
+              UGX 150,000 commission is paid at that stage.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Who pays for airtime?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-sm leading-relaxed text-ink-muted">
+              Representatives initially cover their own airtime and internet expenses, unless
+              reimbursement is separately agreed.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item" data-faq>
+          <summary class="faq-q">
+            <span>Can I work around my university timetable?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p class="measure text-sm leading-relaxed text-ink-muted">
+              Yes. The arrangement is flexible, so outreach and follow-ups can fit around your
+              lectures and exams.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Application -->
+    <section id="apply" class="rule-top container-page py-12 lg:py-16">
+      <div class="sales-apply">
+        <div class="sales-apply-intro" data-reveal>
+          <p class="kicker mb-2">Apply</p>
+          <h2 class="h-section mb-4">Tell me how you would approach it</h2>
+          <p class="measure mb-5 text-ink-muted">
+            Applications take about ten minutes. The two scenario questions matter most, so answer
+            them in your own words.
+          </p>
+          <ul class="sales-apply-points">
+            <li>Only the details needed to assess your application are collected.</li>
+            <li>Your application goes to me directly, and I review each one myself.</li>
+            <li>Shortlisted candidates are contacted on WhatsApp.</li>
+          </ul>
+
+          <p class="caption mt-8 mb-3">Prefer to ask something first?</p>
+          <a
+            href="https://wa.me/256754882329?text=Hello%20Farhan%2C%20I%20saw%20the%20Sales%20Representative%20opportunity%20on%20your%20website%20and%20have%20a%20question%20before%20I%20apply."
+            class="btn-quiet"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Have Questions? Chat on WhatsApp
+          </a>
+        </div>
+
+        <div class="sales-form-card" data-reveal>
+          <form id="apply-form" class="sales-form" novalidate>
+            <!-- Honeypot (Web3Forms "botcheck"): hidden from people, ticked by bots. -->
+            <input type="checkbox" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off" style="display: none" />
+
+            <div class="sales-field">
+              <label for="f-name" class="sales-label">Full name</label>
+              <input id="f-name" name="name" type="text" class="sales-input" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="f-name-error" />
+              <p id="f-name-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-field">
+              <label for="f-phone" class="sales-label">WhatsApp number</label>
+              <input id="f-phone" name="whatsapp" type="tel" inputmode="tel" class="sales-input" autocomplete="tel" required maxlength="25" aria-describedby="f-phone-hint f-phone-error" />
+              <p id="f-phone-hint" class="sales-hint">Ugandan or international, e.g. 0754 882 329 or +254 712 345 678.</p>
+              <p id="f-phone-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-field">
+              <label for="f-course" class="sales-label">Course and year of study</label>
+              <input id="f-course" name="course" type="text" class="sales-input" required maxlength="120" aria-describedby="f-course-hint f-course-error" />
+              <p id="f-course-hint" class="sales-hint">For example: BSc Computer Science, Year 2.</p>
+              <p id="f-course-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-field">
+              <label for="f-experience" class="sales-label">Previous sales experience <span class="sales-optional">(optional)</span></label>
+              <textarea id="f-experience" name="experience" class="sales-input" rows="3" maxlength="500" aria-describedby="f-experience-hint"></textarea>
+              <p id="f-experience-hint" class="sales-hint">A sentence or two is plenty. Selling anything counts.</p>
+            </div>
+
+            <div class="sales-field">
+              <label for="f-scenario" class="sales-label">A school director says their school doesn't need a website. How would you respond?</label>
+              <textarea id="f-scenario" name="scenario" class="sales-input" rows="5" required minlength="30" maxlength="1500" aria-describedby="f-scenario-error"></textarea>
+              <p id="f-scenario-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-field">
+              <label for="f-clients" class="sales-label">How would you identify your first five potential clients?</label>
+              <textarea id="f-clients" name="clients" class="sales-input" rows="5" required minlength="30" maxlength="1500" aria-describedby="f-clients-error"></textarea>
+              <p id="f-clients-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-field">
+              <div class="sales-check">
+                <input id="f-terms" name="terms" type="checkbox" class="sales-checkbox" required aria-describedby="f-terms-error" />
+                <label for="f-terms" class="sales-check-label">
+                  I understand this arrangement is commission-only, has no guaranteed salary, and
+                  initially requires me to cover my own communication expenses such as airtime and
+                  internet.
+                </label>
+              </div>
+              <p id="f-terms-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-field">
+              <div class="sales-check">
+                <input id="f-privacy" name="privacy" type="checkbox" class="sales-checkbox" required aria-describedby="f-privacy-error" />
+                <label for="f-privacy" class="sales-check-label">
+                  I have read the privacy notice below and consent to my application being processed
+                  for recruitment.
+                </label>
+              </div>
+              <p id="f-privacy-error" class="sales-error" hidden></p>
+            </div>
+
+            <div class="sales-privacy">
+              <p class="sales-privacy-title">Privacy notice</p>
+              <p>
+                I collect these details only to assess your application for this opportunity and to
+                contact you about it. Your answers are sent through Web3Forms, a form-handling
+                service, to my inbox and are not used for anything else, or shared with clients.
+                Applications are kept only for this recruitment round and deleted within three
+                months of it closing. To ask for your application to be deleted at any time, message
+                me on WhatsApp at +256 754 882 329 or email
+                <a href="mailto:farhan.segujja@gmail.com" class="font-medium text-ink hover:text-signal">farhan.segujja@gmail.com</a>.
+              </p>
+            </div>
+
+            <p id="form-error" class="sales-form-error" role="alert" tabindex="-1" hidden></p>
+
+            <button type="submit" id="submit-btn" class="work-cta work-cta--solid sales-submit">
+              <span class="sales-spinner" aria-hidden="true"></span>
+              <span data-submit-label>Submit application</span>
+            </button>
+          </form>
+
+          <div id="apply-success" class="sales-success" role="status" tabindex="-1" hidden>
+            <p class="sales-success-mark" aria-hidden="true">✓</p>
+            <h3 class="sales-success-title">Application received. Thank you.</h3>
+            <p class="text-ink-muted">
+              I review every application personally. If you are shortlisted, I will message you on
+              the WhatsApp number you gave to arrange a brief conversation.
+            </p>
+            <p class="caption mt-4">
+              Need to correct something or have a question? Message me on
+              <a href="https://wa.me/256754882329" class="font-medium text-ink hover:text-signal" target="_blank" rel="noopener noreferrer">WhatsApp</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <path id="wm-F" d="M0,10L10,0L117,0L126,9L126,27L117,36L40,36L40,72L97,72L106,81L106,99L97,108L40,108L40,170L30,180L10,180L0,170Z" />
+      <path id="wm-A" d="M73.3,6.4L83,0L97,0L106.7,6.4L176.1,170.8L170,180L145.8,180L132.2,171L128.4,162L51.6,162L47.8,171L34.2,180L10,180L3.9,170.8ZM93.9,80.3L86.1,80.3L70.7,116.8L76.8,126L103.2,126L109.3,116.8Z" />
+      <path id="wm-R" d="M0,10L10,0L84,0C114,0 134,21.6 134,54C134,68.1 128.3,80.2 120.2,89.3L154.2,170.8L148,180L124,180L110.2,170.8L84,108L40,108L40,170L30,180L10,180L0,170ZM40,45L49,36L84,36C92.4,36 98,43.2 98,54C98,64.8 89.6,72 84,72L49,72L40,63Z" />
+      <path id="wm-H" d="M0,10L10,0L30,0L40,10L40,72L106,72L106,10L116,0L136,0L146,10L146,170L136,180L116,180L106,170L106,108L40,108L40,170L30,180L10,180L0,170Z" />
+      <path id="wm-N" d="M0,10L10,0L40,0L110,106L110,10L120,0L140,0L150,10L150,170L140,180L110,180L40,74L40,170L30,180L10,180L0,170Z" />
+      <path id="wm-S" d="M0,10L10,0L125,0L134,9L134,27L125,36L40,36L40,72L124,72L134,82L134,170L124,180L9,180L0,171L0,153L9,144L94,144L94,108L10,108L0,98Z" />
+      <path id="wm-E" d="M0,10L10,0L117,0L126,9L126,27L117,36L40,36L40,72L97,72L106,81L106,99L97,108L40,108L40,144L117,144L126,153L126,171L117,180L10,180L0,170Z" />
+      <path id="wm-G" d="M36,0L120,0L148.9,28.9L146,36L57.1,36L36,57.1L36,122.9L57.1,144L120,144L120,108L89,108L80,99L80,81L89,72L146,72L156,82L156,144L120,180L36,180L0,144L0,36Z" />
+      <path id="wm-U" d="M0,10L10,0L30,0L40,10L40,122.9L61.1,144L84.9,144L106,122.9L106,10L116,0L136,0L146,10L146,144L110,180L36,180L0,144Z" />
+      <path id="wm-J" d="M64,10L74,0L94,0L104,10L104,144L68,180L9,180L0,171L0,153L9,144L42.9,144L64,122.9Z" />
+    </defs>
+  </svg>
+
+  <footer class="site-footer rule-top">
+    <div class="footer-dissolve" aria-hidden="true"></div>
+
+    <div class="footer-wordmark" role="img" aria-label="Farhan Segujja">
+      <svg
+        class="footer-wordmark-desktop hidden lg:block"
+        data-wordmark
+        data-ink-radius="171"
+        viewBox="0 0 2342 324"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="wm-ink-warp-d" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G" result="warped" />
+            <feGaussianBlur in="warped" stdDeviation="4" result="soft" />
+            <feComponentTransfer in="soft">
+              <feFuncA type="linear" slope="3.4" intercept="-0.95" />
+            </feComponentTransfer>
+          </filter>
+          <mask id="wm-ink-mask-d" maskUnits="userSpaceOnUse" x="0" y="0" width="2342" height="324">
+            <g filter="url(#wm-ink-warp-d)">
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.85" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.7" />
+            </g>
+          </mask>
+        </defs>
+
+        <!-- rulers sit below the glyph layer, so no rule can cut a letter -->
+        <g class="wm-rulers">
+          <line class="wm-datum" x1="0" y1="30" x2="2342" y2="30" />
+          <line class="wm-datum" x1="0" y1="294" x2="2342" y2="294" />
+          <g class="wm-tick" data-edge="top"><line x1="19" y1="0" x2="19" y2="11" /><line x1="67" y1="0" x2="67" y2="5" /><line x1="115" y1="0" x2="115" y2="5" /><line x1="163" y1="0" x2="163" y2="5" /><line x1="211" y1="0" x2="211" y2="5" /><line x1="259" y1="0" x2="259" y2="11" /><line x1="307" y1="0" x2="307" y2="5" /><line x1="355" y1="0" x2="355" y2="5" /><line x1="403" y1="0" x2="403" y2="5" /><line x1="451" y1="0" x2="451" y2="5" /><line x1="499" y1="0" x2="499" y2="11" /><line x1="547" y1="0" x2="547" y2="5" /><line x1="595" y1="0" x2="595" y2="5" /><line x1="643" y1="0" x2="643" y2="5" /><line x1="691" y1="0" x2="691" y2="5" /><line x1="739" y1="0" x2="739" y2="11" /><line x1="787" y1="0" x2="787" y2="5" /><line x1="835" y1="0" x2="835" y2="5" /><line x1="883" y1="0" x2="883" y2="5" /><line x1="931" y1="0" x2="931" y2="5" /><line x1="979" y1="0" x2="979" y2="11" /><line x1="1027" y1="0" x2="1027" y2="5" /><line x1="1075" y1="0" x2="1075" y2="5" /><line x1="1123" y1="0" x2="1123" y2="5" /><line x1="1171" y1="0" x2="1171" y2="5" /><line x1="1219" y1="0" x2="1219" y2="11" /><line x1="1267" y1="0" x2="1267" y2="5" /><line x1="1315" y1="0" x2="1315" y2="5" /><line x1="1363" y1="0" x2="1363" y2="5" /><line x1="1411" y1="0" x2="1411" y2="5" /><line x1="1459" y1="0" x2="1459" y2="11" /><line x1="1507" y1="0" x2="1507" y2="5" /><line x1="1555" y1="0" x2="1555" y2="5" /><line x1="1603" y1="0" x2="1603" y2="5" /><line x1="1651" y1="0" x2="1651" y2="5" /><line x1="1699" y1="0" x2="1699" y2="11" /><line x1="1747" y1="0" x2="1747" y2="5" /><line x1="1795" y1="0" x2="1795" y2="5" /><line x1="1843" y1="0" x2="1843" y2="5" /><line x1="1891" y1="0" x2="1891" y2="5" /><line x1="1939" y1="0" x2="1939" y2="11" /><line x1="1987" y1="0" x2="1987" y2="5" /><line x1="2035" y1="0" x2="2035" y2="5" /><line x1="2083" y1="0" x2="2083" y2="5" /><line x1="2131" y1="0" x2="2131" y2="5" /><line x1="2179" y1="0" x2="2179" y2="11" /><line x1="2227" y1="0" x2="2227" y2="5" /><line x1="2275" y1="0" x2="2275" y2="5" /><line x1="2323" y1="0" x2="2323" y2="5" /></g>
+          <g class="wm-tick" data-edge="bottom"><line x1="19" y1="324" x2="19" y2="313" /><line x1="67" y1="324" x2="67" y2="319" /><line x1="115" y1="324" x2="115" y2="319" /><line x1="163" y1="324" x2="163" y2="319" /><line x1="211" y1="324" x2="211" y2="319" /><line x1="259" y1="324" x2="259" y2="313" /><line x1="307" y1="324" x2="307" y2="319" /><line x1="355" y1="324" x2="355" y2="319" /><line x1="403" y1="324" x2="403" y2="319" /><line x1="451" y1="324" x2="451" y2="319" /><line x1="499" y1="324" x2="499" y2="313" /><line x1="547" y1="324" x2="547" y2="319" /><line x1="595" y1="324" x2="595" y2="319" /><line x1="643" y1="324" x2="643" y2="319" /><line x1="691" y1="324" x2="691" y2="319" /><line x1="739" y1="324" x2="739" y2="313" /><line x1="787" y1="324" x2="787" y2="319" /><line x1="835" y1="324" x2="835" y2="319" /><line x1="883" y1="324" x2="883" y2="319" /><line x1="931" y1="324" x2="931" y2="319" /><line x1="979" y1="324" x2="979" y2="313" /><line x1="1027" y1="324" x2="1027" y2="319" /><line x1="1075" y1="324" x2="1075" y2="319" /><line x1="1123" y1="324" x2="1123" y2="319" /><line x1="1171" y1="324" x2="1171" y2="319" /><line x1="1219" y1="324" x2="1219" y2="313" /><line x1="1267" y1="324" x2="1267" y2="319" /><line x1="1315" y1="324" x2="1315" y2="319" /><line x1="1363" y1="324" x2="1363" y2="319" /><line x1="1411" y1="324" x2="1411" y2="319" /><line x1="1459" y1="324" x2="1459" y2="313" /><line x1="1507" y1="324" x2="1507" y2="319" /><line x1="1555" y1="324" x2="1555" y2="319" /><line x1="1603" y1="324" x2="1603" y2="319" /><line x1="1651" y1="324" x2="1651" y2="319" /><line x1="1699" y1="324" x2="1699" y2="313" /><line x1="1747" y1="324" x2="1747" y2="319" /><line x1="1795" y1="324" x2="1795" y2="319" /><line x1="1843" y1="324" x2="1843" y2="319" /><line x1="1891" y1="324" x2="1891" y2="319" /><line x1="1939" y1="324" x2="1939" y2="313" /><line x1="1987" y1="324" x2="1987" y2="319" /><line x1="2035" y1="324" x2="2035" y2="319" /><line x1="2083" y1="324" x2="2083" y2="319" /><line x1="2131" y1="324" x2="2131" y2="319" /><line x1="2179" y1="324" x2="2179" y2="313" /><line x1="2227" y1="324" x2="2227" y2="319" /><line x1="2275" y1="324" x2="2275" y2="319" /><line x1="2323" y1="324" x2="2323" y2="319" /></g>
+          <g class="wm-cross"><line x1="10" y1="16" x2="22" y2="16" /><line x1="16" y1="10" x2="16" y2="22" /></g>
+          <g class="wm-cross"><line x1="2320" y1="16" x2="2332" y2="16" /><line x1="2326" y1="10" x2="2326" y2="22" /></g>
+          <g class="wm-cross"><line x1="10" y1="308" x2="22" y2="308" /><line x1="16" y1="302" x2="16" y2="314" /></g>
+          <g class="wm-cross"><line x1="2320" y1="308" x2="2332" y2="308" /><line x1="2326" y1="302" x2="2326" y2="314" /></g>
+        </g>
+
+        <!-- glyph geometry: closed block contours, hairline stroke -->
+        <g class="wm-outline">
+          <use href="#wm-F" x="28" y="72" />
+          <use href="#wm-A" x="182" y="72" />
+          <use href="#wm-R" x="390" y="72" />
+          <use href="#wm-H" x="576" y="72" />
+          <use href="#wm-A" x="750" y="72" />
+          <use href="#wm-N" x="958" y="72" />
+          <use href="#wm-S" x="1196" y="72" />
+          <use href="#wm-E" x="1358" y="72" />
+          <use href="#wm-G" x="1512" y="72" />
+          <use href="#wm-U" x="1696" y="72" />
+          <use href="#wm-J" x="1870" y="72" />
+          <use href="#wm-J" x="2002" y="72" />
+          <use href="#wm-A" x="2134" y="72" />
+        </g>
+
+        <g class="wm-extension">
+          <line x1="28" y1="30" x2="28" y2="62" /><line x1="28" y1="262" x2="28" y2="294" />
+          <line x1="154" y1="30" x2="154" y2="62" /><line x1="154" y1="262" x2="154" y2="294" />
+          <line x1="182" y1="30" x2="182" y2="62" /><line x1="182" y1="262" x2="182" y2="294" />
+          <line x1="362" y1="30" x2="362" y2="62" /><line x1="362" y1="262" x2="362" y2="294" />
+          <line x1="390" y1="30" x2="390" y2="62" /><line x1="390" y1="262" x2="390" y2="294" />
+          <line x1="548" y1="30" x2="548" y2="62" /><line x1="548" y1="262" x2="548" y2="294" />
+          <line x1="576" y1="30" x2="576" y2="62" /><line x1="576" y1="262" x2="576" y2="294" />
+          <line x1="722" y1="30" x2="722" y2="62" /><line x1="722" y1="262" x2="722" y2="294" />
+          <line x1="750" y1="30" x2="750" y2="62" /><line x1="750" y1="262" x2="750" y2="294" />
+          <line x1="930" y1="30" x2="930" y2="62" /><line x1="930" y1="262" x2="930" y2="294" />
+          <line x1="958" y1="30" x2="958" y2="62" /><line x1="958" y1="262" x2="958" y2="294" />
+          <line x1="1108" y1="30" x2="1108" y2="62" /><line x1="1108" y1="262" x2="1108" y2="294" />
+          <line x1="1196" y1="30" x2="1196" y2="62" /><line x1="1196" y1="262" x2="1196" y2="294" />
+          <line x1="1330" y1="30" x2="1330" y2="62" /><line x1="1330" y1="262" x2="1330" y2="294" />
+          <line x1="1358" y1="30" x2="1358" y2="62" /><line x1="1358" y1="262" x2="1358" y2="294" />
+          <line x1="1484" y1="30" x2="1484" y2="62" /><line x1="1484" y1="262" x2="1484" y2="294" />
+          <line x1="1512" y1="30" x2="1512" y2="62" /><line x1="1512" y1="262" x2="1512" y2="294" />
+          <line x1="1668" y1="30" x2="1668" y2="62" /><line x1="1668" y1="262" x2="1668" y2="294" />
+          <line x1="1696" y1="30" x2="1696" y2="62" /><line x1="1696" y1="262" x2="1696" y2="294" />
+          <line x1="1842" y1="30" x2="1842" y2="62" /><line x1="1842" y1="262" x2="1842" y2="294" />
+          <line x1="1870" y1="30" x2="1870" y2="62" /><line x1="1870" y1="262" x2="1870" y2="294" />
+          <line x1="1974" y1="30" x2="1974" y2="62" /><line x1="1974" y1="262" x2="1974" y2="294" />
+          <line x1="2002" y1="30" x2="2002" y2="62" /><line x1="2002" y1="262" x2="2002" y2="294" />
+          <line x1="2106" y1="30" x2="2106" y2="62" /><line x1="2106" y1="262" x2="2106" y2="294" />
+          <line x1="2134" y1="30" x2="2134" y2="62" /><line x1="2134" y1="262" x2="2134" y2="294" />
+          <line x1="2314" y1="30" x2="2314" y2="62" /><line x1="2314" y1="262" x2="2314" y2="294" />
+        </g>
+
+        <!-- hover fill: the same geometry, filled, revealed through the ink mask -->
+        <g class="wm-fill" mask="url(#wm-ink-mask-d)">
+          <use href="#wm-F" x="28" y="72" />
+          <use href="#wm-A" x="182" y="72" />
+          <use href="#wm-R" x="390" y="72" />
+          <use href="#wm-H" x="576" y="72" />
+          <use href="#wm-A" x="750" y="72" />
+          <use href="#wm-N" x="958" y="72" />
+          <use href="#wm-S" x="1196" y="72" />
+          <use href="#wm-E" x="1358" y="72" />
+          <use href="#wm-G" x="1512" y="72" />
+          <use href="#wm-U" x="1696" y="72" />
+          <use href="#wm-J" x="1870" y="72" />
+          <use href="#wm-J" x="2002" y="72" />
+          <use href="#wm-A" x="2134" y="72" />
+        </g>
+
+        <rect class="wm-joint" x="678" y="140" width="8" height="8" />
+        <rect class="wm-joint" x="222" y="248" width="8" height="8" />
+        <rect class="wm-joint" x="1588" y="140" width="8" height="8" />
+        <rect class="wm-joint" x="1286" y="176" width="8" height="8" />
+      </svg>
+
+      <svg
+        class="footer-wordmark-mobile lg:hidden"
+        data-wordmark
+        data-ink-radius="171"
+        viewBox="0 0 1174 624"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="wm-ink-warp-m" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="11" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="warped" />
+            <feGaussianBlur in="warped" stdDeviation="4" result="soft" />
+            <feComponentTransfer in="soft">
+              <feFuncA type="linear" slope="3.4" intercept="-0.95" />
+            </feComponentTransfer>
+          </filter>
+          <mask id="wm-ink-mask-m" maskUnits="userSpaceOnUse" x="0" y="0" width="1174" height="624">
+            <g filter="url(#wm-ink-warp-m)">
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.85" />
+              <circle class="wm-blob" cx="-400" cy="-400" r="0" fill="#fff" opacity="0.7" />
+            </g>
+          </mask>
+        </defs>
+
+        <!-- rulers sit below the glyph layer, so no rule can cut a letter -->
+        <g class="wm-rulers">
+          <line class="wm-datum" x1="0" y1="30" x2="1174" y2="30" />
+          <line class="wm-datum" x1="0" y1="294" x2="1174" y2="294" />
+          <line class="wm-datum" x1="0" y1="330" x2="1174" y2="330" />
+          <line class="wm-datum" x1="0" y1="594" x2="1174" y2="594" />
+          <g class="wm-tick" data-edge="top"><line x1="11" y1="0" x2="11" y2="11" /><line x1="59" y1="0" x2="59" y2="5" /><line x1="107" y1="0" x2="107" y2="5" /><line x1="155" y1="0" x2="155" y2="5" /><line x1="203" y1="0" x2="203" y2="5" /><line x1="251" y1="0" x2="251" y2="11" /><line x1="299" y1="0" x2="299" y2="5" /><line x1="347" y1="0" x2="347" y2="5" /><line x1="395" y1="0" x2="395" y2="5" /><line x1="443" y1="0" x2="443" y2="5" /><line x1="491" y1="0" x2="491" y2="11" /><line x1="539" y1="0" x2="539" y2="5" /><line x1="587" y1="0" x2="587" y2="5" /><line x1="635" y1="0" x2="635" y2="5" /><line x1="683" y1="0" x2="683" y2="5" /><line x1="731" y1="0" x2="731" y2="11" /><line x1="779" y1="0" x2="779" y2="5" /><line x1="827" y1="0" x2="827" y2="5" /><line x1="875" y1="0" x2="875" y2="5" /><line x1="923" y1="0" x2="923" y2="5" /><line x1="971" y1="0" x2="971" y2="11" /><line x1="1019" y1="0" x2="1019" y2="5" /><line x1="1067" y1="0" x2="1067" y2="5" /><line x1="1115" y1="0" x2="1115" y2="5" /><line x1="1163" y1="0" x2="1163" y2="5" /></g>
+          <g class="wm-tick" data-edge="bottom"><line x1="11" y1="624" x2="11" y2="613" /><line x1="59" y1="624" x2="59" y2="619" /><line x1="107" y1="624" x2="107" y2="619" /><line x1="155" y1="624" x2="155" y2="619" /><line x1="203" y1="624" x2="203" y2="619" /><line x1="251" y1="624" x2="251" y2="613" /><line x1="299" y1="624" x2="299" y2="619" /><line x1="347" y1="624" x2="347" y2="619" /><line x1="395" y1="624" x2="395" y2="619" /><line x1="443" y1="624" x2="443" y2="619" /><line x1="491" y1="624" x2="491" y2="613" /><line x1="539" y1="624" x2="539" y2="619" /><line x1="587" y1="624" x2="587" y2="619" /><line x1="635" y1="624" x2="635" y2="619" /><line x1="683" y1="624" x2="683" y2="619" /><line x1="731" y1="624" x2="731" y2="613" /><line x1="779" y1="624" x2="779" y2="619" /><line x1="827" y1="624" x2="827" y2="619" /><line x1="875" y1="624" x2="875" y2="619" /><line x1="923" y1="624" x2="923" y2="619" /><line x1="971" y1="624" x2="971" y2="613" /><line x1="1019" y1="624" x2="1019" y2="619" /><line x1="1067" y1="624" x2="1067" y2="619" /><line x1="1115" y1="624" x2="1115" y2="619" /><line x1="1163" y1="624" x2="1163" y2="619" /></g>
+          <g class="wm-cross"><line x1="10" y1="16" x2="22" y2="16" /><line x1="16" y1="10" x2="16" y2="22" /></g>
+          <g class="wm-cross"><line x1="1152" y1="16" x2="1164" y2="16" /><line x1="1158" y1="10" x2="1158" y2="22" /></g>
+          <g class="wm-cross"><line x1="10" y1="608" x2="22" y2="608" /><line x1="16" y1="602" x2="16" y2="614" /></g>
+          <g class="wm-cross"><line x1="1152" y1="608" x2="1164" y2="608" /><line x1="1158" y1="602" x2="1158" y2="614" /></g>
+        </g>
+
+        <!-- glyph geometry: closed block contours, hairline stroke -->
+        <g class="wm-outline">
+          <use href="#wm-F" x="47" y="72" />
+          <use href="#wm-A" x="201" y="72" />
+          <use href="#wm-R" x="409" y="72" />
+          <use href="#wm-H" x="595" y="72" />
+          <use href="#wm-A" x="769" y="72" />
+          <use href="#wm-N" x="977" y="72" />
+          <use href="#wm-S" x="28" y="372" />
+          <use href="#wm-E" x="190" y="372" />
+          <use href="#wm-G" x="344" y="372" />
+          <use href="#wm-U" x="528" y="372" />
+          <use href="#wm-J" x="702" y="372" />
+          <use href="#wm-J" x="834" y="372" />
+          <use href="#wm-A" x="966" y="372" />
+        </g>
+
+        <g class="wm-extension">
+          <line x1="47" y1="30" x2="47" y2="62" /><line x1="47" y1="262" x2="47" y2="294" />
+          <line x1="173" y1="30" x2="173" y2="62" /><line x1="173" y1="262" x2="173" y2="294" />
+          <line x1="201" y1="30" x2="201" y2="62" /><line x1="201" y1="262" x2="201" y2="294" />
+          <line x1="381" y1="30" x2="381" y2="62" /><line x1="381" y1="262" x2="381" y2="294" />
+          <line x1="409" y1="30" x2="409" y2="62" /><line x1="409" y1="262" x2="409" y2="294" />
+          <line x1="567" y1="30" x2="567" y2="62" /><line x1="567" y1="262" x2="567" y2="294" />
+          <line x1="595" y1="30" x2="595" y2="62" /><line x1="595" y1="262" x2="595" y2="294" />
+          <line x1="741" y1="30" x2="741" y2="62" /><line x1="741" y1="262" x2="741" y2="294" />
+          <line x1="769" y1="30" x2="769" y2="62" /><line x1="769" y1="262" x2="769" y2="294" />
+          <line x1="949" y1="30" x2="949" y2="62" /><line x1="949" y1="262" x2="949" y2="294" />
+          <line x1="977" y1="30" x2="977" y2="62" /><line x1="977" y1="262" x2="977" y2="294" />
+          <line x1="1127" y1="30" x2="1127" y2="62" /><line x1="1127" y1="262" x2="1127" y2="294" />
+          <line x1="28" y1="330" x2="28" y2="362" /><line x1="28" y1="562" x2="28" y2="594" />
+          <line x1="162" y1="330" x2="162" y2="362" /><line x1="162" y1="562" x2="162" y2="594" />
+          <line x1="190" y1="330" x2="190" y2="362" /><line x1="190" y1="562" x2="190" y2="594" />
+          <line x1="316" y1="330" x2="316" y2="362" /><line x1="316" y1="562" x2="316" y2="594" />
+          <line x1="344" y1="330" x2="344" y2="362" /><line x1="344" y1="562" x2="344" y2="594" />
+          <line x1="500" y1="330" x2="500" y2="362" /><line x1="500" y1="562" x2="500" y2="594" />
+          <line x1="528" y1="330" x2="528" y2="362" /><line x1="528" y1="562" x2="528" y2="594" />
+          <line x1="674" y1="330" x2="674" y2="362" /><line x1="674" y1="562" x2="674" y2="594" />
+          <line x1="702" y1="330" x2="702" y2="362" /><line x1="702" y1="562" x2="702" y2="594" />
+          <line x1="806" y1="330" x2="806" y2="362" /><line x1="806" y1="562" x2="806" y2="594" />
+          <line x1="834" y1="330" x2="834" y2="362" /><line x1="834" y1="562" x2="834" y2="594" />
+          <line x1="938" y1="330" x2="938" y2="362" /><line x1="938" y1="562" x2="938" y2="594" />
+          <line x1="966" y1="330" x2="966" y2="362" /><line x1="966" y1="562" x2="966" y2="594" />
+          <line x1="1146" y1="330" x2="1146" y2="362" /><line x1="1146" y1="562" x2="1146" y2="594" />
+        </g>
+
+        <!-- hover fill: the same geometry, filled, revealed through the ink mask -->
+        <g class="wm-fill" mask="url(#wm-ink-mask-m)">
+          <use href="#wm-F" x="47" y="72" />
+          <use href="#wm-A" x="201" y="72" />
+          <use href="#wm-R" x="409" y="72" />
+          <use href="#wm-H" x="595" y="72" />
+          <use href="#wm-A" x="769" y="72" />
+          <use href="#wm-N" x="977" y="72" />
+          <use href="#wm-S" x="28" y="372" />
+          <use href="#wm-E" x="190" y="372" />
+          <use href="#wm-G" x="344" y="372" />
+          <use href="#wm-U" x="528" y="372" />
+          <use href="#wm-J" x="702" y="372" />
+          <use href="#wm-J" x="834" y="372" />
+          <use href="#wm-A" x="966" y="372" />
+        </g>
+
+        <rect class="wm-joint" x="697" y="140" width="8" height="8" />
+        <rect class="wm-joint" x="241" y="248" width="8" height="8" />
+        <rect class="wm-joint" x="420" y="440" width="8" height="8" />
+        <rect class="wm-joint" x="118" y="476" width="8" height="8" />
+      </svg>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/motion.js"></script>
+  <script type="module" src="/src/sales-role.js"></script>
+</body>
+</html>

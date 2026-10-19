@@ -1421,3 +1421,149 @@
     }
   }
 }
+
+/* ---------- Site-wide ticker banner (top of every page, inside the sticky header) ---------- */
+
+.site-ticker {
+  display: flex;
+  align-items: stretch;
+  background: var(--color-signal);
+  color: var(--color-paper);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .site-ticker {
+    font-size: 0.875rem;
+  }
+}
+
+.site-ticker-link {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+.site-ticker-link:hover {
+  background-color: var(--color-signal-strong);
+}
+
+.site-ticker-link:focus-visible {
+  outline: 2px solid var(--color-paper);
+  outline-offset: -4px;
+}
+
+.site-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: site-ticker-scroll 45s linear infinite;
+}
+
+/* Hovering or keyboard-focusing the strip pauses it so it can be read and
+   clicked. Touch users get the pause button instead. */
+.site-ticker-link:hover .site-ticker-track,
+.site-ticker-link:focus-visible .site-ticker-track,
+.site-ticker.is-paused .site-ticker-track {
+  animation-play-state: paused;
+}
+
+/* Each group is at least one viewport wide, so the loop never shows a gap on
+   wide screens; two equal groups make translateX(-50%) a seamless wrap. */
+.site-ticker-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100vw;
+}
+
+.site-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 0;
+  white-space: nowrap;
+}
+
+.site-ticker-item::after {
+  content: "";
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-inline: 1.5rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.site-ticker-item--cta {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@keyframes site-ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.site-ticker-pause {
+  position: relative;
+  flex: 0 0 auto;
+  width: 2.5rem;
+  border-left: 1px solid color-mix(in srgb, var(--color-paper) 35%, transparent);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.site-ticker-pause:hover {
+  background-color: var(--color-signal-strong);
+}
+
+.site-ticker-pause:focus-visible {
+  outline: 2px solid var(--color-paper);
+  outline-offset: -4px;
+}
+
+/* Pause glyph (two bars); becomes a play triangle while paused. */
+.site-ticker-pause::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.6rem;
+  height: 0.7rem;
+  border-inline: 0.2rem solid currentColor;
+}
+
+.site-ticker-pause[aria-pressed="true"]::before {
+  width: 0;
+  height: 0;
+  border-inline: 0;
+  border-block: 0.4rem solid transparent;
+  border-left: 0.65rem solid currentColor;
+}
+
+/* Reduced motion (OS setting, or the site's .motion-reduced flag): no
+   scrolling at all. One static, centred, wrapping line with the headline and
+   the link; the duplicate group, extra items and pause button are dropped. */
+@media (prefers-reduced-motion: reduce) {
+  .site-ticker-track { display: block; animation: none; width: auto; }
+  .site-ticker-group { min-width: 0; flex-wrap: wrap; justify-content: center; gap: 0.1rem 0.9rem; padding: 0.55rem 1rem; }
+  .site-ticker-group--copy,
+  .site-ticker-item--extra,
+  .site-ticker-pause { display: none; }
+  .site-ticker-item { padding: 0; white-space: normal; text-align: center; }
+  .site-ticker-item::after { display: none; }
+}
+
+.motion-reduced .site-ticker-track { display: block; animation: none; width: auto; }
+.motion-reduced .site-ticker-group { min-width: 0; flex-wrap: wrap; justify-content: center; gap: 0.1rem 0.9rem; padding: 0.55rem 1rem; }
+.motion-reduced .site-ticker-group--copy,
+.motion-reduced .site-ticker-item--extra,
+.motion-reduced .site-ticker-pause { display: none; }
+.motion-reduced .site-ticker-item { padding: 0; white-space: normal; text-align: center; }
+.motion-reduced .site-ticker-item::after { display: none; }

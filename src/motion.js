@@ -16,6 +16,7 @@ initPageTransitions()
 initThemeToggle()
 initHeaderScrollState()
 initMobileNav()
+initTickerPause()
 initFooterWordmark()
 initContactSchematic()
 initFarhanCore()
@@ -178,6 +179,20 @@ function initMobileNav() {
       nav.open = false
       nav.querySelector('summary')?.focus()
     }
+  })
+}
+
+// Lets touch and keyboard users stop the scrolling banner (hover and focus
+// already pause it in CSS).
+function initTickerPause() {
+  const ticker = document.querySelector('[data-ticker]')
+  const button = ticker && ticker.querySelector('[data-ticker-pause]')
+  if (!button) return
+
+  button.addEventListener('click', () => {
+    const paused = ticker.classList.toggle('is-paused')
+    button.setAttribute('aria-pressed', String(paused))
+    button.setAttribute('aria-label', paused ? 'Resume scrolling banner' : 'Pause scrolling banner')
   })
 }
 
