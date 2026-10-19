@@ -308,13 +308,16 @@
 
             <div class="sales-field">
               <label for="f-availability" class="sales-label">Weekly availability</label>
-              <select id="f-availability" name="availability" class="sales-input" required aria-describedby="f-availability-error">
+              <select id="f-availability" name="availability" class="sales-input" required aria-describedby="f-availability-note f-availability-error">
                 <option value="">Select hours per week</option>
-                <option value="1–5 hours">1–5 hours</option>
-                <option value="6–10 hours">6–10 hours</option>
-                <option value="11–15 hours">11–15 hours</option>
-                <option value="15+ hours">15+ hours</option>
+                <option value="Less than 10 hours">Less than 10 hours</option>
+                <option value="10–15 hours">10–15 hours</option>
+                <option value="16–20 hours">16–20 hours</option>
+                <option value="21–30 hours">21–30 hours</option>
+                <option value="31–40 hours">31–40 hours</option>
+                <option value="40+ hours">40+ hours</option>
               </select>
+              <p id="f-availability-note" class="sales-note" role="status" hidden>The expected minimum commitment is 10 hours per week. You are still welcome to apply, but please only do so if you can reach that.</p>
               <p id="f-availability-error" class="sales-error" hidden></p>
             </div>
 

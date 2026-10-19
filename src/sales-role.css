@@ -645,3 +645,17 @@ select.sales-input {
   height: 1.15rem;
   accent-color: var(--color-signal);
 }
+
+.sales-note {
+  padding: 0.7rem 0.9rem;
+  border-left: 2px solid var(--color-signal);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: var(--color-paper-subtle);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.sales-note[hidden] {
+  display: none;
+}

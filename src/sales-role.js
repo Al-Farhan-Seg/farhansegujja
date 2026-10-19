@@ -61,6 +61,13 @@ function initApplicationForm(form) {
     el.addEventListener('change', live)
   })
 
+  // Polite heads-up (never a block) when the chosen availability is below the
+  // expected 10 hours per week minimum.
+  const availabilityNote = document.getElementById('f-availability-note')
+  fields.availability.el.addEventListener('change', (e) => {
+    availabilityNote.hidden = e.target.value !== 'Less than 10 hours'
+  })
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault()
     if (submitting || submitted) return
