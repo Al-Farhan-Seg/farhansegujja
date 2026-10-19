@@ -2,7 +2,7 @@
 
 This repository contains the source code for my personal developer portfolio.
 
-The site is where I document the projects I've worked on, the technologies I'm learning, and some of the practical software engineering experience I've gained through personal projects and my work at Embiro Technologies.
+The site is where I document the projects I've worked on, the technologies I'm learning, and some of the practical software engineering experience I've gained through personal projects and my work as a Software Developer at Embiro Technologies.
 
 🌐 **Live site:** [farhansegujja.com](https://farhansegujja.com)
 
@@ -19,9 +19,9 @@ I'm currently open to **freelance work, collaborations, and employment opportuni
 Some of the main work covered on the site includes:
 
 * **C23 Digital Spotlight** — a community website campaign and multi-site deployment project.
-* **Embiro Technologies** — professional experience involving client websites, QA/UAT, debugging, Git workflows, and software engineering contributions.
+* **Embiro Technologies** — professional experience since March 2026, as a Software Developer since mid-August 2026, involving client websites, QA/UAT, debugging, Git workflows, and software engineering contributions.
 * **Next Media** — a major client website project built with React, Vite, Tailwind CSS, CMS integrations, and dynamic content.
-* **#SheBuilds** — a collection of client websites I implemented during my time at Embiro.
+* **#SheBuilds** — a collection of client websites I have been implementing at Embiro.
 * Other frontend, Python, and machine-learning projects.
 
 ## Tech Direction
