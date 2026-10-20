@@ -1,51 +1,44 @@
 # Farhan Segujja — Portfolio
 
-This repository contains the source code for my personal developer portfolio.
-
-The site is where I document the projects I've worked on, the technologies I'm learning, and some of the practical software engineering experience I've gained through personal projects and my work as a Software Developer at Embiro Technologies.
+Source code for my personal developer portfolio, a static multi-page site showcasing my projects and my work as a Software Developer at Embiro Technologies.
 
 🌐 **Live site:** [farhansegujja.com](https://farhansegujja.com)
 
 ## About Me
 
-I'm a Computer Science student at the **Islamic University in Uganda, Kampala Campus**, graduating in **2027**.
+I'm a Computer Science student at the **Islamic University in Uganda, Kampala Campus** (graduating 2027) and a **Software Developer at Embiro Technologies**. I focus on frontend development and am growing into full-stack through real projects.
 
-My current focus is mainly on frontend development while gradually growing into full-stack development through real projects, debugging, deployment, QA/UAT, and collaborative engineering work.
+I'm open to **freelance work, collaborations, and employment opportunities**.
 
-I'm currently open to **freelance work, collaborations, and employment opportunities**.
+## Pages
 
-## What the Portfolio Will Feature
+* `/` — home
+* `/work/` — work I've done, including the [C23 Digital Spotlight](https://c23.farhansegujja.com) case study at `/work/c23/`
+* `/experience/embiro/` — my work at Embiro Technologies
+* `/sales-role/` — student sales representative opportunity, with an application form
 
-Some of the main work covered on the site includes:
+## Tech Stack
 
-* **C23 Digital Spotlight** — a community website campaign and multi-site deployment project.
-* **Embiro Technologies** — professional experience since March 2026, as a Software Developer since mid-August 2026, involving client websites, QA/UAT, debugging, Git workflows, and software engineering contributions.
-* **Next Media** — a major client website project built with React, Vite, Tailwind CSS, CMS integrations, and dynamic content.
-* **#SheBuilds** — a collection of client websites I have been implementing at Embiro.
-* Other frontend, Python, and machine-learning projects.
+Vite, Tailwind CSS v4, GSAP, semantic HTML, and Cloudflare Pages. It has three color themes (light by default, dark and umber).
 
-## Tech Direction
+## Development
 
-The portfolio is built as a static, evidence-led, multi-page site using:
+Requires Node.js 20+.
 
-* Vite
-* Tailwind CSS
-* Semantic HTML
-* Minimal vanilla JavaScript (progressive enhancement only)
-* Cloudflare Pages
+```bash
+npm install
+cp .env.example .env.local   # add your Web3Forms key for the /sales-role/ form
+npm run dev
+npm run build
+```
 
-## Project Plan
+To block AI attribution in commit messages, enable the repo's hook once per clone:
 
-The detailed design and implementation plan can be found in:
-
-[`static_site_plan.md`](./static_site_plan.md)
+```bash
+git config core.hooksPath .githooks
+```
 
 ## Contact
 
 * GitHub: [@Al-Farhan-Seg](https://github.com/Al-Farhan-Seg)
-* Portfolio: [farhansegujja.com](https://farhansegujja.com)
 * Email: [farhan.segujja@gmail.com](mailto:farhan.segujja@gmail.com)
-
----
-
-Built as a record of what I'm learning, building, and improving.
