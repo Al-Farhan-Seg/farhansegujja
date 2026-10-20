@@ -715,29 +715,6 @@ select.sales-input {
   color: var(--color-ink);
 }
 
-.sales-proof {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.sales-proof a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  color: var(--color-ink);
-  text-decoration: underline;
-  text-decoration-color: var(--color-signal);
-  text-underline-offset: 0.25em;
-}
-
-.sales-proof a:hover {
-  color: var(--color-signal);
-}
-
 /* ---------- FAQ ---------- */
 
 .sales-faq details {
@@ -762,8 +739,7 @@ select.sales-input {
 }
 
 .sales-faq summary:focus-visible,
-.sales-sticky-cta:focus-visible,
-.sales-proof a:focus-visible {
+.sales-sticky-cta:focus-visible {
   outline: 2px solid var(--color-signal);
   outline-offset: 3px;
   border-radius: 0.25rem;
