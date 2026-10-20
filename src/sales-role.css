@@ -119,15 +119,10 @@
   height: 1.4rem;
 }
 
-.sales-step-num {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--color-signal);
-}
-
 .sales-support {
-  padding: 1rem 1.25rem;
-  border-left: 2px solid var(--color-signal);
+  max-width: 62ch;
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: var(--color-ink-muted);
 }
 
@@ -253,14 +248,15 @@
 
 @media (min-width: 768px) {
   .sales-terms {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
   }
 }
 
 .sales-term {
-  padding: 0.25rem 0 0.25rem 1rem;
-  border-left: 2px solid var(--color-signal);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
 }
 
 .sales-term-title {
@@ -434,7 +430,9 @@ textarea.sales-input {
   display: grid;
   gap: 0.35rem;
   padding: 1rem 1.1rem;
-  border-left: 2px solid var(--color-signal);
+  border: 1px solid var(--color-rule);
+  border-radius: 0.75rem;
+  background: var(--color-paper-subtle);
   font-size: 0.85rem;
   line-height: 1.55;
   color: var(--color-ink-muted);
@@ -648,8 +646,8 @@ select.sales-input {
 
 .sales-note {
   padding: 0.7rem 0.9rem;
-  border-left: 2px solid var(--color-signal);
-  border-radius: 0 0.5rem 0.5rem 0;
+  border: 1px solid var(--color-signal);
+  border-radius: 0.5rem;
   background: var(--color-paper-subtle);
   font-size: 0.85rem;
   line-height: 1.5;
@@ -658,4 +656,169 @@ select.sales-input {
 
 .sales-note[hidden] {
   display: none;
+}
+
+/* ---------- Who it suits ---------- */
+
+.sales-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.sales-chips li {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+}
+
+/* ---------- How it works ---------- */
+
+.sales-steps {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .sales-steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+.sales-step {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .sales-step {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+.sales-step-text {
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-ink);
+}
+
+.sales-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sales-proof a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-signal);
+  text-underline-offset: 0.25em;
+}
+
+.sales-proof a:hover {
+  color: var(--color-signal);
+}
+
+/* ---------- FAQ ---------- */
+
+.sales-faq details {
+  border-top: 1px solid var(--color-rule);
+  padding: 0.9rem 0;
+}
+
+.sales-faq details:last-child {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.sales-faq summary {
+  cursor: pointer;
+  padding: 0.25rem 0;
+  font-weight: 600;
+  color: var(--color-ink);
+  transition: color 0.15s;
+}
+
+.sales-faq summary:hover {
+  color: var(--color-signal);
+}
+
+.sales-faq summary:focus-visible,
+.sales-sticky-cta:focus-visible,
+.sales-proof a:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.sales-faq details p {
+  margin-top: 0.4rem;
+}
+
+/* ---------- Sticky mobile CTA ---------- */
+
+.sales-sticky-cta {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 40;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-signal);
+  color: var(--color-paper);
+  font-weight: 600;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.sales-sticky-cta[data-hidden],
+.applications-closed .sales-sticky-cta {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem);
+}
+
+@media (min-width: 1024px) {
+  .sales-sticky-cta {
+    display: none;
+  }
+}
+
+/* Small drawn glyph that leads a step or term. */
+.sales-glyph {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 0.75rem;
+  background: var(--color-paper-subtle);
+  color: var(--color-signal);
+}
+
+.sales-glyph svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }

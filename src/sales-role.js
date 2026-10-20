@@ -23,6 +23,7 @@ const form = document.getElementById('apply-form')
 
 if (form) initApplicationForm(form)
 initRecruitmentDeadline()
+initStickyCta()
 
 function initApplicationForm(form) {
   const submitBtn = form.querySelector('#submit-btn')
@@ -373,4 +374,18 @@ function closeApplications() {
     closedLabel.textContent = 'Applications closed'
     cta.replaceWith(closedLabel)
   }
+}
+
+// Mobile-only Apply bar: hidden while the hero button or the form is on screen.
+function initStickyCta() {
+  const bar = document.querySelector('[data-sticky-cta]')
+  const targets = document.querySelectorAll('[data-hero-actions], #apply, .site-footer')
+  if (!bar || !('IntersectionObserver' in window)) return
+  const visible = new Set()
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)))
+    bar.toggleAttribute('data-hidden', visible.size > 0)
+  })
+  targets.forEach((t) => io.observe(t))
+  bar.setAttribute('data-hidden', '')
 }
