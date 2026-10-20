@@ -83,7 +83,7 @@
   --shadow-card-hover: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -18px rgba(0, 0, 0, 0.75);
 }
 
-/* Umber is the site default (set as a static data-theme attribute in each
+/* Light is the site default (set as a static data-theme attribute in each
    page's <html> tag). Light becomes an explicit, named variant rather than
    "attribute absent", so all three themes are symmetric overrides of the
    same token set. */

@@ -137,7 +137,7 @@ function initThemeToggle() {
   const themes = ['light', 'dark', 'umber']
 
   btn.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') || 'umber'
+    const current = root.getAttribute('data-theme') || 'light'
     const next = themes[(themes.indexOf(current) + 1) % themes.length]
 
     root.setAttribute('data-theme', next)

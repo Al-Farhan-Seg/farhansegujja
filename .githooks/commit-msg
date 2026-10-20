@@ -1,0 +1,11 @@
+#!/bin/sh
+# Rejects commit messages that carry AI attribution (Co-Authored-By: Claude,
+# "Generated with Claude Code", etc.). Enable with: git config core.hooksPath .githooks
+
+pattern='co-authored-by:.*(claude|anthropic|copilot|chatgpt|openai|gemini|cursor|codex|\bai\b)|generated (with|by).*(claude|anthropic|copilot|chatgpt|openai|gemini|codex|\bai\b)|noreply@anthropic\.com|claude\.com/claude-code'
+
+if grep -v '^#' "$1" | grep -qiE "$pattern"; then
+  echo "commit-msg: AI attribution found in the commit message. Remove it and commit again." >&2
+  grep -v '^#' "$1" | grep -iE "$pattern" | sed 's/^/  > /' >&2
+  exit 1
+fi
