@@ -495,13 +495,48 @@
     background: currentColor;
   }
 
+  /* Hero portrait: the approved hand-engraved illustration sits directly on
+     the page -- no card, border, fill or shadow -- so the site's own
+     scalloped background pattern reads straight through its transparency.
+     Width rides a clamp() rather than fixed breakpoint jumps, scaling from a
+     modest mobile size up to the ~400-480px editorial target on sufficiently
+     wide desktop screens, and backs off again at the lg floor (1024px) so
+     the name heading keeps its room right where the two-column layout
+     starts. */
   .hero-portrait {
-    @apply mx-auto w-40 overflow-hidden rounded-[2rem] border border-rule bg-paper-subtle sm:w-52 lg:mx-0 lg:w-64;
-    box-shadow: var(--shadow-card);
+    @apply mx-auto;
+    width: clamp(13rem, 58vw, 16rem);
   }
 
+  @media (min-width: 640px) {
+    .hero-portrait {
+      width: clamp(15rem, 42vw, 19rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-portrait {
+      @apply mx-0;
+      width: clamp(18rem, 30vw, 30rem);
+    }
+  }
+
+  .hero-portrait picture,
   .hero-portrait img {
-    @apply block aspect-square w-full object-cover;
+    @apply block h-auto w-full;
+  }
+
+  /* Dark and umber: the engraving's black crosshatch (hair, beard, shirt) is
+     nearly isoluminant with the near-black page, so it loses its silhouette.
+     A hairline edge plus a soft, wide falloff -- both drawn from existing
+     muted/rule tokens at low opacity and following the art's own alpha
+     shape via drop-shadow -- lift it off the page without a halo or a
+     visible panel behind it. */
+  :root[data-theme="dark"] .hero-portrait img,
+  :root[data-theme="umber"] .hero-portrait img {
+    filter:
+      drop-shadow(0 0 1px color-mix(in srgb, var(--color-ink-muted) 65%, transparent))
+      drop-shadow(0 0 14px color-mix(in srgb, var(--color-rule) 45%, transparent));
   }
 
   /* /work page hero: two gradient cards split the width — left keeps the

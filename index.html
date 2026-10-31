@@ -157,11 +157,22 @@
         </div>
 
         <figure class="hero-portrait" data-hero-media>
-          <img
-            src="/assets/portrait/farhan-portrait.webp"
-            alt="Farhan Segujja"
-            width="320" height="320" loading="eager"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                /assets/portrait/farhan-architectural-portrait-640.webp 640w,
+                /assets/portrait/farhan-architectural-portrait-960.webp 960w,
+                /assets/portrait/farhan-architectural-portrait-1312.webp 1312w
+              "
+              sizes="(min-width: 1024px) 30vw, (min-width: 640px) 44vw, 58vw"
+            />
+            <img
+              src="/assets/portrait/farhan-architectural-portrait-approved.png"
+              alt="Hand-engraved architectural portrait of Farhan Segujja"
+              width="1312" height="1199" loading="eager" fetchpriority="high"
+            />
+          </picture>
         </figure>
       </div>
     </section>
