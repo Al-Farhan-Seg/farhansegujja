@@ -13,6 +13,7 @@ export default defineConfig({
         work: resolve(root, 'work/index.html'),
         c23: resolve(root, 'work/c23/index.html'),
         embiro: resolve(root, 'experience/embiro/index.html'),
+        salesRole: resolve(root, 'sales-role/index.html'),
         notFound: resolve(root, '404.html'),
       },
     },
