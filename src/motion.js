@@ -2,7 +2,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { SplitText } from 'gsap/SplitText'
-import { applicationsClosed, msUntilDeadline } from './recruitment.js'
+import { formDeadlinePassed, msUntilFormDeadline } from './recruitment.js'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText)
 
@@ -219,14 +219,14 @@ function initTickerClosure() {
   }
 
   function check() {
-    if (!applicationsClosed()) return false
+    if (!formDeadlinePassed()) return false
     closeTicker()
     return true
   }
 
   if (check()) return
   // setTimeout caps at ~24.8 days; re-arm until the deadline is actually reached.
-  const arm = () => setTimeout(() => { if (!check()) arm() }, Math.min(msUntilDeadline() + 50, 2 ** 31 - 1))
+  const arm = () => setTimeout(() => { if (!check()) arm() }, Math.min(msUntilFormDeadline() + 50, 2 ** 31 - 1))
   arm()
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) check()

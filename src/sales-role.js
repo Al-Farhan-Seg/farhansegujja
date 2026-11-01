@@ -5,7 +5,7 @@
 // access keys are designed to be public, but they live in config rather than
 // in this file. Applicant data is never logged to the console or analytics.
 
-import { applicationsClosed, msUntilDeadline } from './recruitment.js'
+import { formDeadlinePassed, msUntilFormDeadline } from './recruitment.js'
 
 // LIMITATION: the deadline is enforced in the browser only (countdown, locked
 // form, and a check right before every submit). Client-side code cannot stop
@@ -76,7 +76,7 @@ function initApplicationForm(form) {
     hideFormError()
 
     // Re-check the deadline at the moment of submission, not just on load.
-    if (applicationsClosed()) {
+    if (formDeadlinePassed()) {
       closeApplications()
       return
     }
@@ -107,7 +107,7 @@ function initApplicationForm(form) {
 
     // Validation can take a while (a person fixing fields); check once more
     // immediately before any request is started.
-    if (applicationsClosed()) {
+    if (formDeadlinePassed()) {
       closeApplications()
       return
     }
@@ -303,25 +303,62 @@ function normalisePhone(raw) {
 /* ---------- Deadline: countdown and closed state ---------- */
 
 function initRecruitmentDeadline() {
+  renderOriginalDeadlineAsDisabled()
+  initFormDeadline()
+}
+
+// The originally advertised deadline (31 October 2026) has already passed.
+// Rather than hide it, the hero countdown is left on the page but frozen at
+// zero and visually marked as disabled, so visitors can see that window has
+// closed -- while the application form below stays open under its own,
+// separate extension deadline (see initFormDeadline).
+function renderOriginalDeadlineAsDisabled() {
   const countdown = document.querySelector('[data-countdown]')
+  if (!countdown) return
+
+  countdown.classList.add('sales-countdown--disabled')
+  countdown.setAttribute('aria-disabled', 'true')
+
+  const label = countdown.querySelector('.sales-countdown-label')
+  if (label) label.textContent = 'Applications closed 31 October 2026 · 11:59 PM EAT'
+
+  const pad = '00'
+  ;['days', 'hours', 'minutes', 'seconds'].forEach((unit) => {
+    const cell = countdown.querySelector('[data-cd="' + unit + '"]')
+    if (cell) cell.textContent = pad
+  })
+}
+
+// A fresh, separate countdown next to the form itself. Applications stay open
+// until this one runs out, at which point the form locks the same way the
+// original deadline used to.
+function initFormDeadline() {
+  const countdown = document.querySelector('[data-form-countdown]')
   const cells = countdown
     ? {
-        days: countdown.querySelector('[data-cd="days"]'),
-        hours: countdown.querySelector('[data-cd="hours"]'),
-        minutes: countdown.querySelector('[data-cd="minutes"]'),
-        seconds: countdown.querySelector('[data-cd="seconds"]'),
+        days: countdown.querySelector('[data-fcd="days"]'),
+        hours: countdown.querySelector('[data-fcd="hours"]'),
+        minutes: countdown.querySelector('[data-fcd="minutes"]'),
+        seconds: countdown.querySelector('[data-fcd="seconds"]'),
       }
     : null
   let timer = null
 
   function tick() {
-    if (applicationsClosed()) {
+    if (formDeadlinePassed()) {
       clearInterval(timer)
+      if (cells) {
+        const pad = '00'
+        cells.days.textContent = pad
+        cells.hours.textContent = pad
+        cells.minutes.textContent = pad
+        cells.seconds.textContent = pad
+      }
       closeApplications()
       return
     }
     if (!cells) return
-    const total = Math.floor(msUntilDeadline() / 1000)
+    const total = Math.floor(msUntilFormDeadline() / 1000)
     const pad = (n) => String(n).padStart(2, '0')
     cells.days.textContent = pad(Math.floor(total / 86400))
     cells.hours.textContent = pad(Math.floor((total % 86400) / 3600))
@@ -330,7 +367,7 @@ function initRecruitmentDeadline() {
   }
 
   tick()
-  if (applicationsClosed()) return
+  if (formDeadlinePassed()) return
   timer = setInterval(tick, 1000)
   // Timers are throttled in background tabs; re-check as soon as the tab is back.
   document.addEventListener('visibilitychange', () => {
@@ -362,6 +399,8 @@ function closeApplications() {
 
   const countdown = document.querySelector('[data-countdown]')
   if (countdown) countdown.hidden = true
+  const formCountdown = document.querySelector('[data-form-countdown]')
+  if (formCountdown) formCountdown.hidden = true
   const positions = document.querySelector('[data-positions-note]')
   if (positions) positions.hidden = true
   const note = document.querySelector('[data-closed-note]')

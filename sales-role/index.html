@@ -163,9 +163,9 @@
             <a href="#apply" class="work-cta work-cta--solid" data-cursor="Apply" data-apply-cta>Apply Now <svg class="sales-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
             <a href="/work/" class="work-cta work-cta--outline" data-cursor="Explore">Explore My Work <svg class="sales-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
           </div>
-          <div class="sales-countdown" data-countdown data-hero-copy>
-            <p class="sales-countdown-label">Applications close 31 October 2026 · 11:59 PM EAT</p>
-            <div class="sales-countdown-grid" role="timer" aria-label="Time left to apply">
+          <div class="sales-countdown sales-countdown--disabled" data-countdown data-hero-copy aria-disabled="true">
+            <p class="sales-countdown-label">Applications closed 31 October 2026 · 11:59 PM EAT</p>
+            <div class="sales-countdown-grid" role="timer" aria-label="Original application window (closed)">
               <div class="sales-cd-unit"><span class="sales-cd-num" data-cd="days">00</span><span class="sales-cd-label">Days</span></div>
               <div class="sales-cd-unit"><span class="sales-cd-num" data-cd="hours">00</span><span class="sales-cd-label">Hours</span></div>
               <div class="sales-cd-unit"><span class="sales-cd-num" data-cd="minutes">00</span><span class="sales-cd-label">Minutes</span></div>
@@ -350,6 +350,16 @@
         </div>
 
         <div class="sales-form-card" data-reveal>
+          <div class="sales-countdown sales-countdown--form" data-form-countdown>
+            <p class="sales-countdown-label">This application form closes 2 November 2026 · 8:00 AM EAT</p>
+            <div class="sales-countdown-grid" role="timer" aria-label="Time left to submit this form">
+              <div class="sales-cd-unit"><span class="sales-cd-num" data-fcd="days">00</span><span class="sales-cd-label">Days</span></div>
+              <div class="sales-cd-unit"><span class="sales-cd-num" data-fcd="hours">00</span><span class="sales-cd-label">Hours</span></div>
+              <div class="sales-cd-unit"><span class="sales-cd-num" data-fcd="minutes">00</span><span class="sales-cd-label">Minutes</span></div>
+              <div class="sales-cd-unit"><span class="sales-cd-num" data-fcd="seconds">00</span><span class="sales-cd-label">Seconds</span></div>
+            </div>
+          </div>
+
           <form id="apply-form" class="sales-form" novalidate>
             <!-- Honeypot (Web3Forms "botcheck"): hidden from people, ticked by bots. -->
             <input type="checkbox" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off" style="display: none" />
