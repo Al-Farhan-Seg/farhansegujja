@@ -2,7 +2,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { SplitText } from 'gsap/SplitText'
-import { formDeadlinePassed, msUntilFormDeadline } from './recruitment.js'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, SplitText)
 
@@ -17,8 +16,6 @@ initPageTransitions()
 initThemeToggle()
 initHeaderScrollState()
 initMobileNav()
-initTickerPause()
-initTickerClosure()
 initFooterWordmark()
 initContactSchematic()
 initFarhanCore()
@@ -181,55 +178,6 @@ function initMobileNav() {
       nav.open = false
       nav.querySelector('summary')?.focus()
     }
-  })
-}
-
-// Lets touch and keyboard users stop the scrolling banner (hover and focus
-// already pause it in CSS).
-function initTickerPause() {
-  const ticker = document.querySelector('[data-ticker]')
-  const button = ticker && ticker.querySelector('[data-ticker-pause]')
-  if (!button) return
-
-  button.addEventListener('click', () => {
-    const paused = ticker.classList.toggle('is-paused')
-    button.setAttribute('aria-pressed', String(paused))
-    button.setAttribute('aria-label', paused ? 'Resume scrolling banner' : 'Pause scrolling banner')
-  })
-}
-
-// After the application deadline the banner stops promoting the opportunity:
-// it becomes a single static line. Checked on load, at the deadline itself,
-// and whenever the tab becomes visible again.
-function initTickerClosure() {
-  const ticker = document.querySelector('[data-ticker]')
-  if (!ticker) return
-
-  function closeTicker() {
-    ticker.classList.add('is-closed')
-    const link = ticker.querySelector('.site-ticker-link')
-    const track = ticker.querySelector('.site-ticker-track')
-    const message = 'Sales representative applications are now closed. Thank you for your interest.'
-    if (link) link.setAttribute('aria-label', message)
-    if (track) {
-      track.innerHTML =
-        '<span class="site-ticker-group"><span class="site-ticker-item site-ticker-item--cta">' + message + '</span></span>'
-    }
-    ticker.querySelector('[data-ticker-pause]')?.remove()
-  }
-
-  function check() {
-    if (!formDeadlinePassed()) return false
-    closeTicker()
-    return true
-  }
-
-  if (check()) return
-  // setTimeout caps at ~24.8 days; re-arm until the deadline is actually reached.
-  const arm = () => setTimeout(() => { if (!check()) arm() }, Math.min(msUntilFormDeadline() + 50, 2 ** 31 - 1))
-  arm()
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) check()
   })
 }
 
