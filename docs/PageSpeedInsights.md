@@ -1,0 +1,1 @@
+https://pagespeed.web.dev/analysis/https-farhansegujja-com/ayivdif54p?form_factor=mobile
